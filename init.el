@@ -1,5 +1,8 @@
 (add-to-list 'load-path "~/.emacs.d/site-lisp")
 (add-to-list 'load-path "~/.emacs.d/rc")
+
+(require 'cl)
+
 ;;(progn (cd "~/.emacs.d/site-lisp")
 ;;       (normal-top-level-add-subdirs-to-load-path)
 ;;       (cd "~"))
@@ -11,16 +14,23 @@
 (load "rc-javascript.el")
 (load "rc-php.el")
 
+(autoload 'flyspell-mode "flyspell" "On-the-fly spelling checker." t)
 ;;(require 'ec-python)
+
+;;(add-to-list 'load-path "~/.emacs.d/themes")
+;;(when (require 'jao-themes nil t)
+;;  (enable-theme 'jao-dark))
 
 ;; init color-theme
 (add-to-list 'load-path "~/.emacs.d/site-lisp/color-theme-6.6.0/")
 (require 'color-theme)
-(load-file "~/.emacs.d/themes/color-theme-almost-monokai.el")
+;;(load-file "~/.emacs.d/themes/color-theme-almost-monokai.el")
+(load-file "~/.emacs.d/themes/color-theme-jeff.el")
 (eval-after-load "color-theme"
   '(progn
      (color-theme-initialize)
-     (color-theme-blue-mood)
+     ;;(color-theme-blue-mood)
+     (color-theme-jeff)
      ;;(color-theme-almost-monokai)
 ))
 
