@@ -24,7 +24,10 @@
 ;;(set-default-font "-monotype-andale mono-medium-r-normal--0-0-0-0-c-0-adobe-standard")
 ;;(set-default-font "-freetype-coding font tobi-medium-r-normal--16-120-96-96-p-48-iso10646-1")
 ;;(set-default-font "-windows-proggyclean-medium-r-normal--13-80-96-96-c-70-iso8859-1")
-(set-default-font "DejaVu Sans Mono-12")
+
+(if window-system
+    (set-default-font "Consolas-10")
+  (set-default-font "DejaVu Sans Mono-12"))
 
 ;; move between windows
 ;;(windmove-default-keybindings 'meta)
