@@ -1,4 +1,3 @@
-
 ;; use Ctrl-x Ctrl-m replace M-x
 (global-set-key "\C-x\C-m" 'execute-extended-command)
 (global-set-key "\C-c\C-m" 'execute-extended-command)
@@ -21,12 +20,13 @@
 (scroll-bar-mode -1) ;;scrollbar
 (menu-bar-mode 1) ;; menu bar
 
-;;font
-;;(set-default-font "-monotype-andale mono-medium-r-normal--0-0-0-0-c-0-adobe-standard")
-;;(set-default-font "-freetype-coding font tobi-medium-r-normal--16-120-96-96-p-48-iso10646-1")
-;;(set-default-font "-windows-proggyclean-medium-r-normal--13-80-96-96-c-70-iso8859-1")
-(set-default-font "Inconsolata-14")
-(set-default-font "DejaVu Sans Mono-14")
+(if (eq system-type 'gnu/linux)
+    (set-default-font "DejaVu Sans Mono-14")
+  )
+
+(if (eq system-type 'windows-nt)
+    (set-default-font "Consolas-10")
+  )
 
 ;; move between windows
 ;;(windmove-default-keybindings 'meta)
