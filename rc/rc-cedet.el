@@ -92,5 +92,5 @@
 (semantic-add-system-include mingw-base-dir 'c++-mode)
 (semantic-add-system-include (concat mingw-base-dir "/c++/3.4.5") 'c++-mode)
 (semantic-add-system-include (concat mingw-base-dir "/c++/3.4.5/backward") 'c++-mode)
-(semantic-add-system-include (concat mingw-base-dir "/c++/3.4.5/mingw32/bits") 'c++-mode)
+(semantic-add-system-include (concat mingw-base-dir "/c++/3.4.5/mingw32") 'c++-mode)
 (add-to-list 'auto-mode-alist (cons mingw-base-dir 'c++-mode))
