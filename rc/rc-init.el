@@ -39,8 +39,8 @@
 (global-set-key [(alt down)] 'windmove-down)))
 
 ;; tabbar
-;;(require 'tabbar)
-;;(tabbar-mode)
+(require 'tabbar)
+(tabbar-mode t)
 
 ;; ediff
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
