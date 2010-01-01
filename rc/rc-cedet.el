@@ -68,7 +68,9 @@
 (custom-set-variables
  '(semantic-idle-scheduler-idle-time 3)
  '(semantic-self-insert-show-completion-function (lambda nil (semantic-ia-complete-symbol-menu (point))))
- '(global-semantic-tag-folding-mode t nil (semantic-util-modes)))
+ '(global-semantic-tag-folding-mode t nil (semantic-util-modes))
+)
+(global-semantic-stickyfunc-mode -1)
 ;;(global-semantic-folding-mode nil)
 
 
