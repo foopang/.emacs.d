@@ -204,14 +204,14 @@ buffer read-only, so I suggest setting kill-read-only-ok to t."
 		  (indent-region (region-beginning) (region-end) nil))))))
 
 ;; anything
-(require 'anything-etags)
-(setq anything-sources
-      '(
-	anything-c-source-buffers
-	anything-c-source-etags-select
-        ))
+;;(require 'anything-etags)
+;;(setq anything-sources
+;;      '(
+;;	anything-c-source-buffers
+;;	anything-c-source-etags-select
+;;        ))
 
-(require 'anything-config)
+;;(require 'anything-config)
 ;;(require 'anything-etags)
 ;;(setq anything-sources
 ;;      '(anything-c-source-buffers
