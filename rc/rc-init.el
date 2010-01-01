@@ -110,35 +110,6 @@ buffer read-only, so I suggest setting kill-read-only-ok to t."
 		(let ((mark-even-if-inactive transient-mark-mode))
 		  (indent-region (region-beginning) (region-end) nil))))))
 
-;; anything
-(require 'anything-etags)
-(setq anything-sources
-      '(
-	anything-c-source-buffers
-	anything-c-source-etags-select
-        ))
-
-(require 'anything-config)
-;;(require 'anything-etags)
-;;(setq anything-sources
-;;      '(anything-c-source-buffers
-;;        anything-c-source-buffer-not-found
-;;        anything-c-source-file-name-history
-;;        anything-c-source-info-pages
-;;        anything-c-source-info-elisp
-;;        anything-c-source-man-pages
-;;        anything-c-source-locate
-;;        anything-c-source-emacs-commands
-;;        ))
-
-;; (setq anything-sources
-;;       '(anything-etags-c-source-etags-select
-;;        ))
-
-
-;;(setq anything-sources
-;;      '(anything-etags-c-source-etags-select
-;;       ))
 ;; copy-line
 (defun copy-line (&optional arg)
   "Do a kill-line but copy rather than kill.  This function directly calls
@@ -202,6 +173,37 @@ buffer read-only, so I suggest setting kill-read-only-ok to t."
 						     plain-tex-mode))
 		(let ((mark-even-if-inactive transient-mark-mode))
 		  (indent-region (region-beginning) (region-end) nil))))))
+
+;; anything
+;;(require 'anything-etags)
+;;(setq anything-sources
+;;      '(
+;;	anything-c-source-buffers
+;;	anything-c-source-etags-select
+;;        ))
+
+;;(require 'anything-config)
+;;(require 'anything-etags)
+;;(setq anything-sources
+;;      '(anything-c-source-buffers
+;;        anything-c-source-buffer-not-found
+;;        anything-c-source-file-name-history
+;;        anything-c-source-info-pages
+;;        anything-c-source-info-elisp
+;;        anything-c-source-man-pages
+;;        anything-c-source-locate
+;;        anything-c-source-emacs-commands
+;;        ))
+
+;; (setq anything-sources
+;;       '(anything-etags-c-source-etags-select
+;;        ))
+
+
+;;(setq anything-sources
+;;      '(anything-etags-c-source-etags-select
+;;       ))
+
 
 ;; anything
 ;;(require 'anything-etags)
