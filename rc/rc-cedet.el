@@ -84,6 +84,7 @@
 (global-semantic-stickyfunc-mode -1)
 ;;(global-semantic-folding-mode nil)
 
+(setq semantic-load-turn-useful-things-on t)
 
 ; clear database
 (defun sematicdb-clean()
