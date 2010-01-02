@@ -1,9 +1,9 @@
 ;;; wisent-calc-wy.el --- Generated parser support file
 
-;; Copyright (C) 2002, 2003 David Ponce
+;; Copyright (C) 2002, 2003, 2009 David Ponce
 
-;; Author:  <cire@localhost>
-;; Created: 2009-09-19 20:12:05+0800
+;; Author:  <cire@ugl>
+;; Created: 2010-01-02 11:32:41+0000
 ;; Keywords: syntax
 ;; X-RCS: $Id$
 
@@ -57,6 +57,8 @@
 	(left 45 43)
 	(left 42 47)
 	(left NEG)
+	(left FACT)
+	(left NOT)
 	(right 94))
        (input
 	((line))
@@ -73,7 +75,10 @@
 	((NUM)
 	 (string-to-number $1))
 	((exp 61 exp)
-	 (= $1 $3))
+	 (wisent-calc-= $1 $3))
+	((126 exp)
+	 [NOT]
+	 (wisent-calc-not $2))
 	((exp 43 exp)
 	 (+ $1 $3))
 	((exp 45 exp)
@@ -85,6 +90,9 @@
 	((45 exp)
 	 [NEG]
 	 (- $2))
+	((33 exp)
+	 [FACT]
+	 (wisent-calc-factorial $2))
 	((exp 94 exp)
 	 (expt $1 $3))
 	((40 exp 41)
@@ -125,7 +133,8 @@
         semantic-lex-syntax-modifications
         '((?\; ".") (?\= ".") (?\+ ".")
           (?\- ".") (?\* ".") (?\/ ".")
-          (?\^ ".") (?\( ".") (?\) ".")
+          (?^ ".") (?\( ".") (?\) ".")
+	  (?! ".") (?~ ".")
           )
         )
   )
