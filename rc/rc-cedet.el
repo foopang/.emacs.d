@@ -36,7 +36,7 @@
 ;;(global-semantic-idle-completions-mode)
 
 
-(define-key c++-mode-map "." 'semantic-complete-self-insert)
+;;(define-key c++-mode-map "." 'semantic-complete-self-insert)
 
 ;;(semanticdb-enable-gnu-global-databases 'c-mode)
 ;;(semanticdb-enable-gnu-global-databases 'c++-mode)
@@ -48,8 +48,7 @@
 ;; customisation of modes
 (defun alexott/cedet-hook ()
   (local-set-key [(control return)] 'semantic-ia-complete-symbol-menu)
-  (local-set-key "\C-c?" 'semantic-ia-complete-symbol)
-  ;;
+  (local-set-key "\C-c?" 'semantic-ia-complete-symbol-menu)
   (local-set-key "\C-c>" 'semantic-complete-analyze-inline)
   (local-set-key "\C-c=" 'semantic-decoration-include-visit)
  
