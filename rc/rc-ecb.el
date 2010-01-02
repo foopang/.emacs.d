@@ -34,7 +34,9 @@
  '(global-semantic-tag-folding-mode t nil (semantic-util-modes))
  '(semantic-idle-scheduler-idle-time 3)
  '(semantic-self-insert-show-completion-function (lambda nil (semantic-ia-complete-symbol-menu (point))))
- '(show-paren-mode t))
+ '(show-paren-mode t)
+ '(ecb-tip-of-theday nil)
+ )
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -43,7 +45,8 @@
  )
 (add-to-list 'ecb-show-sources-in-directories-buffer "my-own-layout")
 
-(setq ecb-layout-name "my-own-layout")
+;;(setq ecb-layout-name "my-own-layout")
+(setq ecb-layout-name "left-analyse")
 (setq dabbrev-case-fold-search nil)
 					;(setq ecb-layout-name "my-nav")
 

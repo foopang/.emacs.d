@@ -65,18 +65,33 @@
 (add-hook 'emacs-lisp-mode-hook 'alexott/cedet-hook)
 (add-hook 'erlang-mode-hook 'alexott/cedet-hook)
 
+(defun alexott/c-mode-cedet-hook ()
+  ;; (local-set-key "." 'semantic-complete-self-insert)
+  ;; (local-set-key ">" 'semantic-complete-self-insert)
+  (local-set-key "\C-ct" 'eassist-switch-h-cpp)
+  (local-set-key "\C-xt" 'eassist-switch-h-cpp)
+  (local-set-key "\C-ce" 'eassist-list-methods)
+  (local-set-key "\C-c\C-r" 'semantic-symref)
+  )
+(add-hook 'c-mode-common-hook 'alexott/c-mode-cedet-hook)
+
 (custom-set-variables
  '(semantic-idle-scheduler-idle-time 3)
  '(semantic-self-insert-show-completion-function (lambda nil (semantic-ia-complete-symbol-menu (point))))
  '(global-semantic-tag-folding-mode t nil (semantic-util-modes))
 )
+
 (global-semantic-stickyfunc-mode -1)
 ;;(global-semantic-folding-mode nil)
 
 
 ; clear database
-(setq-default semanticdb-new-database-class
-'semanticdb-project-database)
+(defun sematicdb-clean()
+     (interactive)
+     (setq-default semanticdb-new-database-class
+		   'semanticdb-project-database)
+     )
+
 
 ;; Add for QT support
 (setq qt4-base-dir "/usr/include/qt4")
