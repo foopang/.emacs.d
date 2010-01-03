@@ -16,7 +16,8 @@
 (load "rc-java.el")
 (load "rc-javascript.el")
 (load "rc-php.el")
-(load "rc-python.el")
+(load "rc-yasnippet.el")
+;;(load "rc-python.el")
 
 
 (autoload 'flyspell-mode "flyspell" "On-the-fly spelling checker." t)
