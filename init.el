@@ -10,23 +10,14 @@
 (load "rc-init.el")
 (load "rc-ccmode.el")
 (load "rc-cedet.el")
-<<<<<<< HEAD
-;;(load "rc-python.el")
+(load "rc-ecb.el")
+;;(load "rc-haskell.el")
+(load "rc-html.el")
+;;(load "rc-java.el")
 ;;(load "rc-javascript.el")
 ;;(load "rc-php.el")
-;;(load "rc-java.el")
-;;(load "rc-haskell.el")
-(load "rc-ecb.el")
-=======
-(load "rc-ecb.el")
-(load "rc-haskell.el")
-(load "rc-html.el")
-(load "rc-java.el")
-(load "rc-javascript.el")
-(load "rc-php.el")
-(load "rc-python.el")
+;;(load "rc-python.el")
 
->>>>>>> 1fe38dcf18189f70d4facaaa830756407c2c40c5
 
 (autoload 'flyspell-mode "flyspell" "On-the-fly spelling checker." t)
 
