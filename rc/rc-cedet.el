@@ -154,6 +154,15 @@
 (semantic-add-system-include qt4-gui-dir 'c++-mode)
 (add-to-list 'auto-mode-alist (cons qt4-base-dir 'c++-mode))
 
+<<<<<<< HEAD
+(setq semantic-lex-c-preprocessor-symbol-map '(("Foo" . "") ("QT_MODULE" . "") ("QT_BEGIN_HEADER" . "") ("Q_COMPAT_EXPORT" . "") ("QT_BEGIN_NAMESPACE" . "") ("QT_END_NAMESPACE" . "") ("QT_END_HEADER" . "") ("Q_CORE_EXPORT" . "") ("QT3_SUPPORT" . "") ("Q_GUI_EXPORT" . "")))
+
+;; Add for mingw support
+(setq mingw-base-dir "C:/MinGW/include")
+;;(setq qt4-gui-dir (concat qt4-base-dir "/QtGui"))
+(semantic-add-system-include mingw-base-dir 'c++-mode)
+;;(semantic-add-system-include qt4-gui-dir 'c++-mode)
+=======
 (setq semantic-lex-c-preprocessor-symbol-map '(("QT_MODULE" . "") ("QT_BEGIN_HEADER" . "") ("Q_COMPAT_EXPORT" . "") ("QT_BEGIN_NAMESPACE" . "") ("QT_END_NAMESPACE" . "") ("QT_END_HEADER" . "") ("Q_CORE_EXPORT" . "") ("QT3_SUPPORT" . "") ("Q_GUI_EXPORT" . "")))
 
 ;; Add for MinGW Lib support
@@ -162,4 +171,5 @@
 (semantic-add-system-include (concat mingw-base-dir "/c++/3.4.5") 'c++-mode)
 (semantic-add-system-include (concat mingw-base-dir "/c++/3.4.5/backward") 'c++-mode)
 (semantic-add-system-include (concat mingw-base-dir "/c++/3.4.5/mingw32") 'c++-mode)
+>>>>>>> e6b9a5bef4ec8e4ffad05a5663ed3df2e414273b
 (add-to-list 'auto-mode-alist (cons mingw-base-dir 'c++-mode))
