@@ -3,7 +3,7 @@
 ;;; Copyright (C) 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009 Eric M. Ludlam
 
 ;; Author: Eric M. Ludlam <zappo@gnu.org>
-;; X-RCS: $Id: semantic-c.el,v 1.128 2009/09/17 22:42:59 zappo Exp $
+;; X-RCS: $Id: semantic-c.el,v 1.132 2009/11/27 17:02:06 zappo Exp $
 
 ;; This file is not part of GNU Emacs.
 
@@ -277,7 +277,7 @@ values of the conditions in the #if blocks."
 (defun semantic-c-skip-conditional-section ()
   "Skip one section of a conditional.
 Moves forward to a matching #elif, #else, or #endif.
-Movers completely over balanced #if blocks."
+Moves completely over balanced #if blocks."
   (let ((done nil))
     ;; (if (looking-at "^\\s-*#if")
     ;; (semantic-lex-spp-push-if (point))
@@ -291,6 +291,7 @@ Movers completely over balanced #if blocks."
       (cond
        ((looking-at "^\\s-*#\\s-*if")
 	;; We found a nested if.  Skip it.
+	;; @TODO - can we use the new c-scan-conditionals
 	(c-forward-conditional 1))
        ((looking-at "^\\s-*#\\s-*elif")
 	;; We need to let the preprocessor analize this one.
@@ -704,18 +705,30 @@ the regular parser."
       (erase-buffer)
       (when (not (eq major-mode mode))
 	(save-match-data
-	  (funcall mode)
-	  ;; Hack in mode-local
-	  (activate-mode-local-bindings)
-	  ;; CHEATER!  The following 3 lines are from
-	  ;; `semantic-new-buffer-fcn', but we don't want to turn
-	  ;; on all the other annoying modes for this little task.
-	  (setq semantic-new-buffer-fcn-was-run t)
-	  (semantic-lex-init)
-	  (semantic-clear-toplevel-cache)
-	  (remove-hook 'semantic-lex-reset-hooks 'semantic-lex-spp-reset-hook
-		       t)
-	  ))
+
+	  ;; Protect against user hooks throwing errors.
+	  (condition-case nil
+	      (funcall mode)
+	    (error
+	     (if (y-or-n-p
+		  (format "There was an error initializing %s in buffer \"%s\". Debug your hooks? "
+			  mode (buffer-name)))
+		 (semantic-c-debug-mode-init mode)
+	       (message "Macro parsing state may be broken...")
+	       (sit-for 1))))
+	  ) ; save match data
+	
+	;; Hack in mode-local
+	(activate-mode-local-bindings)
+	;; CHEATER!  The following 3 lines are from
+	;; `semantic-new-buffer-fcn', but we don't want to turn
+	;; on all the other annoying modes for this little task.
+	(setq semantic-new-buffer-fcn-was-run t)
+	(semantic-lex-init)
+	(semantic-clear-toplevel-cache)
+	(remove-hook 'semantic-lex-reset-hooks 'semantic-lex-spp-reset-hook
+		     t)
+	)
       ;; Get the macro symbol table right.
       (setq semantic-lex-spp-dynamic-macro-symbol-obarray spp-syms)
       ;; (message "%S" macros)
@@ -742,6 +755,41 @@ the regular parser."
       )
     stream))
 
+(defvar semantic-c-debug-mode-init-last-mode nil
+  "The most recent mode needing debugging.")
+
+(defun semantic-c-debug-mode-init (mm)
+  "Debug mode init for major mode MM after we're done parsing now."
+  (interactive (list semantic-c-debug-mode-init-last-mode))
+  (if (interactive-p)
+      ;; Do the debug.
+      (progn
+	(switch-to-buffer (get-buffer-create "*MODE HACK TEST*"))
+	(let ((debug-on-error t))
+	  (funcall mm)))
+
+    ;; Notify about the debug
+    (setq semantic-c-debug-mode-init-last-mode mm)
+
+    (add-hook 'post-command-hook 'semantic-c-debug-mode-init-pch)))
+
+(defun semantic-c-debug-mode-init-pch ()
+  "Notify user about needing to debug their major mode hooks."
+  (let ((mm semantic-c-debug-mode-init-last-mode))
+    (switch-to-buffer-other-window
+     (get-buffer-create "*MODE HACK TEST*"))
+    (erase-buffer)
+    (insert "A failure occured while parsing your buffers.
+
+The failure occured while attempting to initialize " (symbol-name mm) " in a
+buffer not associated with a file.  To debug this problem, type
+
+M-x semantic-c-debug-mode-init
+
+now.
+")
+    (remove-hook 'post-command-hook 'semantic-c-debug-mode-init-pch)))
+  
 (defun semantic-expand-c-tag (tag)
   "Expand TAG into a list of equivalent tags, or nil."
   (let ((return-list nil)
@@ -1712,6 +1760,24 @@ DO NOT return the list of tags encompassing point."
 	  (princ (cdr S))
 	  (princ "\n")
 	  ))
+
+      (when (arrayp semantic-lex-spp-project-macro-symbol-obarray)
+	(princ "\n  Project symbol map:\n")
+	(princ "      Your project symbol map is derived from the EDE object:\n      ")
+	(princ (object-print ede-object))
+	(princ "\n\n")
+	(let ((macros nil))
+	  (mapatoms
+	   #'(lambda (symbol)
+	       (setq macros (cons symbol macros)))
+	   semantic-lex-spp-project-macro-symbol-obarray)
+	  (dolist (S macros)
+	    (princ "    ")
+	    (princ (symbol-name S))
+	    (princ " = ")
+	    (princ (symbol-value S))
+	    (princ "\n")
+	    )))
 
       (princ "\n\n  Use: M-x semantic-lex-spp-describe RET\n")
       (princ "\n  to see the complete macro table.\n")

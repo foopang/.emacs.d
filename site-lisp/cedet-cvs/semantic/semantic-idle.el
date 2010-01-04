@@ -4,7 +4,7 @@
 
 ;; Author: Eric M. Ludlam <zappo@gnu.org>
 ;; Keywords: syntax
-;; X-RCS: $Id: semantic-idle.el,v 1.57 2009/09/11 23:35:38 zappo Exp $
+;; X-RCS: $Id: semantic-idle.el,v 1.59 2009/10/13 03:17:53 zappo Exp $
 
 ;; This file is not part of GNU Emacs.
 
@@ -498,15 +498,20 @@ This will move the parse message into the modeline."
   :group 'semantic
   :type 'boolean)
 
-(defvar semantic-before-idle-scheduler-reparse-hooks nil
-  "Hooks run before option `semantic-idle-scheduler' begins parsing.
+(defvar semantic-before-idle-scheduler-reparse-hook nil
+  "Hook run before option `semantic-idle-scheduler' begins parsing.
 If any hook throws an error, this variable is reset to nil.
 This hook is not protected from lexical errors.")
 
-(defvar semantic-after-idle-scheduler-reparse-hooks nil
-  "Hooks run after option `semantic-idle-scheduler' has parsed.
+(defvar semantic-after-idle-scheduler-reparse-hook nil
+  "Hook run after option `semantic-idle-scheduler' has parsed.
 If any hook throws an error, this variable is reset to nil.
 This hook is not protected from lexical errors.")
+
+(semantic-varalias-obsolete 'semantic-before-idle-scheduler-reparse-hooks
+                          'semantic-before-idle-scheduler-reparse-hook)
+(semantic-varalias-obsolete 'semantic-after-idle-scheduler-reparse-hooks
+                          'semantic-after-idle-scheduler-reparse-hook)
 
 (defun semantic-idle-scheduler-refresh-tags ()
   "Refreshes the current buffer's tags.
@@ -551,8 +556,8 @@ Does nothing if the current buffer doesn't need reparsing."
 	  ;; Let people hook into this, but don't let them hose
 	  ;; us over!
 	  (condition-case nil
-	      (run-hooks 'semantic-before-idle-scheduler-reparse-hooks)
-	    (error (setq semantic-before-idle-scheduler-reparse-hooks nil)))
+	      (run-hooks 'semantic-before-idle-scheduler-reparse-hook)
+	    (error (setq semantic-before-idle-scheduler-reparse-hook nil)))
 
 	  (unwind-protect
 	      ;; Perform the parsing.
@@ -574,8 +579,8 @@ Does nothing if the current buffer doesn't need reparsing."
 	    ;; Let people hook into this, but don't let them hose
 	    ;; us over!
 	    (condition-case nil
-		(run-hooks 'semantic-after-idle-scheduler-reparse-hooks)
-	      (error (setq semantic-after-idle-scheduler-reparse-hooks nil))))
+		(run-hooks 'semantic-after-idle-scheduler-reparse-hook)
+	      (error (setq semantic-after-idle-scheduler-reparse-hook nil))))
 	  ;; Return if we are lexically safe (from prog1)
 	  lexically-safe)))
 
@@ -892,9 +897,10 @@ visible, then highlight it."
 	       ))))
     nil))
 
+
 (define-semantic-idle-service semantic-idle-tag-highlight
   "Highlight the tag, and references of the symbol under point.
-Call `semantic-analyze-current-context' to find the reference tag.
+Call `semantic-analyze-current-context' to find the refer ence tag.
 Call `semantic-symref-hits-in-region' to identify local references."
   (when (semantic-idle-summary-useful-context-p)
     (let* ((ctxt (semantic-analyze-current-context))
@@ -915,7 +921,7 @@ Call `semantic-symref-hits-in-region' to identify local references."
 	   target (lambda (start end prefix)
 		    (when (/= start (car Hbounds))
 		      (pulse-momentary-highlight-region
-		       start end))
+		       start end semantic-idle-summary-highlight-face))
 		    (semantic-throw-on-input 'symref-highlight)
 		    )
 	   (semantic-tag-start tag)

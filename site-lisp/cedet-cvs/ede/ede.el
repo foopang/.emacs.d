@@ -4,7 +4,7 @@
 
 ;; Author: Eric M. Ludlam <zappo@gnu.org>
 ;; Keywords: project, make
-;; RCS: $Id: ede.el,v 1.137 2009/07/17 02:00:04 zappo Exp $
+;; RCS: $Id: ede.el,v 1.142 2009/12/27 03:36:00 zappo Exp $
 (defconst ede-version "1.0pre7"
   "Current version of the Emacs EDE.")
 
@@ -199,6 +199,9 @@ which files this object is interested in."
 	 :initform ( [ "Debug target" ede-debug-target
 		       (and ede-object
 			    (obj-of-class-p ede-object ede-target)) ]
+		     [ "Run target" ede-run-target
+		       (and ede-object
+			    (obj-of-class-p ede-object ede-target)) ]
 		     )
 	 :documentation "Menu specialized to this type of target."
 	 :accessor ede-object-menu)
@@ -335,7 +338,8 @@ and target specific elements such as build variables.")
 		    :group (settings)
 		    :documentation "Project local variables")
    (keybindings :allocation :class
-		:initform (("D" . ede-debug-target))
+		:initform (("D" . ede-debug-target)
+			   ("R" . ede-run-target))
 		:documentation "Keybindings specialized to this type of target."
 		:accessor ede-object-keybindings)
    (menu :allocation :class
@@ -412,7 +416,7 @@ Do not set this to non-nil globally.  It is used internally.")
   (interactive)
   (let ((p ede-projects)
 	(c ede-project-cache-files)
-	(recentf-exclude '(ignore))
+	(recentf-exclude '( (lambda (f) t) ))
 	)
     (condition-case nil
 	(progn
@@ -473,11 +477,13 @@ Do not set this to non-nil globally.  It is used internally.")
       )))
 
 ;;; Get the cache usable.
-(add-hook 'kill-emacs-hook 'ede-save-cache)
-(when (not noninteractive)
-  ;; No need to load the EDE cache if we aren't interactive.
-  ;; This occurs during batch byte-compiling of other tools.
-  (ede-load-cache))
+
+;; @TODO - Remove this cache setup, or use this for something helpful.
+;;(add-hook 'kill-emacs-hook 'ede-save-cache)
+;;(when (not noninteractive)
+;;  ;; No need to load the EDE cache if we aren't interactive.
+;;  ;; This occurs during batch byte-compiling of other tools.
+;;  (ede-load-cache))
 
 
 ;;; Important macros for doing commands.
@@ -544,6 +550,7 @@ Argument LIST-O-O is the list of objects to choose from."
     (define-key pmap "c" 'ede-compile-target)
     (define-key pmap "\C-c" 'ede-compile-selected)
     (define-key pmap "D" 'ede-debug-target)
+    (define-key pmap "R" 'ede-run-target)
     ;; bind our submap into map
     (define-key map "\C-c." pmap)
     map)
@@ -633,7 +640,9 @@ Argument MENU-DEF is the menu definition to use."
     "Target Forms"
     (let ((obj (or ede-selected-object ede-object)))
       (append
-       '([ "Add File" ede-add-file (ede-current-project) ]
+       '([ "Add File" ede-add-file
+	   (and (ede-current-project)
+		(oref (ede-current-project) targets)) ]
 	 [ "Remove File" ede-remove-file
 	   (and ede-object
 		(or (listp ede-object)
@@ -1111,10 +1120,15 @@ Optional argument FORCE forces the file to be removed without asking."
   (interactive)
   (ede-invoke-method 'project-debug-target))
 
+(defun ede-run-target ()
+  "Debug the current buffer's assocated target."
+  (interactive)
+  (ede-invoke-method 'project-run-target))
+
 (defun ede-make-dist ()
   "Create a distribution from the current project."
   (interactive)
-  (let ((ede-object (ede-current-project)))
+  (let ((ede-object (ede-toplevel)))
     (ede-invoke-method 'project-make-dist)))
 
 ;;; Customization
@@ -1354,6 +1368,10 @@ Argument COMMAND is the command to use for compiling the target."
 (defmethod project-debug-target ((obj ede-target))
   "Run the current project target OBJ in a debugger."
   (error "debug-target not supported by %s" (object-name obj)))
+
+(defmethod project-run-target ((obj ede-target))
+  "Run the current project target OBJ."
+  (error "run-target not supported by %s" (object-name obj)))
 
 ;;;###autoload
 (defmethod project-make-dist ((this ede-project))
@@ -1831,12 +1849,19 @@ Return the first non-nil value returned by PROC."
 (defun ede-apply-preprocessor-map ()
   "Apply preprocessor tables onto the current buffer."
   (when (and ede-object (boundp 'semantic-lex-spp-macro-symbol-obarray))
-    (let ((map (ede-preprocessor-map ede-object)))
+    (let* ((objs ede-object)
+	   (map (ede-preprocessor-map (if (consp objs)
+					  (car objs)
+					objs))))
       (when map
 	;; We can't do a require for the below symbol.
 	(setq semantic-lex-spp-project-macro-symbol-obarray
 	      (semantic-lex-make-spp-table map))
-	))))
+	)
+      (when (consp objs)
+	(message "Choosing preprocessor syms for project %s"
+		 (object-name (car objs))))
+      )))
 
 (defmethod ede-system-include-path ((this ede-project))
   "Get the system include path used by project THIS."
@@ -1916,6 +1941,7 @@ If VARIABLE is not project local, just use set."
 
 ;;; Lame stuff
 ;;
+;; @todo - Can I remove this?
 (defun ede-or (arg)
   "Do `or' like stuff to ARG because you can't apply `or'."
   (while (and arg (not (car arg)))

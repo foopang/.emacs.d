@@ -36,7 +36,7 @@
 ;;(global-semantic-idle-completions-mode)
 
 
-(define-key c++-mode-map "." 'semantic-complete-self-insert)
+;;(define-key c++-mode-map "." 'semantic-complete-self-insert)
 
 ;;(semanticdb-enable-gnu-global-databases 'c-mode)
 ;;(semanticdb-enable-gnu-global-databases 'c++-mode)
@@ -48,8 +48,7 @@
 ;; customisation of modes
 (defun alexott/cedet-hook ()
   (local-set-key [(control return)] 'semantic-ia-complete-symbol-menu)
-  (local-set-key "\C-c?" 'semantic-ia-complete-symbol)
-  ;;
+  (local-set-key "\C-c?" 'semantic-ia-complete-symbol-menu)
   (local-set-key "\C-c>" 'semantic-complete-analyze-inline)
   (local-set-key "\C-c=" 'semantic-decoration-include-visit)
  
@@ -65,16 +64,33 @@
 (add-hook 'emacs-lisp-mode-hook 'alexott/cedet-hook)
 (add-hook 'erlang-mode-hook 'alexott/cedet-hook)
 
+(defun alexott/c-mode-cedet-hook ()
+  ;; (local-set-key "." 'semantic-complete-self-insert)
+  ;; (local-set-key ">" 'semantic-complete-self-insert)
+  (local-set-key "\C-ct" 'eassist-switch-h-cpp)
+  (local-set-key "\C-xt" 'eassist-switch-h-cpp)
+  (local-set-key "\C-ce" 'eassist-list-methods)
+  (local-set-key "\C-c\C-r" 'semantic-symref)
+  )
+(add-hook 'c-mode-common-hook 'alexott/c-mode-cedet-hook)
+
 (custom-set-variables
  '(semantic-idle-scheduler-idle-time 3)
  '(semantic-self-insert-show-completion-function (lambda nil (semantic-ia-complete-symbol-menu (point))))
- '(global-semantic-tag-folding-mode t nil (semantic-util-modes)))
+ '(global-semantic-tag-folding-mode t nil (semantic-util-modes))
+)
+
+(global-semantic-stickyfunc-mode -1)
 ;;(global-semantic-folding-mode nil)
 
 
 ; clear database
-(setq-default semanticdb-new-database-class
-'semanticdb-project-database)
+(defun sematicdb-clean()
+     (interactive)
+     (setq-default semanticdb-new-database-class
+		   'semanticdb-project-database)
+     )
+
 
 ;; Add for QT support
 (setq qt4-base-dir "/usr/include/qt4")
@@ -83,6 +99,7 @@
 (semantic-add-system-include qt4-gui-dir 'c++-mode)
 (add-to-list 'auto-mode-alist (cons qt4-base-dir 'c++-mode))
 
+<<<<<<< HEAD
 (setq semantic-lex-c-preprocessor-symbol-map '(("Foo" . "") ("QT_MODULE" . "") ("QT_BEGIN_HEADER" . "") ("Q_COMPAT_EXPORT" . "") ("QT_BEGIN_NAMESPACE" . "") ("QT_END_NAMESPACE" . "") ("QT_END_HEADER" . "") ("Q_CORE_EXPORT" . "") ("QT3_SUPPORT" . "") ("Q_GUI_EXPORT" . "")))
 
 ;; Add for mingw support
@@ -90,4 +107,14 @@
 ;;(setq qt4-gui-dir (concat qt4-base-dir "/QtGui"))
 (semantic-add-system-include mingw-base-dir 'c++-mode)
 ;;(semantic-add-system-include qt4-gui-dir 'c++-mode)
+=======
+(setq semantic-lex-c-preprocessor-symbol-map '(("QT_MODULE" . "") ("QT_BEGIN_HEADER" . "") ("Q_COMPAT_EXPORT" . "") ("QT_BEGIN_NAMESPACE" . "") ("QT_END_NAMESPACE" . "") ("QT_END_HEADER" . "") ("Q_CORE_EXPORT" . "") ("QT3_SUPPORT" . "") ("Q_GUI_EXPORT" . "")))
+
+;; Add for MinGW Lib support
+(setq mingw-base-dir "c:/MinGW/include")
+(semantic-add-system-include mingw-base-dir 'c++-mode)
+(semantic-add-system-include (concat mingw-base-dir "/c++/3.4.5") 'c++-mode)
+(semantic-add-system-include (concat mingw-base-dir "/c++/3.4.5/backward") 'c++-mode)
+(semantic-add-system-include (concat mingw-base-dir "/c++/3.4.5/mingw32") 'c++-mode)
+>>>>>>> e6b9a5bef4ec8e4ffad05a5663ed3df2e414273b
 (add-to-list 'auto-mode-alist (cons mingw-base-dir 'c++-mode))

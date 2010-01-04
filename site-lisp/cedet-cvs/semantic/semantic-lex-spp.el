@@ -2,7 +2,7 @@
 
 ;;; Copyright (C) 2006, 2007, 2008, 2009 Eric M. Ludlam
 
-;; X-CVS: $Id: semantic-lex-spp.el,v 1.48 2009/09/16 10:57:11 zappo Exp $
+;; X-CVS: $Id: semantic-lex-spp.el,v 1.50 2009/10/19 23:49:54 zappo Exp $
 
 ;; This file is not part of GNU Emacs.
 
@@ -698,7 +698,14 @@ Argument BEG and END specify the bounds of SYM in the buffer."
 	  (goto-char end)
 	  (setq arg-parsed
 		(semantic-lex-spp-one-token-and-move-for-macro
-		 (point-at-eol)))
+		 ;; NOTE: This used to be (point-at-eol), but
+		 ;;       that was too close for multi-line arguments
+		 ;;       to a macro.  Point max may be too far if there
+		 ;;       is a typo in the buffer.
+		 ;;
+		 ;; Look here for performance issues while a user is typing
+		 ;; incomplete code.
+		 (point-max)))
 	  (setq end (semantic-lex-token-end arg-parsed))
 
 	  (when (and (listp arg-parsed) (eq (car arg-parsed) 'semantic-list))
@@ -864,7 +871,11 @@ and variable state from the current buffer."
       ;; Below is a painful hack to make sure everything is setup correctly.
       (when (not (eq major-mode mode))
 	(save-match-data
-	  (funcall mode)
+
+	  ;; Protect against user-hooks that throw errors.
+	  (condition-case nil
+	      (funcall mode)
+	    (error nil))
 
 	  ;; Hack in mode-local
 	  (activate-mode-local-bindings)
