@@ -13,16 +13,10 @@
 (load "rc-ecb.el")
 ;;(load "rc-haskell.el")
 (load "rc-html.el")
-<<<<<<< HEAD
 ;;(load "rc-java.el")
 ;;(load "rc-javascript.el")
 ;;(load "rc-php.el")
-=======
-(load "rc-java.el")
-(load "rc-javascript.el")
-(load "rc-php.el")
 (load "rc-yasnippet.el")
->>>>>>> e6b9a5bef4ec8e4ffad05a5663ed3df2e414273b
 ;;(load "rc-python.el")
 
 
