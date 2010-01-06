@@ -16,7 +16,7 @@
   ;; minor modes
   (auto-fill-mode 1)
   ;;(c-turn-on-eldoc-mode)
-  (gtags-mode 1)
+  ;;(gtags-mode 1)
   (hs-minor-mode 1)
   ;; local keys
   (local-set-key [return] 'newline-and-indent)

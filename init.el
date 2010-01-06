@@ -11,13 +11,18 @@
 (load "rc-ccmode.el")
 (load "rc-cedet.el")
 (load "rc-ecb.el")
+<<<<<<< HEAD
 ;;(load "rc-haskell.el")
+=======
+(load "rc-gdb.el")
+(load "rc-haskell.el")
+>>>>>>> 596746bab8c19b058ee5f0fe1a66e46a63ccafdd
 (load "rc-html.el")
 ;;(load "rc-java.el")
 ;;(load "rc-javascript.el")
 ;;(load "rc-php.el")
 (load "rc-yasnippet.el")
-;;(load "rc-python.el")
+(load "rc-python.el")
 
 
 (autoload 'flyspell-mode "flyspell" "On-the-fly spelling checker." t)
