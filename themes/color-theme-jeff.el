@@ -30,6 +30,7 @@
      (tabbar-default-face ((t (:inherit variable-pitch :background "#efebef" :foreground "gray60" :height 0.8))))
      (tabbar-selected-face ((t (:inherit tabbar-default-face :foreground "blue" :box (:line-width 1 :color "white" :style released-button)))))
      (tabbar-unselected-face ((t (:inherit tabbar-default-face :box (:line-width 1 :color "white" :style pressed-button)))))
+     (dropdown-list-selection-face ((t (:inherit dropdown-list-face :background "#CEFF84"))))
     )
   )
 )
