@@ -10,7 +10,7 @@
       (foreground-color . "#000000")
       (cursor-color . "#000000"))
      (default ((t (nil))))
-     (modeline ((t (:background "FFFFFF" :foreground "000000" :box (:line-width 1 :style released-button)))))
+     (modeline ((t (:background "#FFFFFF" :foreground "#000000" :box (:line-width 1 :style released-button)))))
      (font-lock-builtin-face ((t (:foreground "#000080"))))
      (font-lock-comment-face ((t (:italic t :foreground "#808080"))))
      (font-lock-constant-face ((t (:foreground "#008000"))))
