@@ -19,6 +19,7 @@
 (load "rc-php.el")
 (load "rc-yasnippet.el")
 (load "rc-python.el")
+(load "rc-w3m.el")
 
 
 (autoload 'flyspell-mode "flyspell" "On-the-fly spelling checker." t)
