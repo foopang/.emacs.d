@@ -1,3 +1,4 @@
+
 ;; use Ctrl-x Ctrl-m replace M-x
 (global-set-key "\C-x\C-m" 'execute-extended-command)
 (global-set-key "\C-c\C-m" 'execute-extended-command)
@@ -9,7 +10,9 @@
 
 ;; turn off backup with ~ in the amending file's directory
 (setq backup-by-copying nil)
-(setq backup-directory-alist '(("" . "~/.emacs.d/backup")))
+(setq backup-directory-alist '(("" . "~/.emacs.d/backup/")))
+(setq auto-save-file-name-transforms '((".*" "~/.emacs.d/auto/" t)))
+
 
 
 (fset 'yes-or-no-p 'y-or-n-p) ;; instead asking yes or no
