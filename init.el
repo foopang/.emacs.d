@@ -18,12 +18,8 @@
 ;;(load "rc-javascript.el")
 ;;(load "rc-php.el")
 (load "rc-yasnippet.el")
-<<<<<<< HEAD
 ;;(load "rc-python.el")
-=======
-(load "rc-python.el")
 (load "rc-w3m.el")
->>>>>>> c74fc9ed91e6116515c60a6a1994edf8da7c5354
 
 
 (autoload 'flyspell-mode "flyspell" "On-the-fly spelling checker." t)
