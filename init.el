@@ -16,7 +16,7 @@
 (load "rc-html.el")
 ;;(load "rc-java.el")
 ;;(load "rc-javascript.el")
-;;(load "rc-php.el")
+(load "rc-php.el")
 (load "rc-yasnippet.el")
 ;;(load "rc-python.el")
 (load "rc-w3m.el")
