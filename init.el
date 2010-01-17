@@ -8,17 +8,23 @@
 ;;       (cd "~"))
 
 (load "rc-init.el")
+(load "rc-auto-insert.el")
 (load "rc-ccmode.el")
 (load "rc-cedet.el")
 (load "rc-ecb.el")
 (load "rc-gdb.el")
-;;(load "rc-haskell.el")
+(load "rc-haskell.el")
 (load "rc-html.el")
+<<<<<<< HEAD
 ;;(load "rc-java.el")
 ;;(load "rc-javascript.el")
+=======
+(load "rc-java.el")
+(load "rc-javascript.el")
+>>>>>>> a94f6d0865e1368baeb58189ee5fbd5952015fcb
 (load "rc-php.el")
 (load "rc-yasnippet.el")
-;;(load "rc-python.el")
+(load "rc-python.el")
 (load "rc-w3m.el")
 
 
