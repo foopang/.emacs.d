@@ -208,6 +208,8 @@ buffer read-only, so I suggest setting kill-read-only-ok to t."
     (set-frame-parameter nil 'alpha '(85 60))))
 (global-set-key (kbd "C-c C-t") 'toggle-transparency)
 
+;; show line number
+(global-linum-mode t)
 ;; anything
 ;;(require 'anything-etags)
 ;;(setq anything-sources
