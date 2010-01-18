@@ -97,18 +97,35 @@ buffer read-only, so I suggest setting kill-read-only-ok to t."
 
 
 ;; textmate
-(dolist (command '(yank yank-pop))
-  (eval `(defadvice ,command (after indent-region activate)
-	   (and (not current-prefix-arg)
-		(member major-mode '(emacs-lisp-mode lisp-mode
-						     clojure-mode    scheme-mode
-						     haskell-mode    ruby-mode
-						     rspec-mode      python-mode
-						     c-mode          c++-mode
-						     objc-mode       latex-mode
-						     plain-tex-mode))
-		(let ((mark-even-if-inactive transient-mark-mode))
-		  (indent-region (region-beginning) (region-end) nil))))))
+;;(dolist (command '(yank yank-pop))
+;;  (eval `(defadvice ,command (after indent-region activate)
+;;	   (and (not current-prefix-arg)
+;;		(member major-mode '(emacs-lisp-mode lisp-mode       nxhtml-mode
+;;						     clojure-mode    scheme-mode
+;;						     haskell-mode    ruby-mode
+;;						     rspec-mode      python-mode
+;;						     c-mode          c++-mode
+;;						     objc-mode       latex-mode
+;;						     plain-tex-mode))
+;;		(let ((mark-even-if-inactive transient-mark-mode))
+;;		  (indent-region (region-beginning) (region-end) nil))))))
+
+(defun yank-and-indent ()
+  "Yank and then indent the newly formed region according to mode."
+  (interactive)
+  (yank)
+  (call-interactively 'indent-region))
+(global-set-key "\C-y" 'yank-and-indent)
+
+(defun kill-and-join-forward (&optional arg)
+  (interactive "P")
+  (if (and (eolp) (not (bolp)))
+      (progn (forward-char 1)
+	     (just-one-space 0)
+	     (backward-char 1)
+	     (kill-line arg))
+    (kill-line arg)))
+(global-set-key "\C-k" 'kill-and-join-forward)
 
 ;; copy-line
 (defun copy-line (&optional arg)
