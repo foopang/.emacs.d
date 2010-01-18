@@ -1,3 +1,4 @@
+
 ;; use Ctrl-x Ctrl-m replace M-x
 (global-set-key "\C-x\C-m" 'execute-extended-command)
 (global-set-key "\C-c\C-m" 'execute-extended-command)
@@ -9,7 +10,12 @@
 
 ;; turn off backup with ~ in the amending file's directory
 (setq backup-by-copying nil)
-(setq backup-directory-alist '(("" . "~/.emacs.d/backup")))
+(setq backup-directory-alist '(("" . "~/.emacs.d/backup/")))
+(setq auto-save-file-name-transforms '((".*" "~/.emacs.d/auto/" t)))
+;;(setq auto-save-file-name-transforms
+;;      '(("\\`/[^/]*:\\([^/]*/\\)*\\([^/]*\\)\\'" "~/.emacs.d/tmp/\\2" t)
+;;	("\\`/?\\([^/]*/\\)*\\([^/]*\\)\\'" "~/.emacs.d/auto/\\2" t)))
+
 
 
 (fset 'yes-or-no-p 'y-or-n-p) ;; instead asking yes or no
@@ -190,6 +196,17 @@ buffer read-only, so I suggest setting kill-read-only-ok to t."
 						     plain-tex-mode))
 		(let ((mark-even-if-inactive transient-mark-mode))
 		  (indent-region (region-beginning) (region-end) nil))))))
+
+;; transparent window background
+;;(eval-when-compile (require 'cl))
+(defun toggle-transparency ()
+  (interactive)
+  (if (/=
+       (cadr (find 'alpha (frame-parameters nil) :key #'car))
+       100)
+      (set-frame-parameter nil 'alpha '(100 100))
+    (set-frame-parameter nil 'alpha '(85 60))))
+(global-set-key (kbd "C-c C-t") 'toggle-transparency)
 
 ;; anything
 ;;(require 'anything-etags)

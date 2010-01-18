@@ -83,7 +83,6 @@
 (global-semantic-stickyfunc-mode -1)
 ;;(global-semantic-folding-mode nil)
 
-
 ; clear database
 (defun sematicdb-clean()
      (interactive)
