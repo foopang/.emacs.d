@@ -31,6 +31,7 @@
      (tabbar-selected-face ((t (:inherit tabbar-default-face :foreground "blue" :box (:line-width 1 :color "white" :style released-button)))))
      (tabbar-unselected-face ((t (:inherit tabbar-default-face :box (:line-width 1 :color "white" :style pressed-button)))))
      (dropdown-list-selection-face ((t (:inherit dropdown-list-face :background "#CEFF84"))))
+     (semantic-decoration-on-unknown-includes ((((class color) (background light)) (:background "#ddcfff"))))
     )
   )
 )
