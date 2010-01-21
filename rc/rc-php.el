@@ -1,5 +1,5 @@
 (require 'php-mode)
-(require 'php-electric)
+;;(require 'php-electric)
 (setq auto-mode-alist
       (cons '("\\.\\(php\\)\\'" . php-mode)
 	    auto-mode-alist))
