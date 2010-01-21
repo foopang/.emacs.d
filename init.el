@@ -18,6 +18,7 @@
 ;;(load "rc-java.el")
 ;;(load "rc-javascript.el")
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 <<<<<<< HEAD
@@ -37,9 +38,11 @@
 >>>>>>> 3aafdeba6faf6967ec8f93e2400035ea594490f7
 >>>>>>> 8400e562094c90623e6dcd6168c40371cdd09223
 >>>>>>> e64b4941ef8d5bc0dee735ad6789104d8ac71ab6
+=======
+>>>>>>> f7b8a3b3801f10beac42bb479357ed7f79301064
 (load "rc-php.el")
 (load "rc-yasnippet.el")
-;;(load "rc-python.el")
+(load "rc-python.el")
 (load "rc-w3m.el")
 
 
