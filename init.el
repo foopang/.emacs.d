@@ -13,18 +13,10 @@
 (load "rc-cedet.el")
 (load "rc-ecb.el")
 (load "rc-gdb.el")
-(load "rc-haskell.el")
+;;(load "rc-haskell.el")
 (load "rc-html.el")
-<<<<<<< HEAD
 ;;(load "rc-java.el")
 ;;(load "rc-javascript.el")
-<<<<<<< HEAD
-=======
-=======
-(load "rc-java.el")
-(load "rc-javascript.el")
->>>>>>> a94f6d0865e1368baeb58189ee5fbd5952015fcb
->>>>>>> ba92c7fbdf4251bbff75f1a0bba70aaf228fcca5
 (load "rc-php.el")
 (load "rc-yasnippet.el")
 (load "rc-python.el")
