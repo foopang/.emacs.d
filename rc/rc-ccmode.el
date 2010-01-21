@@ -19,8 +19,9 @@
   ;;(gtags-mode 1)
   (hs-minor-mode 1)
   ;; local keys
-  (local-set-key [return] 'newline-and-indent)
+  ;;(local-set-key [return] 'newline-and-indent)
   ;; (local-set-key [delete] 'delete-char)
+  (c-toggle-electric-state 0)
   )
 (add-hook 'c-mode-common-hook 'alexott/c-mode-common-hook)
 ;;(add-hook 'c-mode-common-hook 'alexott/common-hook)
