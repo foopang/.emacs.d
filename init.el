@@ -17,6 +17,29 @@
 (load "rc-html.el")
 ;;(load "rc-java.el")
 ;;(load "rc-javascript.el")
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+<<<<<<< HEAD
+(load "rc-java.el")
+(load "rc-javascript.el")
+=======
+<<<<<<< HEAD
+;;(load "rc-java.el")
+;;(load "rc-javascript.el")
+<<<<<<< HEAD
+=======
+=======
+(load "rc-java.el")
+(load "rc-javascript.el")
+>>>>>>> a94f6d0865e1368baeb58189ee5fbd5952015fcb
+>>>>>>> ba92c7fbdf4251bbff75f1a0bba70aaf228fcca5
+>>>>>>> 3aafdeba6faf6967ec8f93e2400035ea594490f7
+>>>>>>> 8400e562094c90623e6dcd6168c40371cdd09223
+>>>>>>> e64b4941ef8d5bc0dee735ad6789104d8ac71ab6
+=======
+>>>>>>> f7b8a3b3801f10beac42bb479357ed7f79301064
 (load "rc-php.el")
 (load "rc-yasnippet.el")
 (load "rc-python.el")
