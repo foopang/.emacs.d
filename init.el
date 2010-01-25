@@ -17,33 +17,11 @@
 (load "rc-html.el")
 ;;(load "rc-java.el")
 ;;(load "rc-javascript.el")
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
-<<<<<<< HEAD
-(load "rc-java.el")
-(load "rc-javascript.el")
-=======
-<<<<<<< HEAD
-;;(load "rc-java.el")
-;;(load "rc-javascript.el")
-<<<<<<< HEAD
-=======
-=======
-(load "rc-java.el")
-(load "rc-javascript.el")
->>>>>>> a94f6d0865e1368baeb58189ee5fbd5952015fcb
->>>>>>> ba92c7fbdf4251bbff75f1a0bba70aaf228fcca5
->>>>>>> 3aafdeba6faf6967ec8f93e2400035ea594490f7
->>>>>>> 8400e562094c90623e6dcd6168c40371cdd09223
->>>>>>> e64b4941ef8d5bc0dee735ad6789104d8ac71ab6
-=======
->>>>>>> f7b8a3b3801f10beac42bb479357ed7f79301064
 (load "rc-php.el")
 (load "rc-yasnippet.el")
 (load "rc-python.el")
 (load "rc-w3m.el")
+(load "rc-yaml.el")
 
 
 (autoload 'flyspell-mode "flyspell" "On-the-fly spelling checker." t)
@@ -81,6 +59,7 @@
 
 (defun autopairs-ret (arg)
   (interactive "P")
+  ;;(message "autopiars call")
   (let (pair)
     (dolist (pair skeleton-pair-alist)
       (when (eq (char-after) (car (last pair)))
@@ -91,6 +70,30 @@
 (global-set-key (kbd "RET") 'autopairs-ret)
 
 
+
 ;; customizations
 ;;(setq custom-file "~/.emacs.d/custom.el")
+<<<<<<< HEAD
 ;;(load custom-file)
+=======
+;;(load custom-file)
+(custom-set-variables
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ '(ecb-options-version "2.40")
+ '(ecb-source-path (quote ("~/prj")))
+ '(ecb-tip-of-theday nil)
+ '(ecb-windows-width 0.2)
+ '(global-semantic-tag-folding-mode t nil (semantic-util-modes))
+ '(semantic-idle-scheduler-idle-time 3)
+ '(semantic-self-insert-show-completion-function (lambda nil (semantic-ia-complete-symbol-menu (point))))
+ '(show-paren-mode t))
+(custom-set-faces
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ '(semantic-decoration-on-private-members-face ((((class color) (background light)) (:background "#e3d5c1")))))
+>>>>>>> 41b3c8f2ef981b91ce14588a6190d91bf12af3b8
