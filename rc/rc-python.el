@@ -170,12 +170,3 @@
 	       '("\\.py\\'" flymake-pyflakes-init)))
 (add-hook 'find-file-hook 'flymake-find-file-hook)
 
-;; (require 'pycomplete)
-;; (setq auto-mode-alist (cons '("\\.py$" . python-mode) auto-mode-alist))
-;; (autoload 'python-mode "python-mode" "Python editing mode." t)
-;; (autoload 'pymacs-load "pymacs" nil t)
-;; (autoload 'pymacs-eval "pymacs" nil t)
-;; (autoload 'pymacs-apply "pymacs")
-;; (autoload 'pymacs-call "pymacs")
-;; (setq interpreter-mode-alist(cons '("python" . python-mode)
-;; 				  interpreter-mode-alist))
