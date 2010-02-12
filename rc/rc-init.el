@@ -6,7 +6,7 @@
 ;; set kill word to C-x C-k; set C-w to kill backward-word
 (global-set-key "\C-w" 'backward-kill-word)
 (global-set-key "\C-x\C-k" 'kill-region)
-(global-set-key "\C-c\C-k" 'kill-region)
+;;(global-set-key "\C-c\C-k" 'kill-region)
 
 ;; turn off backup with ~ in the amending file's directory
 (setq backup-by-copying nil)
@@ -64,7 +64,7 @@ buffer read-only, so I suggest setting kill-read-only-ok to t."
   (toggle-read-only 0))
 
 (setq-default kill-read-only-ok t)
-(global-set-key "\C-c\C-k" 'copy-line)
+(global-set-key "\C-x\C-k" 'copy-line)
 
 
 ;; open new line
