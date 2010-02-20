@@ -6,7 +6,7 @@
 ;; set kill word to C-x C-k; set C-w to kill backward-word
 (global-set-key "\C-w" 'backward-kill-word)
 (global-set-key "\C-x\C-k" 'kill-region)
-(global-set-key "\C-c\C-k" 'kill-region)
+;;(global-set-key "\C-c\C-k" 'kill-region)
 
 ;; turn off backup with ~ in the amending file's directory
 (setq backup-by-copying nil)
@@ -64,7 +64,7 @@ buffer read-only, so I suggest setting kill-read-only-ok to t."
   (toggle-read-only 0))
 
 (setq-default kill-read-only-ok t)
-(global-set-key "\C-c\C-k" 'copy-line)
+(global-set-key "\C-x\C-k" 'copy-line)
 
 
 ;; open new line
@@ -103,25 +103,25 @@ buffer read-only, so I suggest setting kill-read-only-ok to t."
 
 
 ;; textmate
-;;(dolist (command '(yank yank-pop))
-;;  (eval `(defadvice ,command (after indent-region activate)
-;;	   (and (not current-prefix-arg)
-;;		(member major-mode '(emacs-lisp-mode lisp-mode       nxhtml-mode
-;;						     clojure-mode    scheme-mode
-;;						     haskell-mode    ruby-mode
-;;						     rspec-mode      python-mode
-;;						     c-mode          c++-mode
-;;						     objc-mode       latex-mode
-;;						     plain-tex-mode))
-;;		(let ((mark-even-if-inactive transient-mark-mode))
-;;		  (indent-region (region-beginning) (region-end) nil))))))
+(dolist (command '(yank yank-pop))
+ (eval `(defadvice ,command (after indent-region activate)
+	   (and (not current-prefix-arg)
+		(member major-mode '(emacs-lisp-mode lisp-mode       nxhtml-mode
+						     clojure-mode    scheme-mode
+						     haskell-mode    ruby-mode
+						     rspec-mode      python-mode
+						     c-mode          c++-mode
+						     objc-mode       latex-mode
+						     plain-tex-mode  php-mode))
+		(let ((mark-even-if-inactive transient-mark-mode))
+		  (indent-region (region-beginning) (region-end) nil))))))
 
-(defun yank-and-indent ()
-  "Yank and then indent the newly formed region according to mode."
-  (interactive)
-  (yank)
-  (call-interactively 'indent-region))
-(global-set-key "\C-y" 'yank-and-indent)
+;; (defun yank-and-indent ()
+;;   "Yank and then indent the newly formed region according to mode."
+;;   (interactive)
+;;   (yank)
+;;   (call-interactively 'indent-region))
+;; (global-set-key "\C-y" 'yank-and-indent)
 
 (defun kill-and-join-forward (&optional arg)
   (interactive "P")
@@ -182,26 +182,11 @@ buffer read-only, so I suggest setting kill-read-only-ok to t."
 (global-set-key [S-return]   'open-next-line)
 (global-set-key [C-S-return] 'open-previous-line)
 
-
-;; textmate
-(dolist (command '(yank yank-pop))
-  (eval `(defadvice ,command (after indent-region activate)
-	   (and (not current-prefix-arg)
-		(member major-mode '(emacs-lisp-mode lisp-mode
-						     clojure-mode    scheme-mode
-						     haskell-mode    ruby-mode
-						     rspec-mode      python-mode
-						     c-mode          c++-mode
-						     objc-mode       latex-mode
-						     plain-tex-mode))
-		(let ((mark-even-if-inactive transient-mark-mode))
-		  (indent-region (region-beginning) (region-end) nil))))))
-
 ;; transparent window background
 ;;(eval-when-compile (require 'cl))
 (defun toggle-transparency ()
   (interactive)
-  (if (/=
+  (if (eq
        (cadr (find 'alpha (frame-parameters nil) :key #'car))
        100)
       (set-frame-parameter nil 'alpha '(100 100))

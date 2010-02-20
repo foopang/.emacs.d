@@ -17,6 +17,10 @@
 ;; Initialize Rope                                              
 ;;(add-to-list 'load-path "~/.emacs.d/site-lisp/yasnippet-0.5.9/")
 (pymacs-load "ropemacs" "rope-")
+(define-key ropemacs-local-keymap (kbd "M-/") 'dabbrev-expand)
+;;(define-key ropemacs-local-keymap (kbd "C-/") 'hippie-expand)
+(define-key ropemacs-local-keymap (kbd "C-c C-/") 'rope-code-assist)
+
 (setq ropemacs-enable-autoimport t)
 
 ;; Initialize auto-complete
@@ -152,4 +156,17 @@
       (indent-for-tab-command)))
 
 (define-key python-mode-map "\t" 'ryan-python-tab)
+
+;; Auto Syntax Error Hightlight
+(when (load "flymake" t)
+  (defun flymake-pyflakes-init ()
+    (let* ((temp-file (flymake-init-create-temp-buffer-copy
+		       'flymake-create-temp-inplace))
+	   (local-file (file-relative-name
+			temp-file
+			(file-name-directory buffer-file-name))))
+      (list "pyflakes" (list local-file))))
+  (add-to-list 'flymake-allowed-file-name-masks
+	       '("\\.py\\'" flymake-pyflakes-init)))
+(add-hook 'find-file-hook 'flymake-find-file-hook)
 
