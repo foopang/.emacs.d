@@ -54,3 +54,7 @@
             (php-completion-mode t)
             (define-key php-mode-map (kbd "C-o") 'phpcmp-complete)))
 	    ;;(define-key php-mode-map (kbd "C-o") 'my-phpcmp-complete)))
+
+;; for xdebug
+(add-to-list 'load-path "~/.emacs.d/site-lisp/geben-0.25")
+(autoload 'geben "geben" "PHP Debugger on Emacs" t)
