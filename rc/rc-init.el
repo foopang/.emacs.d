@@ -195,6 +195,32 @@ buffer read-only, so I suggest setting kill-read-only-ok to t."
 
 ;; show line number
 (global-linum-mode t)
+
+;; maxframe to fix the emacs23 minibuffer problem
+(require 'maxframe)
+(add-hook 'window-setup-hook 'maximize-frame t)
+
+(defun maximized-p ()
+  (and (<= (abs (- (mf-max-display-pixel-width) (frame-pixel-width))) (frame-char-width))
+       (<= (abs (- (mf-max-display-pixel-height) (+ mf-display-padding-height (frame-pixel-height)))) (frame-char-height))))
+(defun increment-default-font-height (delta)
+  (let ((was-maximized (maximized-p))
+        (new-height (+ (face-attribute 'default :height) delta)))
+    (set-face-attribute 'default nil :height new-height)
+    (if was-maximized
+        (maximize-frame))
+    (message "default font size is now %d" (/ new-height 10))))
+
+(defun increase-default-font-height ()
+  (interactive)
+  (increment-default-font-height 10))
+
+(defun decrease-default-font-height ()
+  (interactive)
+  (increment-default-font-height -10))
+
+(global-set-key "\M-=" 'increase-default-font-height)
+(global-set-key "\M--" 'decrease-default-font-height)
 ;; anything
 ;;(require 'anything-etags)
 ;;(setq anything-sources
@@ -255,3 +281,4 @@ buffer read-only, so I suggest setting kill-read-only-ok to t."
 ;;(setq anything-sources
 ;;      '(anything-etags-c-source-etags-select
 ;;       ))
+
