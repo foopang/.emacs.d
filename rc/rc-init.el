@@ -26,7 +26,7 @@
 (menu-bar-mode 1) ;; menu bar
 
 (if (eq system-type 'gnu/linux)
-    (set-default-font "DejaVu Sans Mono-14")
+    (set-default-font "Envy Code R-10")
   )
 
 (if (eq system-type 'windows-nt)

@@ -73,27 +73,3 @@
 
 ;; customizations
 ;;(setq custom-file "~/.emacs.d/custom.el")
-<<<<<<< HEAD
-;;(load custom-file)
-=======
-;;(load custom-file)
-(custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- '(ecb-options-version "2.40")
- '(ecb-source-path (quote ("~/prj")))
- '(ecb-tip-of-theday nil)
- '(ecb-windows-width 0.2)
- '(global-semantic-tag-folding-mode t nil (semantic-util-modes))
- '(semantic-idle-scheduler-idle-time 3)
- '(semantic-self-insert-show-completion-function (lambda nil (semantic-ia-complete-symbol-menu (point))))
- '(show-paren-mode t))
-(custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- '(semantic-decoration-on-private-members-face ((((class color) (background light)) (:background "#e3d5c1")))))
->>>>>>> 41b3c8f2ef981b91ce14588a6190d91bf12af3b8
