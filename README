@@ -1,0 +1,16 @@
+install below packages
+
+pymacs
+~/.emacs.d/site-lisp/Pymacs-0.24-beta1
+
+Rope
+* Main branch: http://bitbucket.org/agr/rope
+    * Py3k branch: http://bitbucket.org/agr/rope_py3k
+
+Ropemacs
+* repo url: http://bitbucket.org/agr/ropemacs
+    * snapshot: http://bitbucket.org/agr/ropemacs/get/tip.gz
+
+Ropemode:
+
+    * repo url: http://bitbucket.org/agr/ropemode 
