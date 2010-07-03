@@ -25,6 +25,7 @@
 (scroll-bar-mode -1) ;;scrollbar
 (menu-bar-mode 1) ;; menu bar
 
+;; set fonts
 (if (eq system-type 'gnu/linux)
     (set-default-font "Envy Code R-10")
   )
@@ -197,7 +198,7 @@ buffer read-only, so I suggest setting kill-read-only-ok to t."
 
 ;; maxframe to fix the emacs23 minibuffer problem
 (require 'maxframe)
-(add-hook 'window-setup-hook 'maximize-frame t)
+;;(add-hook 'window-setup-hook 'maximize-frame t)
 
 (defun maximized-p ()
   (and (<= (abs (- (mf-max-display-pixel-width) (frame-pixel-width))) (frame-char-width))

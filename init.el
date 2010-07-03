@@ -46,6 +46,7 @@
 ;; auto pair
 (require 'autopair)
 (autopair-global-mode) ;; enable autopair in all buffers
+(setq autopair-autowrap t)
 
 ;; textmate mode
 ;(load "textmate-0.1.el")
