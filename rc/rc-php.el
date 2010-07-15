@@ -4,7 +4,7 @@
       (cons '("\\.\\(php\\)\\'" . php-mode)
 	    auto-mode-alist))
 (defun pear-php-mode-hook ()
-  (setq c-basic-offset 2)) ;for the funmobile's rule
+  (setq c-basic-offset 4)) ;for the funmobile's rule
 (add-hook 'php-mode-hook 'pear-php-mode-hook)
 
 
