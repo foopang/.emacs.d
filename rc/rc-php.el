@@ -3,8 +3,17 @@
 (setq auto-mode-alist
       (cons '("\\.\\(php\\)\\'" . php-mode)
 	    auto-mode-alist))
+
+
 (defun pear-php-mode-hook ()
-  (setq c-basic-offset 4)) ;for the funmobile's rule
+  (setq c-basic-offset 4)
+  (setq indent-tabs-mode nil)
+  (setq fill-column 78)
+  (c-set-offset 'case-label '+)
+  (c-set-offset 'arglist-close 'c-lineup-arglist-operators)
+  (c-set-offset 'arglist-intro '+)
+  (c-set-offset 'arglist-cont-nonempty 'c-lineup-math)
+  )
 (add-hook 'php-mode-hook 'pear-php-mode-hook)
 
 

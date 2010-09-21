@@ -71,7 +71,3 @@
 ;;(eldoc-add-command 'autopairs-ret) ; if using ElDoc
 (global-set-key (kbd "RET") 'autopairs-ret)
 
-
-
-;; customizations
-;;(setq custom-file "~/.emacs.d/custom.el")
