@@ -23,8 +23,13 @@
 ;; 
 
 ;;; Code:
-(add-to-list 'load-path "~/.emacs.d/site-lisp/org/")
+;;(add-to-list 'load-path "~/.emacs.d/site-lisp/org/lisp")
+(setq load-path (cons "~/.emacs.d/site-lisp/org-mode/lisp" load-path))
+(setq load-path (cons "~/.emacs.d/site-lisp/org-mode/contrib/lisp" load-path))
+
+
 (require 'org-install)
+;;(require 'org)
 
 (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
 (global-set-key "\C-cl" 'org-store-link)
@@ -32,6 +37,25 @@
 (global-set-key "\C-cb" 'org-iswitchb)
 
 (setq org-log-done t)
+
+(setq org-ditaa-jar-path (expand-file-name "~/.emacs.d/java/ditaa0_9.jar"))
+
+(add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
+
+(setq org-babel-load-languages (quote ((emacs-lisp . t)
+				       (dot . t)
+				       (ditaa . t)
+				       (R . t)
+				       (python . t)
+				       (ruby . t)
+				       (gnuplot . t)
+				       (clojure . t)
+				       (sh . t))))
+
+					; Do not prompt to confirm evaluation
+					; This may be dangerous - make sure you understand the consequences
+					; of setting this -- see the docstring for details
+(setq org-confirm-babel-evaluate nil)
 
 (provide 'rc-org-mode)
 ;;; rc-org-mode.el ends here
