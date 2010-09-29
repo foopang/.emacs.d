@@ -282,3 +282,5 @@ buffer read-only, so I suggest setting kill-read-only-ok to t."
 ;;      '(anything-etags-c-source-etags-select
 ;;       ))
 
+(add-to-list 'load-path "~/.emacs.d/site-lisp/elim/elisp")
+(autoload 'garak "garak" nil t)
