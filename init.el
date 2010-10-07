@@ -11,6 +11,7 @@
 (load "rc-auto-insert.el")
 (load "rc-ccmode.el")
 (load "rc-cedet.el")
+(load "rc-doxgen.el")
 (load "rc-ecb.el")
 (load "rc-gdb.el")
 ;;(load "rc-haskell.el")
