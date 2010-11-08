@@ -8,6 +8,7 @@
 ;;       (cd "~"))
 
 (load "rc-init.el")
+(load "rc-auto-complete.el")
 (load "rc-auto-insert.el")
 (load "rc-ccmode.el")
 (load "rc-cedet.el")
@@ -21,7 +22,7 @@
 (load "rc-html.el")
 (load "rc-php.el")
 (load "rc-yasnippet.el")
-(load "rc-python.el")
+;;;(load "rc-python.el")
 (load "rc-w3m.el")
 (load "rc-yaml.el")
 
