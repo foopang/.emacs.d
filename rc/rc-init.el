@@ -45,8 +45,8 @@
 (global-set-key [(alt down)] 'windmove-down)))
 
 ;; tabbar
-(require 'tabbar)
-(tabbar-mode t)
+;;(require 'tabbar)
+;;(tabbar-mode t)
 
 ;; ediff
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
@@ -284,3 +284,9 @@ buffer read-only, so I suggest setting kill-read-only-ok to t."
 
 (add-to-list 'load-path "~/.emacs.d/site-lisp/elim/elisp")
 (autoload 'garak "garak" nil t)
+
+
+(require 'point-stack)
+(global-set-key '[(f5)] 'point-stack-push)
+(global-set-key '[(f6)] 'point-stack-pop)
+(global-set-key '[(f7)] 'point-stack-forward-stack-pop)
