@@ -25,11 +25,13 @@
 ;;; Code:
 
 (add-to-list 'load-path "~/.emacs.d/site-lisp/slime")  ; your SLIME directory
-(setq inferior-lisp-program "/usr/bin/sbcl") ; your Lisp system
+(setq inferior-lisp-program "sbcl") ; your Lisp system
 (require 'slime)
-(slime-setup)
+;;(slime-setup)
+;;(slime-setup '(slime-fancy))
+(slime-setup '(slime-fancy slime-asdf))
 
-
+(add-hook 'sldb-mode-hook #'(lambda () (setq autopair-dont-activate t)))
 
 
 (provide 'rc-lisp)
