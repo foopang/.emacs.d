@@ -8,23 +8,24 @@
 ;;       (cd "~"))
 
 (load "rc-init.el")
+(load "rc-auto-complete.el")
 (load "rc-auto-insert.el")
 (load "rc-ccmode.el")
 (load "rc-cedet.el")
 (load "rc-doxgen.el")
 (load "rc-ecb.el")
 (load "rc-gdb.el")
-;;(load "rc-haskell.el")
+;;;(load "rc-haskell.el")
 (load "rc-javascript.el")
-;;(load "rc-java.el")
+;;;(load "rc-java.el")
 (load "rc-org-mode.el")
 (load "rc-html.el")
 (load "rc-php.el")
 (load "rc-yasnippet.el")
-(load "rc-python.el")
+;;;(load "rc-python.el")
 (load "rc-w3m.el")
 (load "rc-yaml.el")
-
+(load "rc-lisp.el")
 
 (autoload 'flyspell-mode "flyspell" "On-the-fly spelling checker." t)
 
