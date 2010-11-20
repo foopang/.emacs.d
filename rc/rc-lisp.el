@@ -32,7 +32,7 @@
 (slime-setup '(slime-fancy slime-asdf))
 
 (add-hook 'sldb-mode-hook #'(lambda () (setq autopair-dont-activate t)))
-
+(define-key global-map (kbd "<f12>") 'slime-selector)
 
 (provide 'rc-lisp)
 ;;; rc-lisp.el ends here
