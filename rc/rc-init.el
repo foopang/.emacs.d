@@ -291,3 +291,6 @@ buffer read-only, so I suggest setting kill-read-only-ok to t."
 (global-set-key '[(f5)] 'point-stack-push)
 (global-set-key '[(f6)] 'point-stack-pop)
 (global-set-key '[(f7)] 'point-stack-forward-stack-pop)
+
+(require 'pabbrev)
+(global-pabbrev-mode)

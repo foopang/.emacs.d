@@ -29,5 +29,19 @@
 (add-to-list 'auto-mode-alist '("\\.json$" . espresso-mode))
 
 
+;; must be compiled before loaded
+;;(autoload 'js2-mode "js2" nil t)
+;;(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+
+
+
+;; MozRepl
+(autoload 'moz-minor-mode "moz" "Mozilla Minor and Inferior Mozilla Modes" t)
+
+(add-hook 'espresso-mode-hook 'espresso-custom-setup)
+(defun espresso-custom-setup ()
+  (moz-minor-mode 1))
+
 (provide 'rc-javascript)
 ;;; rc-javascript.el ends here
+
