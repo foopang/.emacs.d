@@ -294,3 +294,7 @@ buffer read-only, so I suggest setting kill-read-only-ok to t."
 
 (require 'pabbrev)
 (global-pabbrev-mode)
+
+;; japanese input setting
+(setq quail-japanese-switch-table
+      '((?q . ("japanese-katakana"))))	; qq: hiragana <-> katakana 
