@@ -37,10 +37,17 @@
 
 ;; MozRepl
 (autoload 'moz-minor-mode "moz" "Mozilla Minor and Inferior Mozilla Modes" t)
+(autoload 'run-mozilla "moz" "run inferior moz" t)
+(add-hook 'inferior-moz-mode-hook (lambda ()
+                                    (require 'moz-plus)
+                                    (moz-plus 1)
+                                    ))
+
 
 (add-hook 'espresso-mode-hook 'espresso-custom-setup)
 (defun espresso-custom-setup ()
-  (moz-minor-mode 1))
+  (moz-minor-mode 1)
+  (moz-plus 1))
 
 (provide 'rc-javascript)
 ;;; rc-javascript.el ends here
