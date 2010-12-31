@@ -293,7 +293,7 @@ buffer read-only, so I suggest setting kill-read-only-ok to t."
 (global-set-key '[(f7)] 'point-stack-forward-stack-pop)
 
 (require 'pabbrev)
-(global-pabbrev-mode)
+;;(global-pabbrev-mode)
 
 ;; japanese input setting
 (setq quail-japanese-switch-table
