@@ -28,6 +28,9 @@
 (add-to-list 'auto-mode-alist '("\\.js$" . espresso-mode))
 (add-to-list 'auto-mode-alist '("\\.json$" . espresso-mode))
 
+;;(add-to-list 'auto-mode-alist '("\\.js\\'" . javascript-mode))
+;;(autoload 'javascript-mode "javascript" nil t)
+
 
 ;; must be compiled before loaded
 ;;(autoload 'js2-mode "js2" nil t)
@@ -43,6 +46,10 @@
                                     (moz-plus 1)
                                     ))
 
+;;(add-hook 'javascript-mode-hook 'javascript-custom-setup)
+;;(defun javascript-custom-setup ()
+;;  (moz-minor-mode 1)
+;;  (moz-plus))
 
 (add-hook 'espresso-mode-hook 'espresso-custom-setup)
 (defun espresso-custom-setup ()
