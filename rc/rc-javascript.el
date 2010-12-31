@@ -51,8 +51,12 @@
 ;;  (moz-minor-mode 1)
 ;;  (moz-plus))
 
+;;(semanticdb-enable-exuberent-ctags 'espresso-mode)
+(semantic-ectag-add-language-support espresso-mode "javascript" "cfmv")
+(add-hook 'espresso-mode-hook 'semantic-ectag-simple-setup)
 (add-hook 'espresso-mode-hook 'espresso-custom-setup)
 (defun espresso-custom-setup ()
+  
   (moz-minor-mode 1)
   (moz-plus 1))
 
