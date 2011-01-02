@@ -8,6 +8,7 @@
 ;;       (cd "~"))
 
 (load "rc-init.el")
+(load "rc-ispell.el")
 (load "rc-auto-complete.el")
 (load "rc-auto-insert.el")
 (load "rc-ccmode.el")
@@ -27,7 +28,7 @@
 (load "rc-yaml.el")
 (load "rc-lisp.el")
 
-(autoload 'flyspell-mode "flyspell" "On-the-fly spelling checker." t)
+;;(autoload 'flyspell-mode "flyspell" "On-the-fly spelling checker." t)
 
 ;;(add-to-list 'load-path "~/.emacs.d/themes")
 ;;(when (require 'jao-themes nil t)
