@@ -29,6 +29,26 @@
 (define-key ac-complete-mode-map "\C-n" 'ac-next)
 (define-key ac-complete-mode-map "\C-p" 'ac-previous)
 
+;; Python or python mode?
+(eval-after-load 'python
+  '(progn
+     (when (load "flymake" t) 
+       (defun flymake-pyflakes-init () 
+	 (let* ((temp-file (flymake-init-create-temp-buffer-copy 
+			    'flymake-create-temp-inplace)) 
+		(local-file (file-relative-name 
+			     temp-file 
+			     (file-name-directory buffer-file-name)))) 
+	   (list "pyflakes" (list local-file)))) 
+
+       (add-to-list 'flymake-allowed-file-name-masks 
+		    '("\\.py\\'" flymake-pyflakes-init))) 
+
+     (add-hook 'find-file-hook 'flymake-find-file-hook)
+
+     ))
+
+
 
 ;; Initialize Yasnippet                                                                                        
 ;Don't map TAB to yasnippet                                                                                    
