@@ -22,8 +22,10 @@
 (load "rc-org-mode.el")
 ;;;(load "rc-html.el")
 (load "rc-php.el")
-(load "rc-yasnippet.el")
-;;;(load "rc-python.el")
+;;;(load "rc-yasnippet.el")
+(load "rc-python.el")
+;;;(load-file "~/.emacs.d/site-lisp/emacs-for-python/epy-init.el")
+
 (load "rc-w3m.el")
 (load "rc-yaml.el")
 (load "rc-lisp.el")

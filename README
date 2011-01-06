@@ -14,3 +14,6 @@ Ropemacs
 Ropemode:
 
     * repo url: http://bitbucket.org/agr/ropemode 
+
+pyflakes:    
+http://pypi.python.org/pypi/pyflakes    
