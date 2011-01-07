@@ -30,7 +30,6 @@
 (load "rc-yaml.el")
 (load "rc-lisp.el")
 
-;;(autoload 'flyspell-mode "flyspell" "On-the-fly spelling checker." t)
 
 ;;(add-to-list 'load-path "~/.emacs.d/themes")
 ;;(when (require 'jao-themes nil t)

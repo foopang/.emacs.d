@@ -1,3 +1,5 @@
+;; turn on X11 copy & Paste to/from Emacs
+(setq x-select-enable-clipboard t)
 
 ;; use Ctrl-x Ctrl-m replace M-x
 (global-set-key "\C-x\C-m" 'execute-extended-command)
@@ -14,8 +16,6 @@
 ;;(setq auto-save-file-name-transforms
 ;;      '(("\\`/[^/]*:\\([^/]*/\\)*\\([^/]*\\)\\'" "~/.emacs.d/tmp/\\2" t)
 ;;	("\\`/?\\([^/]*/\\)*\\([^/]*\\)\\'" "~/.emacs.d/auto/\\2" t)))
-
-
 
 (fset 'yes-or-no-p 'y-or-n-p) ;; instead asking yes or no
 (setq inhibit-splash-screen t) ;;hides welcome screen
@@ -65,8 +65,6 @@ buffer read-only, so I suggest setting kill-read-only-ok to t."
 
 (setq-default kill-read-only-ok t)
 (global-set-key "\C-c\C-j" 'copy-line)
-
-
 
 ;; open new line
 
@@ -301,3 +299,12 @@ buffer read-only, so I suggest setting kill-read-only-ok to t."
 
 (require 'ido)
 (ido-mode t)
+
+;; (defadvice message (before who-said-that activate)
+;;   "Find out who said that thing. and say so."
+;;   (let ((trace nil) (n 1) (frame nil))
+;;     (while (setq frame (backtrace-frame n))
+;;       (setq n     (1+ n) 
+;; 	    trace (cons (cadr frame) trace)) )
+;;     (ad-set-arg 0 (concat "<<%S>>:\n" (ad-get-arg 0)))
+;;     (ad-set-args 1 (cons trace (ad-get-args 1))) ))
