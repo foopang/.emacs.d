@@ -13,6 +13,9 @@
 (setq backup-by-copying nil)
 (setq backup-directory-alist '(("" . "~/.emacs.d/backup/")))
 (setq auto-save-file-name-transforms '((".*" "~/.emacs.d/auto/" t)))
+
+(setq temporary-file-directory "~/.emacs.d/tmp")
+
 ;;(setq auto-save-file-name-transforms
 ;;      '(("\\`/[^/]*:\\([^/]*/\\)*\\([^/]*\\)\\'" "~/.emacs.d/tmp/\\2" t)
 ;;	("\\`/?\\([^/]*/\\)*\\([^/]*\\)\\'" "~/.emacs.d/auto/\\2" t)))
