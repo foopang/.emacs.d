@@ -1,7 +1,7 @@
 ;; CEDET
 ;; Load CEDET.
 ;; See cedet/common/cedet.info for configuration details.
-(load "~/.emacs.d/site-lisp/cedet-cvs/common/cedet.el")
+(load "~/.emacs.d/site-lisp/cedet-bzr/common/cedet.el")
 ;;(require 'semantic-gcc)
 
 
@@ -43,7 +43,7 @@
 
 ;; enable ctags for some languages:
 ;;  Unix Shell, Perl, Pascal, Tcl, Fortran, Asm
-;;(semantic-load-enable-primary-exuberent-ctags-support)
+(semantic-load-enable-primary-exuberent-ctags-support)
 
 ;; customisation of modes
 (defun alexott/cedet-hook ()
