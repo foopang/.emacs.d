@@ -8,7 +8,7 @@
 ;;       (cd "~"))
 
 (load "rc-init.el")
-(load "rc-tags.el")
+;;;(load "rc-tags.el")
 (load "rc-ispell.el")
 (load "rc-auto-complete.el")
 (load "rc-auto-insert.el")
@@ -40,7 +40,7 @@
 (add-to-list 'load-path "~/.emacs.d/site-lisp/color-theme-6.6.0/")
 (require 'color-theme)
 ;;(load-file "~/.emacs.d/themes/color-theme-almost-monokai.el")
-;;;(load-file "~/.emacs.d/themes/color-theme-jeff.el")
+(load-file "~/.emacs.d/themes/color-theme-jeff.el")
 (load-file "~/.emacs.d/themes/color-theme-alexpogosyan-light.el")
 (eval-after-load "color-theme"
   '(progn
