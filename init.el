@@ -8,7 +8,8 @@
 ;;       (cd "~"))
 
 (load "rc-init.el")
-;;;(load "rc-tags.el")
+(load "rc-mathematics.el")
+(load "rc-tags.el")
 (load "rc-ispell.el")
 (load "rc-auto-complete.el")
 (load "rc-auto-insert.el")
