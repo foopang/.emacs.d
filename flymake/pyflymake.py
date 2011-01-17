@@ -55,6 +55,13 @@ class LintRunner(object):
     def stream(self):
         return 'stdout'
 
+    @property
+    def streams(self):
+        if isinstance(self.stream, basestring):
+            return (self.stream,)
+        return self.stream
+    
+
     @classmethod
     def process_output(cls, line):
         m = cls.output_matcher.match(line)
@@ -80,9 +87,9 @@ class LintRunner(object):
         env = dict(os.environ, **self.env)
         logging.debug(' '.join(cmdline))
         process = Popen(cmdline, stdout=PIPE, stderr=PIPE, env=env)
-
-        for line in getattr(process, self.stream):
-            self.process_output(line)
+        for stream in tuple(self.streams):
+            for line in getattr(process, stream):
+                self.process_output(line)
 
         if logging.getLogger().isEnabledFor(logging.DEBUG):
             other_stream = ('stdout', 'stderr')[self.stream == 'stdout']
@@ -177,6 +184,7 @@ class PycheckerRunner(LintRunner):
 
 class PyflakesRunner(LintRunner):
     command = 'python'
+    stream = ('stderr', 'stdout')
 
     output_matcher = re.compile(
         r'(?P<filename>[^:]+):'
