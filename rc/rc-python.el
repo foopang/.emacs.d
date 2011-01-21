@@ -1,4 +1,7 @@
 (require 'python)
+(setq python-path
+       (python-send-receive
+       "import sys; print '_emacs_out ' + ':'.join(sys.path)"))
 (require 'auto-complete)
 ;;(add-to-list 'load-path "~/.emacs.d/site-lisp/yasnippet-0.5.9/")
 ;;(require 'yasnippet)
