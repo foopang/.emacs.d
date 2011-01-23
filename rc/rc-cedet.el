@@ -43,7 +43,7 @@
 
 ;; enable ctags for some languages:
 ;;  Unix Shell, Perl, Pascal, Tcl, Fortran, Asm
-(semantic-load-enable-primary-exuberent-ctags-support)
+;(semantic-load-enable-primary-exuberent-ctags-support)
 
 ;; customisation of modes
 (defun alexott/cedet-hook ()
@@ -73,6 +73,12 @@
   (local-set-key "\C-c\C-r" 'semantic-symref)
   )
 (add-hook 'c-mode-common-hook 'alexott/c-mode-cedet-hook)
+
+(defun python-mode-cedet-hook ()
+  (global-ede-mode 0)
+  (semantic-mode 0)
+  )
+(add-hook 'python-mode-hook 'python-mode-cedet-hook)
 
 (custom-set-variables
  '(semantic-idle-scheduler-idle-time 3)

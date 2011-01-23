@@ -1605,12 +1605,6 @@ Deal with multiple consecutive prompts and with data following an
   :group 'python
   :type 'boolean)
 
-(defcustom python-path nil
-  "..."
-  :group 'python
-  :type 'string)
-
-
 ;;;###autoload
 (defun run-python (&optional cmd noshow new)
   "Run an inferior Python process, input and output via buffer *Python*.
@@ -1648,8 +1642,6 @@ buffer for a list of commands.)"
 	      (cons (concat "PYTHONPATH="
 			    ;;data-directory
 			    (expand-file-name "~/.emacs.d/python/")
-			    (if python-path (concat path-separator  python-path) )
-			    
 			    )
 		    process-environment)))
 	;; Suppress use of pager for help output.  We used to use
