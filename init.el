@@ -1,81 +1,24 @@
-(add-to-list 'load-path "~/.emacs.d/site-lisp")
-(add-to-list 'load-path "~/.emacs.d/rc")
+(setq inhibit-splash-screen t)         ; hide welcome screen
+(setq inhibit-startup-message t)
+;;;(setq width (max width (+ (length str) 1)))   ;line numbers
+(setq c-basic-offset 2) ; indents 2 chars                                                                                                              
+(setq tab-width 2)          ; and 2 char wide for TAB
+(setq indent-tabs-mode nil) ; And force use of spaces
 
-(require 'cl)
+(global-linum-mode t)
 
-;;(progn (cd "~/.emacs.d/site-lisp")
-;;       (normal-top-level-add-subdirs-to-load-path)
-;;       (cd "~"))
+(set-frame-parameter (selected-frame) 'alpha '(85 50))
+ (add-to-list 'default-frame-alist '(alpha 85 50))
 
-(load "rc-init.el")
-(load "rc-mathematics.el")
-(load "rc-tags.el")
-(load "rc-ispell.el")
-(load "rc-auto-complete.el")
-(load "rc-auto-insert.el")
-(load "rc-ccmode.el")
-(load "rc-cedet.el")
-(load "rc-doxgen.el")
-(load "rc-ecb.el")
-(load "rc-gdb.el")
-;;;(load "rc-haskell.el")
-(load "rc-javascript.el")
-;;;(load "rc-java.el")
-(load "rc-org-mode.el")
-;;;(load "rc-html.el")
-(load "rc-php.el")
-(load "rc-yasnippet.el")
-(load "rc-python.el")
-;;;(load-file "~/.emacs.d/site-lisp/emacs-for-python/epy-init.el")
-
-(load "rc-w3m.el")
-(load "rc-yaml.el")
-(load "rc-lisp.el")
-
-
-;;(add-to-list 'load-path "~/.emacs.d/themes")
-;;(when (require 'jao-themes nil t)
-;;  (enable-theme 'jao-dark))
-
-;; init color-theme
-(add-to-list 'load-path "~/.emacs.d/site-lisp/color-theme-6.6.0/")
+(add-to-list 'load-path "~/.emacs.d/color-theme")
 (require 'color-theme)
-;;(load-file "~/.emacs.d/themes/color-theme-almost-monokai.el")
-(load-file "~/.emacs.d/themes/color-theme-jeff.el")
-(load-file "~/.emacs.d/themes/color-theme-alexpogosyan-light.el")
 (eval-after-load "color-theme"
   '(progn
      (color-theme-initialize)
-     ;;(color-theme-blue-mood)
-     ;;;(color-theme-jeff)
-     ;;(color-theme-almost-monokai)
-     (color-theme-alexpogosyan-light)
-))
+     (load-file "~/.emacs.d/color-theme/themes/color-theme-blackboard.el")
+     (color-theme-blackboard)))
 
-;; auto pair
-(require 'autopair)
-(autopair-global-mode) ;; enable autopair in all buffers
-(setq autopair-autowrap t)
-
-;; textmate mode
-;(load "textmate-0.1.el")
-
-(setq skeleton-pair t)
-(setq skeleton-pair-alist
-      '((?\( _ ?\))
-	(?[  _ ?])
-	(?{  _ ?})
-	(?\" _ ?\")))
-
-(defun autopairs-ret (arg)
-  (interactive "P")
-  ;;(message "autopiars call")
-  (let (pair)
-    (dolist (pair skeleton-pair-alist)
-      (when (eq (char-after) (car (last pair)))
-	(save-excursion (newline-and-indent))))
-    (newline arg)
-    (indent-according-to-mode)))
-;;(eldoc-add-command 'autopairs-ret) ; if using ElDoc
-(global-set-key (kbd "RET") 'autopairs-ret)
-
+(add-to-list 'load-path "~/.emacs.d/site-lisp")
+;;(load "rc-php.el")
+(autoload 'php-mode "php-mode" "Major mode for editing php code." t)
+(add-to-list 'auto-mode-alist '("\\.php$" . php-mode))
