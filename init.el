@@ -88,6 +88,30 @@
 
 (global-set-key (kbd "C-c r")  'rename-file-and-buffer)
 
+(defun shift-text (distance)
+  (if (use-region-p)
+      (let ((mark (mark)))
+        (save-excursion
+          (indent-rigidly (region-beginning)
+                          (region-end)
+                          distance)
+          (push-mark mark t t)
+          (setq deactivate-mark nil)))
+    (indent-rigidly (line-beginning-position)
+                    (line-end-position)
+                    distance)))
+
+(defun shift-right (count)
+  (interactive "p")
+  (shift-text count))
+
+(defun shift-left (count)
+  (interactive "p")
+  (shift-text (- count)))
+
+(global-set-key (kbd "C-c i") (lambda () (interactive) (shift-text 4)))
+(global-set-key (kbd "C-S-c i") (lambda () (interactive) (shift-text -4)))
+
 (require 'ido)
 (ido-mode t)
 
@@ -107,7 +131,7 @@
 (eval-after-load "color-theme"
   '(progn
      (color-theme-initialize)
-     (color-theme-deep-blue)))
+     (color-theme-dark-blue2)))
 ;; (eval-after-load "color-theme"
 ;;  '(progn
 ;;     (color-theme-initialize)
@@ -137,30 +161,49 @@
 
 ;; Align with spaces only
 (defadvice align-regexp (around align-regexp-with-spaces)
-  "Never use tabs for alignment."
-  (let ((indent-tabs-mode nil))
-    ad-do-it))
+ "Never use tabs for alignment."
+ (let ((indent-tabs-mode nil))
+   ad-do-it))
 (ad-activate 'align-regexp)
+(global-set-key (kbd "C-c \\") 'align-regexp)
 
-(load (concat user-emacs-directory "sr-speedbar.el"))
+;; (Load (concat user-emacs-directory "sr-speedbar.el"))
 
-(require 'sr-speedbar)
-(global-set-key (kbd "s-s") 'sr-speedbar-toggle)
+;; (require 'sr-speedbar)
+;; (global-set-key (kbd "s-s") 'sr-speedbar-toggle)
 
 ;; (when (string-match "^xterm" (getenv "TERM"))
 ;;   (load (concat user-emacs-directory "xterm-extras.el"))
 ;;   (require 'xterm-extras)
 ;;   (xterm-extra-keys))
 
+;; package
 (require 'package)
 (package-initialize)
 
-; start auto-complete with emacs
+
+;; start auto-complete with emacs
 (require 'auto-complete)
-; do default config for auto-complete
+;; do default config for auto-complete
 (require 'auto-complete-config)
 (ac-config-default)
 
+;; dirty fix for having AC everywhere
+;; (define-globalized-minor-mode real-global-auto-complete-mode
+;;   auto-complete-mode (lambda ()
+;;                        (if (not (minibufferp (current-buffer)))
+;;                            (auto-complete-mode 1))
+;;                        ))
+;; (real-global-auto-complete-mode t)
+(global-auto-complete-mode)
+
+
+;; start yasnippet with emacs
+(require 'yasnippet)
+(yas-global-mode 1)
+
+
+;; web mode
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\.twig\\'" . web-mode))
@@ -171,13 +214,25 @@
 (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.html.twig\\'" . web-mode))
 
+
+;; Multiple cursors
+(setq mc/list-file "~/.emacs.d/preferred/mc-lists.el")
 (require 'multiple-cursors)
 (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
 (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 
+(defun create-cursor ()
+  (interactive)
+  (mc/create-fake-cursor-at-point))
+
+(global-set-key (kbd "C-c C-,") 'create-cursor)
+(global-set-key (kbd "C-c C-.") 'multiple-cursors-mode)
+
+
 ;;; activate ecb
+(setq ecb-tip-of-the-day nil)
 (require 'ecb)
 (require 'ecb-autoloads)
 
@@ -192,7 +247,7 @@
 (global-set-key (kbd "C-!") 'ecb-goto-window-directories)
 (global-set-key (kbd "C-@") 'ecb-goto-window-sources)
 (global-set-key (kbd "C-#") 'ecb-goto-window-methods)
-(global-set-key (kbd "C-$") 'ecb-goto-window-compilation)
+(global-set-key (kbd "C-$") 'ecb-goto-window-history)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -209,3 +264,41 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+
+;; eclim    
+(require 'eclim)
+
+(custom-set-variables
+  '(eclim-eclipse-dirs '("/Applications/eclipse"))
+  '(eclim-executable "/Applications/eclipse/eclim")
+  '(eclimd-default-workspace "~/Documents/workspace"))
+
+(setq eclim-auto-save nil)
+
+(global-eclim-mode -1)
+
+;; add the emacs-eclim source
+;; (when (global-eclim-mode 1)
+;;     (require 'ac-emacs-eclim-source)
+;;     (ac-emacs-eclim-config))
+
+
+;; Expand region
+(require 'expand-region)
+(global-set-key (kbd "C-=") 'er/expand-region)
+
+
+;; Smartparens
+(setq sp-highlight-pair-overlay nil)
+(require 'smartparens-config)
+(smartparens-global-mode)
+
+
+;; Undo tree
+(require 'undo-tree)
+(global-undo-tree-mode)
+
+
+;; Desktop save mode
+(load (concat user-emacs-directory "custom-desktop-save-mode.el"))
