@@ -93,5 +93,5 @@
   (interactive "p")
   (shift-text (- count)))
 
-(global-set-key (kbd "C-c i") (lambda () (interactive) (shift-text 4)))
-(global-set-key (kbd "C-S-c i") (lambda () (interactive) (shift-text -4)))
+(global-set-key (kbd "C-i") (lambda () (interactive) (shift-text 4)))
+(global-set-key (kbd "C-S-i") (lambda () (interactive) (shift-text -4)))

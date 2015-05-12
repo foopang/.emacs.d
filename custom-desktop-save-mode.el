@@ -38,3 +38,10 @@
 	     (if (saved-session)
 		 (if (y-or-n-p "Restore desktop? ")
 		     (session-restore)))))
+
+;; ask use whether to save session when kill
+(add-hook 'kill-emacs-hook
+          '(lambda ()
+            (if (y-or-n-p "Save current session? ")
+             (desktop-save-in-desktop-dir)
+            (message "Session not saved."))))

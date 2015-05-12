@@ -110,6 +110,7 @@
 
 ;; web mode
 (require 'web-mode)
+(add-to-list 'web-mode-comment-formats '("php" . "//"))
 (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\.twig\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.[agj]sp\\'" . web-mode))
@@ -211,3 +212,9 @@
 
 ;; custom key bindings
 (load (concat user-emacs-directory "custom-key-bindings.el"))
+
+
+;; Yaml mode
+(require 'yaml-mode)
+(add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
+
