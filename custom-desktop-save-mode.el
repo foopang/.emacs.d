@@ -32,16 +32,21 @@
 	(message "Session not saved."))
   (desktop-save-in-desktop-dir)))
 
+;; (add-hook 'emacs-startup-hook
+;;           (lambda () (when (cl-notany 'buffer-file-name (buffer-list))
+;;            (set-q open-with-file t))))
+
 ;; ask user whether to restore desktop at start-up
 (add-hook 'after-init-hook
 	  '(lambda ()
-	     (if (saved-session)
+	     (if (and (saved-session) window-system)
 		 (if (y-or-n-p "Restore desktop? ")
 		     (session-restore)))))
 
 ;; ask use whether to save session when kill
 (add-hook 'kill-emacs-hook
           '(lambda ()
-            (if (y-or-n-p "Save current session? ")
-             (desktop-save-in-desktop-dir)
-            (message "Session not saved."))))
+             (if (and (saved-session) window-system)
+              (if (y-or-n-p "Save current session? ")
+                 (desktop-save-in-desktop-dir)
+               (message "Session not saved.")))))

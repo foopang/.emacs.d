@@ -95,3 +95,13 @@
 
 (global-set-key (kbd "C-i") (lambda () (interactive) (shift-text 4)))
 (global-set-key (kbd "C-S-i") (lambda () (interactive) (shift-text -4)))
+
+;; Recent files
+(defun recentf-ido-find-file ()
+  "Find a recent file using Ido."
+  (interactive)
+  (let ((file (ido-completing-read "Choose recent file: " recentf-list nil t)))
+    (when file
+      (find-file file))))
+
+(global-set-key (kbd "C-x r f") 'recentf-ido-find-file)

@@ -23,6 +23,9 @@
 (require 'linum)
 (global-linum-mode t)
 
+(require 'recentf)
+(recentf-mode t)
+
 (set-frame-parameter (selected-frame) 'alpha '(90 80))
  (add-to-list 'default-frame-alist '(alpha 90 80))
 
@@ -36,7 +39,7 @@
 (eval-after-load "color-theme"
   '(progn
      (color-theme-initialize)
-     (color-theme-dark-blue2)))
+     (color-theme-deep-blue)))
 ;; (eval-after-load "color-theme"
 ;;  '(progn
 ;;     (color-theme-initialize)
@@ -100,7 +103,8 @@
 ;;                            (auto-complete-mode 1))
 ;;                        ))
 ;; (real-global-auto-complete-mode t)
-(global-auto-complete-mode)
+;; (global-auto-complete-mode)
+(add-to-list 'ac-modes 'sql-mode)
 
 
 ;; start yasnippet with emacs
@@ -196,10 +200,9 @@
 
 
 ;; Smartparens
-(setq sp-highlight-pair-overlay nil)
-(require 'smartparens-config)
-(smartparens-global-mode)
-
+;; (setq sp-highlight-pair-overlay nil)
+;; (require 'smartparens-config)
+;; (smartparens-global-mode)
 
 ;; Undo tree
 (require 'undo-tree)
@@ -218,3 +221,14 @@
 (require 'yaml-mode)
 (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
 
+;; Show paren mode
+(show-paren-mode 1)
+
+;; Paredit
+;; (require 'paredit)
+;; (add-hook 'emacs-lisp-mode-hook (lambda () (paredit-mode 1)))
+;; (add-hook 'web-mode-hook (lambda () (paredit-mode 1)))
+
+;; Electric Pair
+(add-hook 'php-mode (lambda () (electric-pair-mode 1)))
+(add-hook 'emacs-lisp-mode-hook (lambda () (electric-pair-mode 1)))
