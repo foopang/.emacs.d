@@ -13,8 +13,10 @@
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
 
+;; Remove trailing whitespace
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-                         ("marmalade" . "https://marmalade-repo.org/packages/")
                          ("melpa" . "http://melpa.org/packages/")))
 
 (require 'ido)
@@ -51,8 +53,18 @@
 
 (add-to-list 'load-path "~/.emacs.d/site-lisp")
 ;;(load "rc-php.el")
+
+
+;; PHP mode
 (autoload 'php-mode "php-mode" "Major mode for editing php code." t)
 (add-to-list 'auto-mode-alist '("\\.php$" . php-mode))
+(add-hook 'php-mode 'php-enable-symfony2-coding-style)
+;; edep
+(add-to-list 'load-path "~/.emacs.d/edep")
+(load "~/.emacs.d/edep/loaddefs.el")
+;; PHP tags
+
+
 
 
 ;; (load (concat user-emacs-directory "drupal/drupal-init.el"))
@@ -176,7 +188,7 @@
  )
 
 
-;; eclim    
+;; eclim
 (require 'eclim)
 
 (custom-set-variables
@@ -232,3 +244,4 @@
 ;; Electric Pair
 (add-hook 'php-mode (lambda () (electric-pair-mode 1)))
 (add-hook 'emacs-lisp-mode-hook (lambda () (electric-pair-mode 1)))
+(add-hook 'web-mode-hook (lambda () (electric-pair-mode -1)))

@@ -4,3 +4,9 @@
 [submodule "markdown-mode"]
 	path = markdown-mode
 	url = git://jblevins.org/git/markdown-mode.git
+[submodule "edep"]
+	path = edep
+	url = git@github.com:jorissteyn/edep.git
+[submodule "phptags"]
+	path = phptags
+	url = git@github.com:jorissteyn/phptags.git
