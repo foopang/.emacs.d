@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: Insert an parameter annotation at point.
+# key: @par
+# --
+@param  ${1:mixed}  \$$0

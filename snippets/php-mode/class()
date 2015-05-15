@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: Insert a class with a constructor
+# key: class()
+# expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region 't))
+# --
+class $1
+{
+    public function __construct()
+    {
+        $0
+    }
+
+    $2
+}

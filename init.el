@@ -2,13 +2,18 @@
 (setq inhibit-splash-screen t)         ; hide welcome screen
 (setq inhibit-startup-message t)
 ;;;(setq width (max width (+ (length str) 1)))   ;line numbers
-(setq-default c-basic-offset 4) ; indents 2 chars
+(setq-default c-basic-offset 4) ; indents 4 chars
 (setq-default c-basic-indent 4)
-(setq-default tab-width 4)          ; and 2 char wide for TAB
+(setq-default tab-width 4)          ; and 4 char wide for TAB
 (setq-default indent-tabs-mode nil) ; And force use of spaces
 (setq indent-line-function 'insert-tab)
 (setq c-default-style "linux")
 (setq tab-stop-list (number-sequence 2 200 2))
+(setq yaml-indent-offset 4)
+
+
+;; Change "yes or no" to "y or n"
+(fset 'yes-or-no-p 'y-or-n-p)
 
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
@@ -26,6 +31,7 @@
 (global-linum-mode t)
 
 (require 'recentf)
+(setq recentf-max-saved-items 200)
 (recentf-mode t)
 
 (set-frame-parameter (selected-frame) 'alpha '(90 80))
@@ -63,7 +69,7 @@
 (add-to-list 'load-path "~/.emacs.d/edep")
 (load "~/.emacs.d/edep/loaddefs.el")
 ;; PHP tags
-
+(setq edep-phptags-index "/usr/local/bin/phptags")
 
 
 
@@ -116,7 +122,10 @@
 ;;                        ))
 ;; (real-global-auto-complete-mode t)
 ;; (global-auto-complete-mode)
+
+;; SQL mode
 (add-to-list 'ac-modes 'sql-mode)
+(add-hook 'sql-mode-hook (lambda () (electric-indent-mode -1)))
 
 
 ;; start yasnippet with emacs
@@ -176,10 +185,18 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ecb-layout-window-sizes (quote (("left8" (ecb-directories-buffer-name 0.24516129032258063 . 0.28) (ecb-sources-buffer-name 0.24516129032258063 . 0.24) (ecb-methods-buffer-name 0.24516129032258063 . 0.28) (ecb-history-buffer-name 0.24516129032258063 . 0.18)))))
+ '(ecb-layout-window-sizes
+   (quote
+    (("left8"
+      (ecb-directories-buffer-name 0.24516129032258063 . 0.28)
+      (ecb-sources-buffer-name 0.24516129032258063 . 0.24)
+      (ecb-methods-buffer-name 0.24516129032258063 . 0.28)
+      (ecb-history-buffer-name 0.24516129032258063 . 0.18)))))
  '(ecb-options-version "2.40")
- ;; '(tool-bar-mode nil)
-)
+ '(eclim-eclipse-dirs (quote ("/Applications/eclipse")))
+ '(eclim-executable "/Applications/eclipse/eclim")
+ '(eclimd-default-workspace "~/Documents/workspace")
+ '(yaml-indent-offset 4))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -191,10 +208,6 @@
 ;; eclim
 (require 'eclim)
 
-(custom-set-variables
-  '(eclim-eclipse-dirs '("/Applications/eclipse"))
-  '(eclim-executable "/Applications/eclipse/eclim")
-  '(eclimd-default-workspace "~/Documents/workspace"))
 
 (setq eclim-auto-save nil)
 
@@ -232,6 +245,7 @@
 ;; Yaml mode
 (require 'yaml-mode)
 (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
+(add-hook 'yaml-mode-hook (lambda () (electric-indent-mode 1)))
 
 ;; Show paren mode
 (show-paren-mode 1)
@@ -242,6 +256,11 @@
 ;; (add-hook 'web-mode-hook (lambda () (paredit-mode 1)))
 
 ;; Electric Pair
-(add-hook 'php-mode (lambda () (electric-pair-mode 1)))
+(add-hook 'php-mode-hook (lambda () (electric-pair-mode 1)))
 (add-hook 'emacs-lisp-mode-hook (lambda () (electric-pair-mode 1)))
 (add-hook 'web-mode-hook (lambda () (electric-pair-mode -1)))
+
+
+;; Helm
+;; (require 'helm-config)
+;; (helm-mode 1)

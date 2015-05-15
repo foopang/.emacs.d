@@ -1,0 +1,18 @@
+# -*- mode: snippet -*-
+# name: test-case
+# key: testcase
+# --
+
+use PHPUnit_Framework_TestCase as TestCase;
+
+class ${1:Class}Test extends TestCase
+{
+    public function setUp()
+    {
+    }
+
+    public function test()
+    {
+        $0
+    }
+}

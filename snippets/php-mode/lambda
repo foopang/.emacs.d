@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: Insert an anonymous function at point
+# --
+function ($1) {
+    $0
+}

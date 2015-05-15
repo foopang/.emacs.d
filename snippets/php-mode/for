@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: Insert a loop with counter at point
+# key: for
+# --
+for (\$$1 = $2; \$$1 < $3; $$1++) {
+   $0
+}

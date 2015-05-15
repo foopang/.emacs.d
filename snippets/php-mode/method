@@ -1,0 +1,4 @@
+${2:$$(yas-choose-value '("public" "protected" "private"))} function $1()
+{
+    $0
+}
