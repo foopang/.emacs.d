@@ -24,11 +24,15 @@
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
                          ("melpa" . "http://melpa.org/packages/")))
 
+;; disable auto save mode
+(auto-save-mode -1)
+
 (require 'ido)
 (ido-mode t)
 
 (require 'linum)
 (global-linum-mode t)
+(line-number-mode -1)
 
 (require 'recentf)
 (setq recentf-max-saved-items 200)
@@ -264,3 +268,8 @@
 ;; Helm
 ;; (require 'helm-config)
 ;; (helm-mode 1)
+
+
+;; Emmet-mode
+(add-hook 'web-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
+(add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.

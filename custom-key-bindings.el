@@ -105,3 +105,16 @@
       (find-file file))))
 
 (global-set-key (kbd "C-x r f") 'recentf-ido-find-file)
+
+
+;; windmove
+(global-set-key (kbd "C-c h")  'windmove-left)
+(global-set-key (kbd "C-c l") 'windmove-right)
+(global-set-key (kbd "C-c k")    'windmove-up)
+(global-set-key (kbd "C-c j")  'windmove-down)
+
+(global-set-key (kbd "C-x p") 'prev-window)
+
+(defun prev-window ()
+  (interactive)
+  (other-window -1))
