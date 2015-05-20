@@ -10,3 +10,6 @@
 [submodule "phptags"]
 	path = phptags
 	url = git@github.com:jorissteyn/phptags.git
+[submodule "cedet"]
+	path = cedet
+	url = https://bitbucket.org/stevenremot/cedet.git

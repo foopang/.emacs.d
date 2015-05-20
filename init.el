@@ -21,18 +21,60 @@
 ;; Remove trailing whitespace
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
+
+;; (require 'cedet-remove-builtin)
+;; (cedet-remove-builtin)
+;; (require 'cl)
+;; (setq load-path (remove-if (lambda (x) (string-match-p "cedet" x)) load-path))
+
+;; CEDET
+(load-file "~/.emacs.d/cedet/cedet-devel-load.el")
+(semantic-load-enable-excessive-code-helpers)      ; Enable prototype help and smart completion
+;;(global-srecode-minor-mode 1)            ; Enable template insertion menu
+
+;; Semantic
+(global-semantic-idle-scheduler-mode)
+(global-semantic-idle-completions-mode)
+(global-semantic-decoration-mode)
+(global-semantic-highlight-func-mode)
+(global-semantic-show-unmatched-syntax-mode)
+
+(semantic-mode 1)
+(require 'semantic/ia)
+
+;; Enable EDE (Project Management) features
+(global-ede-mode 1)
+
+
+;; CC-mode
+(add-hook 'c-mode-common-hook '(lambda ()
+        (setq ac-sources (append '(ac-source-semantic) ac-sources))
+))
+
+;; Load CEDET CONTRIB.
+(load-file "~/.emacs.d/cedet/contrib/cedet-contrib-load.el")
+
+;; (ede-php-root-mode 1)
+;; (ede-php-root-project "Hypebeast"
+;;                       :file "~/Sites/Hypebeast/composer.json")
+
+(ede-php-root-project "Hypebeast"
+                      :file "~/Sites/Hypebeast/composer.json"
+                      :class-loaders '(:psr0 (("Hypebeast" . "src")
+                                              ("HypebeastStore" . "src"))))
+
+
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
                          ("melpa" . "http://melpa.org/packages/")))
 
-;; disable auto save mode
-(auto-save-mode -1)
-
-(require 'ido)
-(ido-mode t)
+;; ido mode
+(ido-mode 1)
+(ido-everywhere 1)
 
 (require 'linum)
 (global-linum-mode t)
 (line-number-mode -1)
+(add-hook 'shell-mode-hook (lambda () (linum-mode -1)))
 
 (require 'recentf)
 (setq recentf-max-saved-items 200)
@@ -70,11 +112,8 @@
 (add-to-list 'auto-mode-alist '("\\.php$" . php-mode))
 (add-hook 'php-mode 'php-enable-symfony2-coding-style)
 ;; edep
-(add-to-list 'load-path "~/.emacs.d/edep")
-(load "~/.emacs.d/edep/loaddefs.el")
-;; PHP tags
-(setq edep-phptags-index "/usr/local/bin/phptags")
-
+;; (add-to-list 'load-path "~/.emacs.d/edep")
+;; (load "~/.emacs.d/edep/loaddefs.el")
 
 
 ;; (load (concat user-emacs-directory "drupal/drupal-init.el"))
@@ -86,7 +125,11 @@
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 
+(fringe-mode -1)
+(tooltip-mode -1)
 (tool-bar-mode -1)
+(menu-bar-mode -1)
+(auto-save-mode -1)
 (scroll-bar-mode -1)
 
 ;; Align with spaces only
@@ -112,6 +155,12 @@
 (package-initialize)
 
 
+;; flx-ido
+;; (require 'flx-ido)
+;; (flx-ido-mode 1)
+;; (setq ido-use-faces nil)
+
+
 ;; start auto-complete with emacs
 (require 'auto-complete)
 ;; do default config for auto-complete
@@ -129,6 +178,7 @@
 
 ;; SQL mode
 (add-to-list 'ac-modes 'sql-mode)
+(add-to-list 'ac-modes 'nxml-mode)
 (add-hook 'sql-mode-hook (lambda () (electric-indent-mode -1)))
 
 
@@ -200,6 +250,8 @@
  '(eclim-eclipse-dirs (quote ("/Applications/eclipse")))
  '(eclim-executable "/Applications/eclipse/eclim")
  '(eclimd-default-workspace "~/Documents/workspace")
+ '(nxml-child-indent 4)
+ '(nxml-outline-child-indent 4)
  '(yaml-indent-offset 4))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -210,12 +262,10 @@
 
 
 ;; eclim
-(require 'eclim)
+;; (require 'eclim)
+;; (setq eclim-auto-save nil)
+;; (global-eclim-mode -1)
 
-
-(setq eclim-auto-save nil)
-
-(global-eclim-mode -1)
 
 ;; add the emacs-eclim source
 ;; (when (global-eclim-mode 1)
@@ -273,3 +323,31 @@
 ;; Emmet-mode
 (add-hook 'web-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
 (add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
+
+
+;; Projectile
+(projectile-global-mode)
+;; (setq projectile-enable-caching t)
+
+(when (memq window-system '(mac ns))
+  (exec-path-from-shell-initialize))
+
+
+;; Perspective mode
+(with-eval-after-load "persp-mode-autoloads"
+  (setq wg-morph-on nil) ;; switch off animation
+  (add-hook 'after-init-hook #'(lambda () (persp-mode 1))))
+;; (persp-mode)
+(require 'persp-projectile)
+
+
+;; Workgroup2
+;; (workgroups-mode 1)
+
+
+;; Aggresive indent
+(add-hook 'php-mode-hook #'Aggresive-indent-mode)
+
+
+;; AG
+(setq ag-highlight-search t)
