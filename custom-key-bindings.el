@@ -118,3 +118,7 @@
 (defun prev-window ()
   (interactive)
   (other-window -1))
+
+
+;; Magit
+(global-set-key (kbd "C-c g") 'magit-status)
