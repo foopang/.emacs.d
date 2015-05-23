@@ -9,8 +9,53 @@
 (setq indent-line-function 'insert-tab)
 (setq c-default-style "linux")
 (setq tab-stop-list (number-sequence 2 200 2))
-(setq yaml-indent-offset 4)
 
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default-frame-alist
+    (quote
+     ((width . 180)
+      (height . 60)
+      (top . 0)
+      (left . 0)
+      (alpha 90 80)
+      (left-fringe . -1)
+      (right-fringe . -1)
+      (vertical-scroll-bars))))
+ '(ecb-layout-window-sizes
+   (quote
+    (("left8"
+      (ecb-directories-buffer-name 0.24516129032258063 . 0.28)
+      (ecb-sources-buffer-name 0.24516129032258063 . 0.24)
+      (ecb-methods-buffer-name 0.24516129032258063 . 0.28)
+      (ecb-history-buffer-name 0.24516129032258063 . 0.18)))))
+ '(ecb-options-version "2.40")
+ '(eclim-eclipse-dirs (quote ("/Applications/eclipse")))
+ '(eclim-executable "/Applications/eclipse/eclim")
+ '(eclimd-default-workspace "~/Documents/workspace")
+ '(nxml-child-indent 4)
+ '(nxml-outline-child-indent 4)
+ '(yaml-indent-offset 4))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+
+(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+                         ("melpa" . "http://melpa.org/packages/")))
+
+
+(fringe-mode -1)
+(tooltip-mode -1)
+(tool-bar-mode -1)
+(auto-save-mode -1)
+(scroll-bar-mode -1)
 
 ;; Change "yes or no" to "y or n"
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -21,6 +66,10 @@
 ;; Remove trailing whitespace
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
+;; package
+(require 'package)
+(package-initialize)
+
 
 ;; (require 'cedet-remove-builtin)
 ;; (cedet-remove-builtin)
@@ -28,44 +77,47 @@
 ;; (setq load-path (remove-if (lambda (x) (string-match-p "cedet" x)) load-path))
 
 ;; CEDET
-(load-file "~/.emacs.d/cedet/cedet-devel-load.el")
-(semantic-load-enable-excessive-code-helpers)      ; Enable prototype help and smart completion
+;; (load-file "~/.emacs.d/cedet/cedet-devel-load.el")
+
+;; custom modules
+;; (add-to-list 'load-path "~/.emacs.d/modules")
+;; ;; (require 'ofc-tags)
+;; (require 'ofc-php)
+
+
+;; (semantic-load-enable-excessive-code-helpers)      ; Enable prototype help and smart completion
 ;;(global-srecode-minor-mode 1)            ; Enable template insertion menu
 
 ;; Semantic
-(global-semantic-idle-scheduler-mode)
-(global-semantic-idle-completions-mode)
-(global-semantic-decoration-mode)
-(global-semantic-highlight-func-mode)
-(global-semantic-show-unmatched-syntax-mode)
+;; (global-semantic-idle-scheduler-mode)
+;; (global-semantic-idle-completions-mode)
+;; (global-semantic-decoration-mode)
+;; (global-semantic-highlight-func-mode)
+;; (global-semantic-show-unmatched-syntax-mode)
 
-(semantic-mode 1)
-(require 'semantic/ia)
+;; (semantic-mode 1)
+;; (require 'semantic/ia)
 
 ;; Enable EDE (Project Management) features
-(global-ede-mode 1)
+;; (global-ede-mode 1)
 
 
 ;; CC-mode
-(add-hook 'c-mode-common-hook '(lambda ()
-        (setq ac-sources (append '(ac-source-semantic) ac-sources))
-))
+;; (add-hook 'c-mode-common-hook '(lambda ()
+;;         (setq ac-sources (append '(ac-source-semantic) ac-sources))
+;; ))
 
 ;; Load CEDET CONTRIB.
-(load-file "~/.emacs.d/cedet/contrib/cedet-contrib-load.el")
+;; (load-file "~/.emacs.d/cedet/contrib/cedet-contrib-load.el")
 
 ;; (ede-php-root-mode 1)
 ;; (ede-php-root-project "Hypebeast"
 ;;                       :file "~/Sites/Hypebeast/composer.json")
 
-(ede-php-root-project "Hypebeast"
-                      :file "~/Sites/Hypebeast/composer.json"
-                      :class-loaders '(:psr0 (("Hypebeast" . "src")
-                                              ("HypebeastStore" . "src"))))
-
-
-(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-                         ("melpa" . "http://melpa.org/packages/")))
+;; (ede-php-root-project "Hypebeast"
+;;                       :file "~/Sites/Hypebeast/composer.json"
+;;                       :class-loaders '(:psr0 (("Hypebeast" . "src")
+;;                                               ("HypebeastStore" . "src"))))
 
 ;; ido mode
 (ido-mode 1)
@@ -80,43 +132,15 @@
 (setq recentf-max-saved-items 200)
 (recentf-mode t)
 
-(set-frame-parameter (selected-frame) 'alpha '(90 80))
- (add-to-list 'default-frame-alist '(alpha 90 80))
-
-(add-to-list 'default-frame-alist '(left . 0))
-(add-to-list 'default-frame-alist '(top . 0))
-(add-to-list 'default-frame-alist '(height . 50))
-(add-to-list 'default-frame-alist '(width . 155))
-
+;; theme
 (add-to-list 'load-path "~/.emacs.d/color-theme")
 (require 'color-theme)
 (eval-after-load "color-theme"
   '(progn
      (color-theme-initialize)
-     (color-theme-deep-blue)))
-;; (eval-after-load "color-theme"
-;;  '(progn
-;;     (color-theme-initialize)
-;;     (load-file "~/.emacs.d/color-theme/themes/color-theme-blackboard.el")
-;;     (color-theme-blackboard)))
-;; (add-to-list 'load-path "~/.emacs.d/emacs-color-theme-dark-blue2")
-;; (require 'color-theme-dark-blue2)
-;; (color-theme-dark-blue2)
+     ;; (color-theme-deep-blue)
+     (load-file "~/.emacs.d/color-theme/themes/material-theme.el")))
 
-(add-to-list 'load-path "~/.emacs.d/site-lisp")
-;;(load "rc-php.el")
-
-
-;; PHP mode
-(autoload 'php-mode "php-mode" "Major mode for editing php code." t)
-(add-to-list 'auto-mode-alist '("\\.php$" . php-mode))
-(add-hook 'php-mode 'php-enable-symfony2-coding-style)
-;; edep
-;; (add-to-list 'load-path "~/.emacs.d/edep")
-;; (load "~/.emacs.d/edep/loaddefs.el")
-
-
-;; (load (concat user-emacs-directory "drupal/drupal-init.el"))
 
 (load (concat user-emacs-directory "markdown-mode/markdown-mode.el"))
 (autoload 'markdown-mode "markdown-mode"
@@ -125,12 +149,6 @@
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 
-(fringe-mode -1)
-(tooltip-mode -1)
-(tool-bar-mode -1)
-(menu-bar-mode -1)
-(auto-save-mode -1)
-(scroll-bar-mode -1)
 
 ;; Align with spaces only
 (defadvice align-regexp (around align-regexp-with-spaces)
@@ -140,20 +158,11 @@
 (ad-activate 'align-regexp)
 (global-set-key (kbd "C-c \\") 'align-regexp)
 
-;; (Load (concat user-emacs-directory "sr-speedbar.el"))
-
-;; (require 'sr-speedbar)
-;; (global-set-key (kbd "s-s") 'sr-speedbar-toggle)
 
 ;; (when (string-match "^xterm" (getenv "TERM"))
 ;;   (load (concat user-emacs-directory "xterm-extras.el"))
 ;;   (require 'xterm-extras)
 ;;   (xterm-extra-keys))
-
-;; package
-(require 'package)
-(package-initialize)
-
 
 ;; flx-ido
 ;; (require 'flx-ido)
@@ -175,6 +184,7 @@
 ;;                        ))
 ;; (real-global-auto-complete-mode t)
 ;; (global-auto-complete-mode)
+
 
 ;; SQL mode
 (add-to-list 'ac-modes 'sql-mode)
@@ -233,32 +243,6 @@
 (global-set-key (kbd "C-@") 'ecb-goto-window-sources)
 (global-set-key (kbd "C-#") 'ecb-goto-window-methods)
 (global-set-key (kbd "C-$") 'ecb-goto-window-history)
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(ecb-layout-window-sizes
-   (quote
-    (("left8"
-      (ecb-directories-buffer-name 0.24516129032258063 . 0.28)
-      (ecb-sources-buffer-name 0.24516129032258063 . 0.24)
-      (ecb-methods-buffer-name 0.24516129032258063 . 0.28)
-      (ecb-history-buffer-name 0.24516129032258063 . 0.18)))))
- '(ecb-options-version "2.40")
- '(eclim-eclipse-dirs (quote ("/Applications/eclipse")))
- '(eclim-executable "/Applications/eclipse/eclim")
- '(eclimd-default-workspace "~/Documents/workspace")
- '(nxml-child-indent 4)
- '(nxml-outline-child-indent 4)
- '(yaml-indent-offset 4))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
 
 
 ;; eclim
@@ -346,8 +330,26 @@
 
 
 ;; Aggresive indent
-(add-hook 'php-mode-hook #'Aggresive-indent-mode)
+;; (add-hook 'php-mode-hook #'aggressive-indent-mode)
 
 
 ;; AG
 (setq ag-highlight-search t)
+
+
+;; PHP mode
+(setq ac-php-cscope nil)
+(push '("\\.php" . php-mode) auto-mode-alist)
+
+(require 'cl)
+  (require 'php-mode)
+(add-hook 'php-mode-hook
+          '(lambda ()
+             (auto-complete-mode 1)
+               (require 'ac-php)
+               (setq ac-sources  '(ac-source-php) )
+               (yas-global-mode 1)
+               (php-enable-symfony2-coding-style)
+               (define-key php-mode-map  (kbd "C-]") 'ac-php-find-symbol-at-point)   ;goto define
+               (define-key php-mode-map  (kbd "C-t") 'ac-php-location-stack-back) ;go back
+               ))
