@@ -1,6 +1,7 @@
 ;; (setq debug-on-error t)
 (setq inhibit-splash-screen t)         ; hide welcome screen
 (setq inhibit-startup-message t)
+(setq initial-scratch-message nil)
 ;;;(setq width (max width (+ (length str) 1)))   ;line numbers
 (setq-default c-basic-offset 4) ; indents 4 chars
 (setq-default c-basic-indent 4)
@@ -9,7 +10,12 @@
 (setq indent-line-function 'insert-tab)
 (setq c-default-style "linux")
 (setq tab-stop-list (number-sequence 2 200 2))
+(setq auto-revert-mode 1)
 
+;; smooth scrolling
+(setq scroll-step 1
+      scroll-conservatively 10000
+      auto-window-vscroll nil)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -272,14 +278,6 @@
 (global-undo-tree-mode)
 
 
-;; Desktop save mode
-(load (concat user-emacs-directory "custom-desktop-save-mode.el"))
-
-
-;; custom key bindings
-(load (concat user-emacs-directory "custom-key-bindings.el"))
-
-
 ;; Yaml mode
 (require 'yaml-mode)
 (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
@@ -353,3 +351,8 @@
                (define-key php-mode-map  (kbd "C-]") 'ac-php-find-symbol-at-point)   ;goto define
                (define-key php-mode-map  (kbd "C-t") 'ac-php-location-stack-back) ;go back
                ))
+
+
+(add-to-list 'load-path "~/.emacs.d/custom")
+(require 'custom-desktop-save-mode)
+(require 'custom-key-bindings)

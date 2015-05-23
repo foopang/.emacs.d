@@ -10,7 +10,7 @@
 ;;    	     (setq desktop-dirname-tmp desktop-dirname)
 ;;    	     (desktop-remove)
 ;;    	     (setq desktop-dirname desktop-dirname-tmp)))
-   
+
 (defun saved-session ()
   (file-exists-p (concat desktop-dirname "/" desktop-base-file-name)))
 
@@ -50,3 +50,5 @@
               (if (y-or-n-p "Save current session? ")
                  (desktop-save-in-desktop-dir)
                (message "Session not saved.")))))
+
+(provide 'custom-desktop-save-mode)
