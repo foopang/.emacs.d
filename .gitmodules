@@ -10,3 +10,9 @@
 [submodule "phptags"]
 	path = phptags
 	url = git@github.com:jorissteyn/phptags.git
+[submodule "site-lisp/cedet"]
+	path = site-lisp/cedet
+	url = https://bitbucket.org/stevenremot/cedet
+[submodule "site-lisp/ede-php-autoload"]
+	path = site-lisp/ede-php-autoload
+	url = git@github.com:stevenremot/ede-php-autoload.git

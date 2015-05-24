@@ -13,9 +13,9 @@
 (setq auto-revert-mode 1)
 
 ;; smooth scrolling
-(setq scroll-step 1
-      scroll-conservatively 10000
-      auto-window-vscroll nil)
+;; (setq scroll-step 1
+;;       scroll-conservatively 10000
+;;       auto-window-vscroll nil)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -72,62 +72,76 @@
 ;; Remove trailing whitespace
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
+
+;; Custom load paths
+(add-to-list 'load-path "~/.emacs.d/custom")
+(add-to-list 'load-path "~/.emacs.d/site-lisp/ede-php-autoload")
+
+
 ;; package
 (require 'package)
 (package-initialize)
 
 
-;; (require 'cedet-remove-builtin)
-;; (cedet-remove-builtin)
-;; (require 'cl)
-;; (setq load-path (remove-if (lambda (x) (string-match-p "cedet" x)) load-path))
-
 ;; CEDET
-;; (load-file "~/.emacs.d/cedet/cedet-devel-load.el")
-
-;; custom modules
-;; (add-to-list 'load-path "~/.emacs.d/modules")
-;; ;; (require 'ofc-tags)
-;; (require 'ofc-php)
+(load-file "~/.emacs.d/site-lisp/cedet/cedet-devel-load.el")
+(require 'ede-php-autoload-mode)
 
 
-;; (semantic-load-enable-excessive-code-helpers)      ; Enable prototype help and smart completion
-;;(global-srecode-minor-mode 1)            ; Enable template insertion menu
+(semantic-load-enable-excessive-code-helpers)      ; Enable prototype help and smart completion
+(global-srecode-minor-mode 1)            ; Enable template insertion menu
 
 ;; Semantic
-;; (global-semantic-idle-scheduler-mode)
-;; (global-semantic-idle-completions-mode)
-;; (global-semantic-decoration-mode)
-;; (global-semantic-highlight-func-mode)
-;; (global-semantic-show-unmatched-syntax-mode)
+(global-semantic-idle-scheduler-mode)
+(global-semantic-idle-completions-mode)
+(global-semantic-decoration-mode)
+(global-semantic-highlight-func-mode)
+(global-semantic-show-unmatched-syntax-mode)
 
-;; (semantic-mode 1)
-;; (require 'semantic/ia)
+(semantic-mode 1)
+(require 'semantic/ia)
 
 ;; Enable EDE (Project Management) features
-;; (global-ede-mode 1)
+(global-ede-mode 1)
 
 
 ;; CC-mode
-;; (add-hook 'c-mode-common-hook '(lambda ()
-;;         (setq ac-sources (append '(ac-source-semantic) ac-sources))
-;; ))
+(add-hook 'c-mode-common-hook '(lambda ()
+        (setq ac-sources (append '(ac-source-semantic) ac-sources))
+))
 
 ;; Load CEDET CONTRIB.
-;; (load-file "~/.emacs.d/cedet/contrib/cedet-contrib-load.el")
+(load-file "~/.emacs.d/site-lisp/cedet/contrib/cedet-contrib-load.el")
 
-;; (ede-php-root-mode 1)
-;; (ede-php-root-project "Hypebeast"
-;;                       :file "~/Sites/Hypebeast/composer.json")
 
-;; (ede-php-root-project "Hypebeast"
-;;                       :file "~/Sites/Hypebeast/composer.json"
-;;                       :class-loaders '(:psr0 (("Hypebeast" . "src")
-;;                                               ("HypebeastStore" . "src"))))
+;; ;; (ede-php-root-mode 1)
+;; ;; (ede-php-root-project "Hypebeast"
+;; ;;                       :file "~/Sites/Hypebeast/composer.json")
+
+;; (ede-php-autoload-project "Hypebeast"
+;;                       :file "~/Sites/Hypebeast/README.md"
+;;                       :class-loaders '(:psr0 (("Hypebeast" . "src/Hypebeast")
+;;                                               ("HypebeastStore" . "src/HypebeastStore"))))
+
+
+(add-hook 'php-mode-hook #'ede-php-autoload-mode)
+
+
 
 ;; ido mode
 (ido-mode 1)
 (ido-everywhere 1)
+(ido-ubiquitous-mode 1)
+;;smex
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+;; This is your old M-x.
+(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
+;; flx-ido
+;; (require 'flx-ido)
+;; (flx-ido-mode 1)
+;; (setq ido-use-faces nil)
+
 
 (require 'linum)
 (global-linum-mode t)
@@ -169,11 +183,6 @@
 ;;   (load (concat user-emacs-directory "xterm-extras.el"))
 ;;   (require 'xterm-extras)
 ;;   (xterm-extra-keys))
-
-;; flx-ido
-;; (require 'flx-ido)
-;; (flx-ido-mode 1)
-;; (setq ido-use-faces nil)
 
 
 ;; start auto-complete with emacs
@@ -336,23 +345,33 @@
 
 
 ;; PHP mode
-(setq ac-php-cscope nil)
-(push '("\\.php" . php-mode) auto-mode-alist)
+;; (setq ac-php-cscope nil)
+;; (push '("\\.php" . php-mode) auto-mode-alist)
 
-(require 'cl)
-  (require 'php-mode)
-(add-hook 'php-mode-hook
-          '(lambda ()
-             (auto-complete-mode 1)
-               (require 'ac-php)
-               (setq ac-sources  '(ac-source-php) )
-               (yas-global-mode 1)
-               (php-enable-symfony2-coding-style)
-               (define-key php-mode-map  (kbd "C-]") 'ac-php-find-symbol-at-point)   ;goto define
-               (define-key php-mode-map  (kbd "C-t") 'ac-php-location-stack-back) ;go back
-               ))
+;; (require 'cl)
+;;   (require 'php-mode)
+;; (add-hook 'php-mode-hook
+;;           '(lambda ()
+;;              (auto-complete-mode 1)
+;;                (require 'ac-php)
+;;                (setq ac-sources  '(ac-source-php) )
+;;                (yas-global-mode 1)
+;;                (php-enable-symfony2-coding-style)
+;;                (define-key php-mode-map  (kbd "C-]") 'ac-php-find-symbol-at-point)   ;goto define
+;;                (define-key php-mode-map  (kbd "C-t") 'ac-php-location-stack-back) ;go back
+;;                ))
 
 
-(add-to-list 'load-path "~/.emacs.d/custom")
 (require 'custom-desktop-save-mode)
 (require 'custom-key-bindings)
+
+
+
+;; Semantic mode
+;; (semantic-mode 1)
+;; (add-hook 'php-mode-hook '(lambda () (
+;;     (add-to-list 'ac-sources 'ac-source-semantic)
+;; )))
+
+;; (add-to-list 'load-path "~/.emacs.d/edep")
+;; (load "~/.emacs.d/edep/loaddefs.el")
