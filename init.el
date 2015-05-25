@@ -142,6 +142,13 @@
 ;; (flx-ido-mode 1)
 ;; (setq ido-use-faces nil)
 
+;; Edit as root
+(defadvice ido-find-file (after find-file-sudo activate)
+  "Find file as root if necessary."
+  (unless (and buffer-file-name
+               (file-writable-p buffer-file-name))
+    (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
+
 
 (require 'linum)
 (global-linum-mode t)
