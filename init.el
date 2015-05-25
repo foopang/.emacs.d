@@ -28,7 +28,7 @@
       (height . 60)
       (top . 0)
       (left . 0)
-      (alpha 90 80)
+      (alpha 90 85)
       (left-fringe . -1)
       (right-fringe . -1)
       (vertical-scroll-bars))))
@@ -63,6 +63,20 @@
 (auto-save-mode -1)
 (scroll-bar-mode -1)
 
+
+;; theme
+(load-file "~/.emacs.d/themes/material-theme.el")
+;; (add-to-list 'load-path "~/.emacs.d/color-theme")
+;; (require 'color-theme)
+;; (eval-after-load "color-theme"
+;;   '(progn
+;;      (color-theme-initialize)
+;;      (load-file "~/.emacs.d/color-theme/themes/color-theme-sanityinc.el")
+;;      (color-theme-sanityinc-dark)
+;;      ;; (color-theme-deep-blue)
+;;      ))
+
+
 ;; Change "yes or no" to "y or n"
 (fset 'yes-or-no-p 'y-or-n-p)
 
@@ -75,7 +89,8 @@
 
 ;; Custom load paths
 (add-to-list 'load-path "~/.emacs.d/custom")
-(add-to-list 'load-path "~/.emacs.d/site-lisp/ede-php-autoload")
+;; (add-to-list 'load-path "~/.emacs.d/site-lisp/ede-php-autoload")
+(add-to-list 'load-path "~/.emacs.d/site-lisp/ac-php")
 
 
 ;; package
@@ -83,35 +98,35 @@
 (package-initialize)
 
 
-;; CEDET
-(load-file "~/.emacs.d/site-lisp/cedet/cedet-devel-load.el")
-(require 'ede-php-autoload-mode)
+;; ;; CEDET
+;; (load-file "~/.emacs.d/site-lisp/cedet/cedet-devel-load.el")
+;; (require 'ede-php-autoload-mode)
 
 
-(semantic-load-enable-excessive-code-helpers)      ; Enable prototype help and smart completion
-(global-srecode-minor-mode 1)            ; Enable template insertion menu
+;; (semantic-load-enable-excessive-code-helpers)      ; Enable prototype help and smart completion
+;; (global-srecode-minor-mode 1)            ; Enable template insertion menu
 
-;; Semantic
-(global-semantic-idle-scheduler-mode)
-(global-semantic-idle-completions-mode)
-(global-semantic-decoration-mode)
-(global-semantic-highlight-func-mode)
-(global-semantic-show-unmatched-syntax-mode)
+;; ;; Semantic
+;; (global-semantic-idle-scheduler-mode)
+;; (global-semantic-idle-completions-mode)
+;; (global-semantic-decoration-mode)
+;; (global-semantic-highlight-func-mode)
+;; (global-semantic-show-unmatched-syntax-mode)
 
-(semantic-mode 1)
-(require 'semantic/ia)
+;; (semantic-mode 1)
+;; (require 'semantic/ia)
 
-;; Enable EDE (Project Management) features
-(global-ede-mode 1)
+;; ;; Enable EDE (Project Management) features
+;; (global-ede-mode 1)
 
 
-;; CC-mode
-(add-hook 'c-mode-common-hook '(lambda ()
-        (setq ac-sources (append '(ac-source-semantic) ac-sources))
-))
+;; ;; CC-mode
+;; (add-hook 'c-mode-common-hook '(lambda ()
+;;         (setq ac-sources (append '(ac-source-semantic) ac-sources))
+;; ))
 
-;; Load CEDET CONTRIB.
-(load-file "~/.emacs.d/site-lisp/cedet/contrib/cedet-contrib-load.el")
+;; ;; Load CEDET CONTRIB.
+;; (load-file "~/.emacs.d/site-lisp/cedet/contrib/cedet-contrib-load.el")
 
 
 ;; ;; (ede-php-root-mode 1)
@@ -124,7 +139,7 @@
 ;;                                               ("HypebeastStore" . "src/HypebeastStore"))))
 
 
-(add-hook 'php-mode-hook #'ede-php-autoload-mode)
+;; (add-hook 'php-mode-hook #'ede-php-autoload-mode)
 
 
 
@@ -158,15 +173,6 @@
 (require 'recentf)
 (setq recentf-max-saved-items 200)
 (recentf-mode t)
-
-;; theme
-(add-to-list 'load-path "~/.emacs.d/color-theme")
-(require 'color-theme)
-(eval-after-load "color-theme"
-  '(progn
-     (color-theme-initialize)
-     ;; (color-theme-deep-blue)
-     (load-file "~/.emacs.d/color-theme/themes/material-theme.el")))
 
 
 (load (concat user-emacs-directory "markdown-mode/markdown-mode.el"))
@@ -352,21 +358,21 @@
 
 
 ;; PHP mode
-;; (setq ac-php-cscope nil)
-;; (push '("\\.php" . php-mode) auto-mode-alist)
+(setq ac-php-cscope nil)
+(push '("\\.php" . php-mode) auto-mode-alist)
 
-;; (require 'cl)
-;;   (require 'php-mode)
-;; (add-hook 'php-mode-hook
-;;           '(lambda ()
-;;              (auto-complete-mode 1)
-;;                (require 'ac-php)
-;;                (setq ac-sources  '(ac-source-php) )
-;;                (yas-global-mode 1)
-;;                (php-enable-symfony2-coding-style)
-;;                (define-key php-mode-map  (kbd "C-]") 'ac-php-find-symbol-at-point)   ;goto define
-;;                (define-key php-mode-map  (kbd "C-t") 'ac-php-location-stack-back) ;go back
-;;                ))
+(require 'cl)
+  (require 'php-mode)
+(add-hook 'php-mode-hook
+          '(lambda ()
+             (auto-complete-mode 1)
+               (require 'ac-php)
+               (setq ac-sources  '(ac-source-php) )
+               (yas-global-mode 1)
+               (php-enable-symfony2-coding-style)
+               (define-key php-mode-map  (kbd "C-]") 'ac-php-find-symbol-at-point)   ;goto define
+               (define-key php-mode-map  (kbd "C-t") 'ac-php-location-stack-back) ;go back
+               ))
 
 
 (require 'custom-desktop-save-mode)
