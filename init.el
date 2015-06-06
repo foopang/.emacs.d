@@ -12,10 +12,15 @@
 (setq tab-stop-list (number-sequence 2 200 2))
 (setq auto-revert-mode 1)
 
+(setq semantic-ectags-program "/usr/local/bin/ctags")
+
 ;; smooth scrolling
 ;; (setq scroll-step 1
 ;;       scroll-conservatively 10000
 ;;       auto-window-vscroll nil)
+
+(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+                         ("melpa" . "http://melpa.org/packages/")))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -29,8 +34,6 @@
       (top . 0)
       (left . 0)
       (alpha 90 85)
-      (left-fringe . -1)
-      (right-fringe . -1)
       (vertical-scroll-bars))))
  '(ecb-layout-window-sizes
    (quote
@@ -51,10 +54,13 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(js2-error ((t nil))))
 
-(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-                         ("melpa" . "http://melpa.org/packages/")))
+
+;; Enable commands
+(put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
+(put 'scroll-left 'disabled nil)
 
 
 (fringe-mode -1)
@@ -62,6 +68,14 @@
 (tool-bar-mode -1)
 (auto-save-mode -1)
 (scroll-bar-mode -1)
+
+
+;; Change "yes or no" to "y or n"
+(fset 'yes-or-no-p 'y-or-n-p)
+
+
+;; Remove trailing whitespace
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 
 ;; theme
@@ -77,20 +91,10 @@
 ;;      ))
 
 
-;; Change "yes or no" to "y or n"
-(fset 'yes-or-no-p 'y-or-n-p)
-
-(put 'downcase-region 'disabled nil)
-(put 'upcase-region 'disabled nil)
-
-;; Remove trailing whitespace
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
-
-
 ;; Custom load paths
 (add-to-list 'load-path "~/.emacs.d/custom")
-;; (add-to-list 'load-path "~/.emacs.d/site-lisp/ede-php-autoload")
-(add-to-list 'load-path "~/.emacs.d/site-lisp/ac-php")
+(add-to-list 'load-path "~/.emacs.d/site-lisp/ede-php-autoload")
+;; (add-to-list 'load-path "~/.emacs.d/site-lisp/ac-php")
 
 
 ;; package
@@ -98,7 +102,7 @@
 (package-initialize)
 
 
-;; ;; CEDET
+;; CEDET
 ;; (load-file "~/.emacs.d/site-lisp/cedet/cedet-devel-load.el")
 ;; (require 'ede-php-autoload-mode)
 
@@ -107,14 +111,37 @@
 ;; (global-srecode-minor-mode 1)            ; Enable template insertion menu
 
 ;; ;; Semantic
-;; (global-semantic-idle-scheduler-mode)
-;; (global-semantic-idle-completions-mode)
-;; (global-semantic-decoration-mode)
-;; (global-semantic-highlight-func-mode)
-;; (global-semantic-show-unmatched-syntax-mode)
+;; ;; (global-semantic-idle-scheduler-mode)
+;; ;; (global-semantic-idle-completions-mode)
+;; ;; (global-semantic-show-unmatched-syntax-mode)
+;; (setq semantic-default-submodes '((global-semantic-idle-scheduler-mode)
+;;                                   (global-semantic-idle-completions-mode)))
 
 ;; (semantic-mode 1)
-;; (require 'semantic/ia)
+;; ;; (require 'semantic/ia)
+
+;; (add-hook 'semantic-mode-hook '(lambda ()
+;;                                  (semantic-idle-scheduler-mode)
+;;                                   (semantic-idle-completions-mode)
+;;                                   (semantic-show-unmatched-syntax-mode nil)
+;;                                   (semantic-decoration-mode nil)
+;;                                   (semantic-highlight-func-mode nil)
+;;                                   (semantic-stickyfunc-mode nil)))
+
+;; (eval-after-load "semantic"
+;;    '(progn
+;; (setq semantic-default-submodes '((global-semantic-idle-scheduler-mode)
+;;                                   (global-semantic-idle-completions-mode)
+;;                                   (global-semantic-show-unmatched-syntax-mode nil)
+;;                                   (global-semantic-decoration-mode nil)
+;;                                   (global-semantic-highlight-func-mode nil)
+;;                                   (global-semantic-stickyfunc-mode nil)))
+;; ))
+
+
+
+;; (when (cedet-ectag-version-check t)
+;;   (semantic-load-enable-primary-exuberent-ctags-support))
 
 ;; ;; Enable EDE (Project Management) features
 ;; (global-ede-mode 1)
@@ -122,7 +149,7 @@
 
 ;; ;; CC-mode
 ;; (add-hook 'c-mode-common-hook '(lambda ()
-;;         (setq ac-sources (append '(ac-source-semantic) ac-sources))
+;;         (setq ac-sources '(ac-source-semantic))
 ;; ))
 
 ;; ;; Load CEDET CONTRIB.
@@ -133,14 +160,21 @@
 ;; ;; (ede-php-root-project "Hypebeast"
 ;; ;;                       :file "~/Sites/Hypebeast/composer.json")
 
+;; ;; (ede-php-autoload-project "Hypebeast"
+;; ;;                       :file "~/Sites/Hypebeast/README.md"
+;; ;;                       :class-loaders '(:psr0 (("Hypebeast" . "src/Hypebeast")
+;; ;;                                               ("HypebeastStore" . "src/HypebeastStore"))))
+
 ;; (ede-php-autoload-project "Hypebeast"
-;;                       :file "~/Sites/Hypebeast/README.md"
-;;                       :class-loaders '(:psr0 (("Hypebeast" . "src/Hypebeast")
-;;                                               ("HypebeastStore" . "src/HypebeastStore"))))
+;;                       :file "~/Sites/Hypebeast/README.md")
 
 
-;; (add-hook 'php-mode-hook #'ede-php-autoload-mode)
+;; (add-hook 'php-mode-hook '(lambda ()
+;;                             (ede-php-autoload-mode)
+;;                             (php-enable-symfony2-coding-style)))
 
+;; Delete Section Mode
+(delete-selection-mode 1)
 
 
 ;; ido mode
@@ -169,6 +203,11 @@
 (global-linum-mode t)
 (line-number-mode -1)
 (add-hook 'shell-mode-hook (lambda () (linum-mode -1)))
+(add-hook 'Info-mode-hook (lambda () (linum-mode -1)))
+(add-hook 'magit-log-mode-hook (lambda () (linum-mode -1)))
+(add-hook 'magit-status-mode-hook (lambda () (linum-mode -1)))
+(add-hook 'magit-commit-mode-hook (lambda () (linum-mode -1)))
+
 
 (require 'recentf)
 (setq recentf-max-saved-items 200)
@@ -350,7 +389,7 @@
 
 
 ;; Aggresive indent
-;; (add-hook 'php-mode-hook #'aggressive-indent-mode)
+;; (add-hook 'web-mode-hook #'aggressive-indent-mode)
 
 
 ;; AG
@@ -358,21 +397,21 @@
 
 
 ;; PHP mode
-(setq ac-php-cscope nil)
-(push '("\\.php" . php-mode) auto-mode-alist)
+;; (setq ac-php-cscope nil)
+;; (push '("\\.php" . php-mode) auto-mode-alist)
 
-(require 'cl)
-  (require 'php-mode)
-(add-hook 'php-mode-hook
-          '(lambda ()
-             (auto-complete-mode 1)
-               (require 'ac-php)
-               (setq ac-sources  '(ac-source-php) )
-               (yas-global-mode 1)
-               (php-enable-symfony2-coding-style)
-               (define-key php-mode-map  (kbd "C-]") 'ac-php-find-symbol-at-point)   ;goto define
-               (define-key php-mode-map  (kbd "C-t") 'ac-php-location-stack-back) ;go back
-               ))
+;; (require 'cl)
+;;   (require 'php-mode)
+;; (add-hook 'php-mode-hook
+;;           '(lambda ()
+;;              (auto-complete-mode 1)
+;;                (require 'ac-php)
+;;                (setq ac-sources  '(ac-source-php) )
+;;                (yas-global-mode 1)
+;;                (php-enable-symfony2-coding-style)
+;;                (define-key php-mode-map  (kbd "C-]") 'ac-php-find-symbol-at-point)   ;goto define
+;;                (define-key php-mode-map  (kbd "C-t") 'ac-php-location-stack-back) ;go back
+;;                ))
 
 
 (require 'custom-desktop-save-mode)
