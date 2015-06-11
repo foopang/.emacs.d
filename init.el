@@ -22,6 +22,8 @@
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
                          ("melpa" . "http://melpa.org/packages/")))
 
+(setq package-list '(ag s dash aggressive-indent names auto-complete popup ecb emacs-eclim s emmet-mode etags-select exec-path-from-shell expand-region feature-mode flx-ido flx helm-ag helm async helm-projectile dash projectile pkg-info epl dash helm async icicles ido-ubiquitous ido-completing-read+ js2-mode less-css-mode magit git-rebase-mode git-commit-mode multiple-cursors names paredit-everywhere paredit persp-mode persp-projectile projectile pkg-info epl dash perspective perspective php-mode popup projectile pkg-info epl dash smartparens dash smex undo-tree web-mode workgroups2 f dash s anaphora dash xcscope yaml-mode yasnippet))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -100,6 +102,15 @@
 ;; package
 (require 'package)
 (package-initialize)
+
+; fetch the list of packages available
+(unless package-archive-contents
+  (package-refresh-contents))
+
+; install the missing packages
+(dolist (package package-list)
+  (unless (package-installed-p package)
+    (package-install package)))
 
 
 ;; CEDET
