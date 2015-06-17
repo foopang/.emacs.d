@@ -11,6 +11,7 @@
 (setq c-default-style "linux")
 (setq tab-stop-list (number-sequence 2 200 2))
 (setq auto-revert-mode 1)
+(setq package-enable-at-startup nil)
 
 (setq semantic-ectags-program "/usr/local/bin/ctags")
 
@@ -22,13 +23,21 @@
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
                          ("melpa" . "http://melpa.org/packages/")))
 
-(setq package-list '(ag s dash aggressive-indent names auto-complete popup ecb emacs-eclim s emmet-mode etags-select exec-path-from-shell expand-region feature-mode flx-ido flx helm-ag helm async helm-projectile dash projectile pkg-info epl dash helm async icicles ido-ubiquitous ido-completing-read+ js2-mode less-css-mode magit git-rebase-mode git-commit-mode multiple-cursors names paredit-everywhere paredit persp-mode persp-projectile projectile pkg-info epl dash perspective perspective php-mode popup projectile pkg-info epl dash smartparens dash smex undo-tree web-mode workgroups2 f dash s anaphora dash xcscope yaml-mode yasnippet))
+(setq package-list '(ag s dash aggressive-indent names auto-complete popup ecb emacs-eclim s emmet-mode etags-select expand-region feature-mode flatland-theme flx-ido flx graphene company flycheck let-alist pkg-info epl dash smartparens dash web-mode smex sr-speedbar ppd-sr-speedbar project-persist-drawer project-persist sr-speedbar exec-path-from-shell dash helm-ag helm async helm-projectile dash projectile pkg-info epl dash helm async icicles ido-ubiquitous ido-completing-read+ js2-mode less-css-mode let-alist magit git-rebase-mode git-commit-mode multiple-cursors names paredit-everywhere paredit persp-mode persp-projectile projectile pkg-info epl dash perspective perspective php-mode popup ppd-sr-speedbar project-persist-drawer project-persist sr-speedbar project-persist-drawer project-persist projectile pkg-info epl dash smart-mode-line rich-minority smartparens dash smex sr-speedbar undo-tree web-mode workgroups2 f dash s anaphora dash xcscope yaml-mode yasnippet))
+
+;; package
+(require 'package)
+(package-initialize)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-enabled-themes (quote (smart-mode-line-dark graphene flatland)))
+ '(custom-safe-themes
+   (quote
+    ("a2e7b508533d46b701ad3b055e7c708323fb110b6676a8be458a758dd8f24e27" "30c1546ebbae463b183bbeaed22c81cebf65d11cfb23c31f52cbf59ea99544fe" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
  '(default-frame-alist
     (quote
      ((width . 180)
@@ -48,15 +57,22 @@
  '(eclim-eclipse-dirs (quote ("/Applications/eclipse")))
  '(eclim-executable "/Applications/eclipse/eclim")
  '(eclimd-default-workspace "~/Documents/workspace")
+ '(linum-format 'dynamic)
  '(nxml-child-indent 4)
  '(nxml-outline-child-indent 4)
  '(yaml-indent-offset 4))
+ '(graphene-default-font "Consolas-16")
+ '(graphene-errors-auto nil)
+ '(graphene-variable-pitch-font "Lucida Grande-12")
+ '(graphene-completion-auto -1)
+ '(cursor-color "#839496")
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(js2-error ((t nil))))
+ '(js2-error ((t nil)))
+ '(linum ((t (:background "#3F3F3F" :slant normal)))))
 
 
 ;; Enable commands
@@ -70,8 +86,6 @@
 (tool-bar-mode -1)
 (auto-save-mode -1)
 (scroll-bar-mode -1)
-
-
 ;; Change "yes or no" to "y or n"
 (fset 'yes-or-no-p 'y-or-n-p)
 
@@ -81,7 +95,7 @@
 
 
 ;; theme
-(load-file "~/.emacs.d/themes/material-theme.el")
+;; (load-file "~/.emacs.d/themes/material-theme.el")
 ;; (add-to-list 'load-path "~/.emacs.d/color-theme")
 ;; (require 'color-theme)
 ;; (eval-after-load "color-theme"
@@ -99,10 +113,6 @@
 ;; (add-to-list 'load-path "~/.emacs.d/site-lisp/ac-php")
 
 
-;; package
-(require 'package)
-(package-initialize)
-
 ; fetch the list of packages available
 (unless package-archive-contents
   (package-refresh-contents))
@@ -111,7 +121,6 @@
 (dolist (package package-list)
   (unless (package-installed-p package)
     (package-install package)))
-
 
 ;; CEDET
 ;; (load-file "~/.emacs.d/site-lisp/cedet/cedet-devel-load.el")
@@ -188,15 +197,21 @@
 (delete-selection-mode 1)
 
 
+;; Graphene (saner emacs defaults)
+(require 'graphene)
+
+;; smart-mode-line
+(sml/setup)
+
 ;; ido mode
-(ido-mode 1)
-(ido-everywhere 1)
-(ido-ubiquitous-mode 1)
-;;smex
-(global-set-key (kbd "M-x") 'smex)
-(global-set-key (kbd "M-X") 'smex-major-mode-commands)
-;; This is your old M-x.
-(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
+;; (ido-mode 1)
+;; (ido-everywhere 1)
+;; (ido-ubiquitous-mode 1)
+;; ;;smex
+;; (global-set-key (kbd "M-x") 'smex)
+;; (global-set-key (kbd "M-X") 'smex-major-mode-commands)
+;; ;; This is your old M-x.
+;; (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 ;; flx-ido
 ;; (require 'flx-ido)
 ;; (flx-ido-mode 1)
@@ -210,14 +225,14 @@
     (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
 
 
-(require 'linum)
-(global-linum-mode t)
-(line-number-mode -1)
-(add-hook 'shell-mode-hook (lambda () (linum-mode -1)))
-(add-hook 'Info-mode-hook (lambda () (linum-mode -1)))
-(add-hook 'magit-log-mode-hook (lambda () (linum-mode -1)))
-(add-hook 'magit-status-mode-hook (lambda () (linum-mode -1)))
-(add-hook 'magit-commit-mode-hook (lambda () (linum-mode -1)))
+;; (require 'linum)
+;; (global-linum-mode t)
+;; (line-number-mode -1)
+;; (add-hook 'shell-mode-hook (lambda () (linum-mode -1)))
+;; (add-hook 'Info-mode-hook (lambda () (linum-mode -1)))
+;; (add-hook 'magit-log-mode-hook (lambda () (linum-mode -1)))
+;; (add-hook 'magit-status-mode-hook (lambda () (linum-mode -1)))
+;; (add-hook 'magit-commit-mode-hook (lambda () (linum-mode -1)))
 
 
 (require 'recentf)
@@ -249,10 +264,10 @@
 
 
 ;; start auto-complete with emacs
-(require 'auto-complete)
-;; do default config for auto-complete
-(require 'auto-complete-config)
-(ac-config-default)
+;; (require 'auto-complete)
+;; ;; do default config for auto-complete
+;; (require 'auto-complete-config)
+;; (ac-config-default)
 
 ;; dirty fix for having AC everywhere
 ;; (define-globalized-minor-mode real-global-auto-complete-mode
@@ -265,8 +280,8 @@
 
 
 ;; SQL mode
-(add-to-list 'ac-modes 'sql-mode)
-(add-to-list 'ac-modes 'nxml-mode)
+;; (add-to-list 'ac-modes 'sql-mode)
+;; (add-to-list 'ac-modes 'nxml-mode)
 (add-hook 'sql-mode-hook (lambda () (electric-indent-mode -1)))
 
 
@@ -307,7 +322,7 @@
 ;;; activate ecb
 (setq ecb-tip-of-the-day nil)
 (require 'ecb)
-(require 'ecb-autoloads)
+;; (require 'ecb-autoloads)
 
 ;;; activate and deactivate ecb
 (global-set-key (kbd "C-x C-;") 'ecb-activate)
@@ -425,9 +440,16 @@
 ;;                ))
 
 
+;; linum
+(defadvice linum-update-window (around linum-dynamic activate)
+  (let* ((w (length (number-to-string
+                     (count-lines (point-min) (point-max)))))
+         (linum-format (concat " %" (number-to-string w) "d ")))
+    ad-do-it))
+
 (require 'custom-desktop-save-mode)
 (require 'custom-key-bindings)
-
+(require 'linum-off)
 
 
 ;; Semantic mode
