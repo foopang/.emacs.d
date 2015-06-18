@@ -75,6 +75,10 @@
  '(linum ((t (:background "#3F3F3F" :slant normal)))))
 
 
+;; Graphene (saner emacs defaults)
+(require 'graphene)
+
+
 ;; Enable commands
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
@@ -193,12 +197,14 @@
 ;;                             (ede-php-autoload-mode)
 ;;                             (php-enable-symfony2-coding-style)))
 
+
 ;; Delete Section Mode
 (delete-selection-mode 1)
 
+(global-linum-mode t)
 
-;; Graphene (saner emacs defaults)
-(require 'graphene)
+(global-visual-line-mode -1)
+
 
 ;; smart-mode-line
 (sml/setup)
@@ -301,7 +307,7 @@
 (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.html.twig\\'" . web-mode))
-
+(sp-local-pair 'web-mode "{" "}" :actions nil)
 
 ;; Multiple cursors
 (setq mc/list-file "~/.emacs.d/preferred/mc-lists.el")
