@@ -85,6 +85,10 @@
   (exec-path-from-shell-initialize))
 
 
+;; AG
+(setq ag-highlight-search t)
+
+
 ;; Perspective mode
 (with-eval-after-load "persp-mode-autoloads"
   (setq wg-morph-on nil) ;; switch off animation
@@ -92,6 +96,16 @@
 ;; (persp-mode)
 (require 'persp-projectile)
 
+
+;; PHP mode
+;; (setq ac-php-cscope nil)
+(push '("\\.php" . php-mode) auto-mode-alist)
+
+
+;; SQL mode
+;; (add-to-list 'ac-modes 'sql-mode)
+;; (add-to-list 'ac-modes 'nxml-mode)
+(add-hook 'sql-mode-hook (lambda () (electric-indent-mode -1)))
 
 ;; Yaml mode
 (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))

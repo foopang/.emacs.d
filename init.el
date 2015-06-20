@@ -209,11 +209,6 @@
 ;; (global-auto-complete-mode)
 
 
-;; SQL mode
-;; (add-to-list 'ac-modes 'sql-mode)
-;; (add-to-list 'ac-modes 'nxml-mode)
-(add-hook 'sql-mode-hook (lambda () (electric-indent-mode -1)))
-
 
 
 ;; eclim
@@ -258,14 +253,6 @@
 ;; Aggresive indent
 ;; (add-hook 'web-mode-hook #'aggressive-indent-mode)
 
-
-;; AG
-(setq ag-highlight-search t)
-
-
-;; PHP mode
-;; (setq ac-php-cscope nil)
-;; (push '("\\.php" . php-mode) auto-mode-alist)
 
 ;; (require 'cl)
 ;;   (require 'php-mode)
