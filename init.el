@@ -1,17 +1,6 @@
-;; (setq debug-on-error t)
-(setq inhibit-splash-screen t)         ; hide welcome screen
-(setq inhibit-startup-message t)
-(setq initial-scratch-message nil)
-;;;(setq width (max width (+ (length str) 1)))   ;line numbers
-(setq-default c-basic-offset 4) ; indents 4 chars
-(setq-default c-basic-indent 4)
-(setq-default tab-width 4)          ; and 4 char wide for TAB
-(setq-default indent-tabs-mode nil) ; And force use of spaces
 (setq indent-line-function 'insert-tab)
 (setq c-default-style "linux")
-(setq tab-stop-list (number-sequence 2 200 2))
-(setq auto-revert-mode 1)
-(setq package-enable-at-startup nil)
+;; (setq package-enable-at-startup nil)
 
 (setq semantic-ectags-program "/usr/local/bin/ctags")
 
@@ -27,52 +16,17 @@
 
 ;; package
 (require 'package)
+
 (package-initialize)
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-enabled-themes (quote (smart-mode-line-dark graphene flatland)))
- '(custom-safe-themes
-   (quote
-    ("a2e7b508533d46b701ad3b055e7c708323fb110b6676a8be458a758dd8f24e27" "30c1546ebbae463b183bbeaed22c81cebf65d11cfb23c31f52cbf59ea99544fe" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
- '(default-frame-alist
-    (quote
-     ((width . 180)
-      (height . 60)
-      (top . 0)
-      (left . 0)
-      (alpha 90 85)
-      (vertical-scroll-bars))))
- '(ecb-layout-window-sizes
-   (quote
-    (("left8"
-      (ecb-directories-buffer-name 0.24516129032258063 . 0.28)
-      (ecb-sources-buffer-name 0.24516129032258063 . 0.24)
-      (ecb-methods-buffer-name 0.24516129032258063 . 0.28)
-      (ecb-history-buffer-name 0.24516129032258063 . 0.18)))))
- '(ecb-options-version "2.40")
- '(eclim-eclipse-dirs (quote ("/Applications/eclipse")))
- '(eclim-executable "/Applications/eclipse/eclim")
- '(eclimd-default-workspace "~/Documents/workspace")
- '(linum-format 'dynamic)
- '(nxml-child-indent 4)
- '(nxml-outline-child-indent 4)
- '(yaml-indent-offset 4))
- '(graphene-default-font "Consolas-16")
- '(graphene-errors-auto nil)
- '(graphene-variable-pitch-font "Lucida Grande-12")
- '(graphene-completion-auto -1)
- '(cursor-color "#839496")
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(js2-error ((t nil)))
- '(linum ((t (:background "#3F3F3F" :slant normal)))))
+; fetch the list of packages available
+(unless package-archive-contents
+  (package-refresh-contents))
+
+; install the missing packages
+(dolist (package package-list)
+  (unless (package-installed-p package)
+    (package-install package)))
 
 
 ;; Graphene (saner emacs defaults)
@@ -80,26 +34,33 @@
 
 
 ;; Enable commands
-(put 'downcase-region 'disabled nil)
-(put 'upcase-region 'disabled nil)
 (put 'scroll-left 'disabled nil)
 
-
-(fringe-mode -1)
 (tooltip-mode -1)
 (tool-bar-mode -1)
 (auto-save-mode -1)
 (scroll-bar-mode -1)
-;; Change "yes or no" to "y or n"
-(fset 'yes-or-no-p 'y-or-n-p)
+
+;; Delete Section Mode
+(delete-selection-mode 1)
+
+(global-visual-line-mode -1)
+
+;; Current line highlighting
+(global-hl-line-mode 1)
 
 
 ;; Remove trailing whitespace
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 
+;; custom file
+(setq custom-file (expand-file-name "custom-options.el" user-emacs-directory))
+(load custom-file)
+
+
 ;; theme
-;; (load-file "~/.emacs.d/themes/material-theme.el")
+(load-file "~/.emacs.d/themes/material-theme.el")
 ;; (add-to-list 'load-path "~/.emacs.d/color-theme")
 ;; (require 'color-theme)
 ;; (eval-after-load "color-theme"
@@ -110,21 +71,11 @@
 ;;      ;; (color-theme-deep-blue)
 ;;      ))
 
-
 ;; Custom load paths
 (add-to-list 'load-path "~/.emacs.d/custom")
 (add-to-list 'load-path "~/.emacs.d/site-lisp/ede-php-autoload")
 ;; (add-to-list 'load-path "~/.emacs.d/site-lisp/ac-php")
 
-
-; fetch the list of packages available
-(unless package-archive-contents
-  (package-refresh-contents))
-
-; install the missing packages
-(dolist (package package-list)
-  (unless (package-installed-p package)
-    (package-install package)))
 
 ;; CEDET
 ;; (load-file "~/.emacs.d/site-lisp/cedet/cedet-devel-load.el")
@@ -198,17 +149,6 @@
 ;;                             (php-enable-symfony2-coding-style)))
 
 
-;; Delete Section Mode
-(delete-selection-mode 1)
-
-(global-linum-mode t)
-
-(global-visual-line-mode -1)
-
-
-;; smart-mode-line
-(sml/setup)
-
 ;; ido mode
 ;; (ido-mode 1)
 ;; (ido-everywhere 1)
@@ -223,12 +163,6 @@
 ;; (flx-ido-mode 1)
 ;; (setq ido-use-faces nil)
 
-;; Edit as root
-(defadvice ido-find-file (after find-file-sudo activate)
-  "Find file as root if necessary."
-  (unless (and buffer-file-name
-               (file-writable-p buffer-file-name))
-    (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
 
 
 ;; (require 'linum)
@@ -241,9 +175,6 @@
 ;; (add-hook 'magit-commit-mode-hook (lambda () (linum-mode -1)))
 
 
-(require 'recentf)
-(setq recentf-max-saved-items 200)
-(recentf-mode t)
 
 
 (load (concat user-emacs-directory "markdown-mode/markdown-mode.el"))
@@ -254,13 +185,6 @@
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 
 
-;; Align with spaces only
-(defadvice align-regexp (around align-regexp-with-spaces)
- "Never use tabs for alignment."
- (let ((indent-tabs-mode nil))
-   ad-do-it))
-(ad-activate 'align-regexp)
-(global-set-key (kbd "C-c \\") 'align-regexp)
 
 
 ;; (when (string-match "^xterm" (getenv "TERM"))
@@ -291,58 +215,6 @@
 (add-hook 'sql-mode-hook (lambda () (electric-indent-mode -1)))
 
 
-;; start yasnippet with emacs
-(require 'yasnippet)
-(yas-global-mode 1)
-
-
-;; web mode
-(require 'web-mode)
-(add-to-list 'web-mode-comment-formats '("php" . "//"))
-(add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.tpl\\.php\\.twig\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.[agj]sp\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.html.twig\\'" . web-mode))
-(sp-local-pair 'web-mode "{" "}" :actions nil)
-
-;; Multiple cursors
-(setq mc/list-file "~/.emacs.d/preferred/mc-lists.el")
-(require 'multiple-cursors)
-(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
-(global-set-key (kbd "C->") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
-
-(defun create-cursor ()
-  (interactive)
-  (mc/create-fake-cursor-at-point))
-
-(global-set-key (kbd "C-c C-,") 'create-cursor)
-(global-set-key (kbd "C-c C-.") 'multiple-cursors-mode)
-
-
-;;; activate ecb
-(setq ecb-tip-of-the-day nil)
-(require 'ecb)
-;; (require 'ecb-autoloads)
-
-;;; activate and deactivate ecb
-(global-set-key (kbd "C-x C-;") 'ecb-activate)
-(global-set-key (kbd "C-x C-'") 'ecb-deactivate)
-;;; show/hide ecb window
-(global-set-key (kbd "C-;") 'ecb-show-ecb-windows)
-(global-set-key (kbd "C-'") 'ecb-hide-ecb-windows)
-;;; quick navigation between ecb windows
-(global-set-key (kbd "C-)") 'ecb-goto-window-edit1)
-(global-set-key (kbd "C-!") 'ecb-goto-window-directories)
-(global-set-key (kbd "C-@") 'ecb-goto-window-sources)
-(global-set-key (kbd "C-#") 'ecb-goto-window-methods)
-(global-set-key (kbd "C-$") 'ecb-goto-window-history)
-
 
 ;; eclim
 ;; (require 'eclim)
@@ -356,9 +228,6 @@
 ;;     (ac-emacs-eclim-config))
 
 
-;; Expand region
-(require 'expand-region)
-(global-set-key (kbd "C-=") 'er/expand-region)
 
 
 ;; Smartparens
@@ -366,54 +235,20 @@
 ;; (require 'smartparens-config)
 ;; (smartparens-global-mode)
 
-;; Undo tree
-(require 'undo-tree)
-(global-undo-tree-mode)
 
 
-;; Yaml mode
-(require 'yaml-mode)
-(add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
-(add-hook 'yaml-mode-hook (lambda () (electric-indent-mode 1)))
 
 ;; Show paren mode
-(show-paren-mode 1)
 
 ;; Paredit
 ;; (require 'paredit)
 ;; (add-hook 'emacs-lisp-mode-hook (lambda () (paredit-mode 1)))
 ;; (add-hook 'web-mode-hook (lambda () (paredit-mode 1)))
 
-;; Electric Pair
-(add-hook 'php-mode-hook (lambda () (electric-pair-mode 1)))
-(add-hook 'emacs-lisp-mode-hook (lambda () (electric-pair-mode 1)))
-(add-hook 'web-mode-hook (lambda () (electric-pair-mode -1)))
-
 
 ;; Helm
 ;; (require 'helm-config)
 ;; (helm-mode 1)
-
-
-;; Emmet-mode
-(add-hook 'web-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
-(add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
-
-
-;; Projectile
-(projectile-global-mode)
-;; (setq projectile-enable-caching t)
-
-(when (memq window-system '(mac ns))
-  (exec-path-from-shell-initialize))
-
-
-;; Perspective mode
-(with-eval-after-load "persp-mode-autoloads"
-  (setq wg-morph-on nil) ;; switch off animation
-  (add-hook 'after-init-hook #'(lambda () (persp-mode 1))))
-;; (persp-mode)
-(require 'persp-projectile)
 
 
 ;; Workgroup2
@@ -446,18 +281,6 @@
 ;;                ))
 
 
-;; linum
-(defadvice linum-update-window (around linum-dynamic activate)
-  (let* ((w (length (number-to-string
-                     (count-lines (point-min) (point-max)))))
-         (linum-format (concat " %" (number-to-string w) "d ")))
-    ad-do-it))
-
-(require 'custom-desktop-save-mode)
-(require 'custom-key-bindings)
-(require 'linum-off)
-
-
 ;; Semantic mode
 ;; (semantic-mode 1)
 ;; (add-hook 'php-mode-hook '(lambda () (
@@ -466,3 +289,10 @@
 
 ;; (add-to-list 'load-path "~/.emacs.d/edep")
 ;; (load "~/.emacs.d/edep/loaddefs.el")
+
+
+(require 'custom-packages)
+(require 'custom-funcs)
+(require 'custom-desktop-save-mode)
+(require 'custom-key-bindings)
+(require 'linum-off)
