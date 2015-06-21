@@ -3,7 +3,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(c-basic-offset 4 t)
+ '(c-basic-offset 4)
  '(custom-enabled-themes (quote (smart-mode-line-dark flatland)))
  '(custom-safe-themes
    (quote
@@ -26,7 +26,10 @@
  '(eclim-eclipse-dirs (quote ("/Applications/eclipse")))
  '(eclim-executable "/Applications/eclipse/eclim")
  '(eclimd-default-workspace "~/Documents/workspace")
- '(fringe-mode (quote (nil . 0)) nil (fringe))
+ '(fringe-mode (quote (4 . 4)) nil (fringe))
+ '(graphene-prog-mode-hooks
+   (quote
+    (prog-mode-hook csharp-mode-hook coffee-mode-hook css-mode-hook sgml-mode-hook html-mode-hook yaml-mode-hook nxml-mode-hook)))
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
  '(initial-scratch-message nil)
@@ -43,4 +46,4 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(js2-error ((t nil)))
- '(linum ((t (:background "#3F3F3F" :slant normal)))))
+ '(linum ((t (:background "#1c1c1c" :slant normal)))))

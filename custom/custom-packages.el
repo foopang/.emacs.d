@@ -109,7 +109,6 @@
 
 ;; Yaml mode
 (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
-(add-hook 'yaml-mode-hook (lambda () (electric-indent-mode 1)))
 
 
 ;; Emmet-mode
