@@ -4,6 +4,11 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(c-basic-offset 4)
+ '(company-backends
+   (quote
+    (company-bbdb company-nxml company-css company-eclim company-semantic company-clang company-xcode company-cmake company-capf
+                  (company-dabbrev-code company-gtags company-keywords)
+                  company-oddmuse company-files company-dabbrev)))
  '(custom-enabled-themes (quote (smart-mode-line-dark flatland)))
  '(custom-safe-themes
    (quote
@@ -27,6 +32,7 @@
  '(eclim-executable "/Applications/eclipse/eclim")
  '(eclimd-default-workspace "~/Documents/workspace")
  '(fringe-mode (quote (4 . 4)) nil (fringe))
+ '(graphene-errors-auto -1)
  '(graphene-prog-mode-hooks
    (quote
     (prog-mode-hook csharp-mode-hook coffee-mode-hook css-mode-hook sgml-mode-hook html-mode-hook yaml-mode-hook nxml-mode-hook)))
