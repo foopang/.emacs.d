@@ -13,3 +13,6 @@
 [submodule "site-lisp/ede-php-autoload"]
 	path = site-lisp/ede-php-autoload
 	url = git@github.com:stevenremot/ede-php-autoload.git
+[submodule "site-lisp/graphene"]
+	path = site-lisp/graphene
+	url = git@github.com:foopang/graphene.git
