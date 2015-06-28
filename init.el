@@ -7,6 +7,13 @@
 
 (setq package-list '(markdown-mode ag s dash company ecb emacs-eclim s emmet-mode etags-select exec-path-from-shell expand-region feature-mode flatland-theme flx-ido flx flycheck let-alist pkg-info epl dash helm-ag helm async helm-projectile dash projectile pkg-info epl dash helm async icicles ido-ubiquitous ido-completing-read+ js2-mode less-css-mode let-alist magit git-rebase-mode git-commit-mode multiple-cursors names paredit-everywhere paredit persp-mode persp-projectile projectile pkg-info epl dash perspective perspective php-mode popup ppd-sr-speedbar project-persist-drawer project-persist sr-speedbar project-persist-drawer project-persist projectile pkg-info epl dash smart-mode-line rich-minority smartparens dash smex sr-speedbar undo-tree web-mode workgroups2 f dash s anaphora dash xcscope yaml-mode yasnippet))
 
+;; Enable commands
+(put 'scroll-left 'disabled nil)
+
+;; Remove trailing whitespace
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+
 ;; package
 (require 'package)
 
@@ -25,15 +32,6 @@
 (add-to-list 'load-path "~/.emacs.d/site-lisp/graphene")
 ;; Graphene (saner emacs defaults)
 (require 'graphene)
-
-
-;; Enable commands
-(put 'scroll-left 'disabled nil)
-
-(auto-save-mode -1)
-
-;; Remove trailing whitespace
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 
 ;; custom file
