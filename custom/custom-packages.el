@@ -105,7 +105,7 @@
 ;; SQL mode
 ;; (add-to-list 'ac-modes 'sql-mode)
 ;; (add-to-list 'ac-modes 'nxml-mode)
-(add-hook 'sql-mode-hook (lambda () (electric-indent-mode -1)))
+(add-hook 'sql-mode-hook (lambda () (electric-indent-mode nil)))
 
 ;; Yaml mode
 (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
@@ -114,5 +114,13 @@
 ;; Emmet-mode
 (add-hook 'web-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
 (add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
+
+
+(autoload 'markdown-mode "markdown-mode"
+   "Major mode for editing Markdown files" t)
+(add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+
 
 (provide 'custom-packages)

@@ -3,7 +3,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(blink-cursor-mode t)
  '(c-basic-offset 4)
+ '(c-default-style "linux")
  '(company-backends
    (quote
     (company-bbdb company-nxml company-css company-eclim company-semantic company-clang company-xcode company-cmake company-capf
@@ -20,6 +22,7 @@
       (top . 0)
       (left . 0)
       (alpha 90 85))))
+ '(delete-selection-mode t)
  '(ecb-layout-window-sizes
    (quote
     (("left8"
@@ -31,7 +34,10 @@
  '(eclim-eclipse-dirs (quote ("/Applications/eclipse")))
  '(eclim-executable "/Applications/eclipse/eclim")
  '(eclimd-default-workspace "~/Documents/workspace")
+ '(ede-project-directories (quote ("/usr/local/var/www/symfony-test")))
  '(fringe-mode (quote (4 . 4)) nil (fringe))
+ '(global-hl-line-mode t)
+ '(global-visual-line-mode nil)
  '(graphene-errors-auto -1)
  '(graphene-prog-mode-hooks
    (quote
@@ -43,7 +49,10 @@
  '(nxml-child-indent 4)
  '(nxml-outline-child-indent 4)
  '(recentf-max-saved-items 200)
+ '(scroll-bar-mode nil)
  '(tab-width 4)
+ '(tool-bar-mode nil)
+ '(tooltip-mode nil)
  '(yaml-indent-offset 4))
  '(cursor-color "#839496")
 (custom-set-faces

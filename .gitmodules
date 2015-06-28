@@ -1,9 +1,6 @@
 [submodule "emacs-color-theme-solarized"]
 	path = emacs-color-theme-solarized
 	url = https://github.com/sellout/emacs-color-theme-solarized.git
-[submodule "markdown-mode"]
-	path = markdown-mode
-	url = git://jblevins.org/git/markdown-mode.git
 [submodule "edep"]
 	path = edep
 	url = git@github.com:jorissteyn/edep.git
