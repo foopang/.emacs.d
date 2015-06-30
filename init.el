@@ -5,7 +5,7 @@
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
                          ("melpa" . "http://melpa.org/packages/")))
 
-(setq package-list '(markdown-mode ag s dash company ecb emacs-eclim s emmet-mode etags-select exec-path-from-shell expand-region feature-mode flatland-theme flx-ido flx flycheck let-alist pkg-info epl dash helm-ag helm async helm-projectile dash projectile pkg-info epl dash helm async icicles ido-ubiquitous ido-completing-read+ js2-mode less-css-mode let-alist magit git-rebase-mode git-commit-mode multiple-cursors names paredit-everywhere paredit persp-mode persp-projectile projectile pkg-info epl dash perspective perspective php-mode popup ppd-sr-speedbar project-persist-drawer project-persist sr-speedbar project-persist-drawer project-persist projectile pkg-info epl dash smart-mode-line rich-minority smartparens dash smex sr-speedbar undo-tree web-mode workgroups2 f dash s anaphora dash xcscope yaml-mode yasnippet))
+(setq package-list '(graphene company flycheck let-alist pkg-info epl dash smartparens dash web-mode smex sr-speedbar ppd-sr-speedbar project-persist-drawer project-persist sr-speedbar exec-path-from-shell dash graphene ag s dash aggressive-indent names auto-complete popup ecb emacs-eclim s emmet-mode etags-select expand-region feature-mode flatland-theme flx-ido flx graphene company flycheck let-alist pkg-info epl dash smartparens dash web-mode smex sr-speedbar ppd-sr-speedbar project-persist-drawer project-persist sr-speedbar exec-path-from-shell dash helm-ag helm async helm-projectile dash projectile pkg-info epl dash helm async icicles ido-ubiquitous ido-completing-read+ js2-mode less-css-mode let-alist magit git-rebase-mode git-commit-mode markdown-mode multiple-cursors names paredit-everywhere paredit persp-mode persp-projectile projectile pkg-info epl dash perspective perspective php-mode popup ppd-sr-speedbar project-persist-drawer project-persist sr-speedbar project-persist-drawer project-persist projectile pkg-info epl dash smart-mode-line rich-minority smartparens dash smex sr-speedbar undo-tree web-mode workgroups2 f dash s anaphora dash xcscope yaml-mode yasnippet))
 
 ;; Enable commands
 (put 'scroll-left 'disabled nil)
@@ -29,7 +29,6 @@
     (package-install package)))
 
 
-(add-to-list 'load-path "~/.emacs.d/site-lisp/graphene")
 ;; Graphene (saner emacs defaults)
 (require 'graphene)
 
@@ -48,11 +47,11 @@
 
 
 ;; CEDET
-(load-file "~/.emacs.d/site-lisp/cedet/cedet-devel-load.el")
-(load-file "~/.emacs.d/site-lisp/cedet/contrib/cedet-contrib-load.el")
+;; (load-file "~/.emacs.d/site-lisp/cedet/cedet-devel-load.el")
+;; (load-file "~/.emacs.d/site-lisp/cedet/contrib/cedet-contrib-load.el")
 
-(require 'wisent-php)
-(require 'ede-php-autoload-mode)
+;; (require 'wisent-php)
+;; (require 'ede-php-autoload-mode)
 
 
 ;; (semantic-load-enable-excessive-code-helpers)      ; Enable prototype help and smart completion
@@ -65,8 +64,8 @@
 ;; (setq semantic-default-submodes '((global-semantic-idle-scheduler-mode)
 ;;                                   (global-semantic-idle-completions-mode)))
 
-(semantic-mode 1)
-(require 'semantic/ia)
+;; (semantic-mode 1)
+;; (require 'semantic/ia)
 
 ;; (add-hook 'semantic-mode-hook '(lambda ()
 ;;                                  (semantic-idle-scheduler-mode)
@@ -119,11 +118,11 @@
 ;;                       :file "/usr/local/var/www/symfony-test/composer.json")
 
 
-(add-hook 'php-mode-hook '(lambda ()
-                            (ede-php-autoload-mode)
-                            (php-enable-symfony2-coding-style)))
+;; (add-hook 'php-mode-hook '(lambda ()
+;;                             (ede-php-autoload-mode)
+;;                             (php-enable-symfony2-coding-style)))
 
-(add-hook 'php-mode-hook #'ede-php-autoload-mode)
+;; (add-hook 'php-mode-hook #'ede-php-autoload-mode)
 
 
 (require 'custom-packages)
