@@ -105,7 +105,7 @@
 ;; SQL mode
 ;; (add-to-list 'ac-modes 'sql-mode)
 ;; (add-to-list 'ac-modes 'nxml-mode)
-(add-hook 'sql-mode-hook (lambda () (electric-indent-mode nil)))
+(add-hook 'sql-mode-hook (lambda () (electric-indent-local-mode -1)))
 
 ;; Yaml mode
 (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
