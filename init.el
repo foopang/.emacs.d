@@ -1,11 +1,20 @@
+;;; init.el --- Emacs initiliazation
+
+;;; Commentary:
+
+;;; Emacs initialization
+
+;;; Code:
+
 (setq indent-line-function 'insert-tab)
 
-(setq semantic-ectags-program "/usr/local/bin/ctags")
+(setq semantic-ctags-program "/usr/local/bin/ctags")
 
-(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-                         ("melpa" . "http://melpa.org/packages/")))
+;; Set path for theme directory
+(defvar custom-dir (expand-file-name "custom" user-emacs-directory))
+(defvar site-lisp-dir (expand-file-name "site-lisp" user-emacs-directory))
+(defvar theme-dir (expand-file-name "themes" user-emacs-directory))
 
-(setq package-list '(graphene company flycheck let-alist pkg-info epl dash smartparens dash web-mode smex sr-speedbar ppd-sr-speedbar project-persist-drawer project-persist sr-speedbar exec-path-from-shell dash graphene ag s dash aggressive-indent names auto-complete popup ecb emacs-eclim s emmet-mode etags-select expand-region feature-mode flatland-theme flx-ido flx graphene company flycheck let-alist pkg-info epl dash smartparens dash web-mode smex sr-speedbar ppd-sr-speedbar project-persist-drawer project-persist sr-speedbar exec-path-from-shell dash helm-ag helm async helm-projectile dash projectile pkg-info epl dash helm async icicles ido-ubiquitous ido-completing-read+ js2-mode less-css-mode let-alist magit git-rebase-mode git-commit-mode markdown-mode multiple-cursors names paredit-everywhere paredit persp-mode persp-projectile projectile pkg-info epl dash perspective perspective php-mode popup ppd-sr-speedbar project-persist-drawer project-persist sr-speedbar project-persist-drawer project-persist projectile pkg-info epl dash smart-mode-line rich-minority smartparens dash smex sr-speedbar undo-tree web-mode workgroups2 f dash s anaphora dash xcscope yaml-mode yasnippet))
 
 ;; Enable commands
 (put 'scroll-left 'disabled nil)
@@ -13,120 +22,71 @@
 ;; Remove trailing whitespace
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
+;; Write backup files to own directory
+(setq backup-directory-alist
+      `(("." . ,(expand-file-name
+                 (concat user-emacs-directory "backups")))))
 
-;; package
-(require 'package)
+;; Make backups of files, even when they're in version control
+(setq vc-make-backup-files t)
 
-(package-initialize)
+;; Add package manager configuration
+(eval-and-compile
+  (package-initialize nil)
 
-; fetch the list of packages available
-(unless package-archive-contents
-  (package-refresh-contents))
+  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
+  (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+  (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+  (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
 
-; install the missing packages
-(dolist (package package-list)
-  (unless (package-installed-p package)
-    (package-install package)))
+  (unless (file-exists-p (expand-file-name "elpa/archives/gnu" user-emacs-directory))
+    (package-refresh-contents))
 
+  (unless (file-exists-p (expand-file-name "elpa/archives/marmalade" user-emacs-directory))
+    (package-refresh-contents))
 
-;; Graphene (saner emacs defaults)
-(require 'graphene)
+  (unless (file-exists-p (expand-file-name "elpa/archives/melpa" user-emacs-directory))
+    (package-refresh-contents))
 
+  (unless (file-exists-p (expand-file-name "elpa/archives/melpa-stable" user-emacs-directory))
+     (package-refresh-contents))
 
-;; custom file
-(setq custom-file (expand-file-name "custom-options.el" user-emacs-directory))
-(load custom-file)
+  (unless (package-installed-p 'use-package)
+    (package-install 'use-package))
 
+  (defvar use-package-verbose t)
+
+  (require 'cl)
+  (require 'use-package))
 
 ;; theme
-(load-file "~/.emacs.d/themes/material-theme.el")
+(load-file (expand-file-name "material-theme.el" theme-dir))
 
-;; Custom load paths
-(add-to-list 'load-path "~/.emacs.d/custom")
-(add-to-list 'load-path "~/.emacs.d/site-lisp/ede-php-autoload")
+;; custom file
+(setq custom-file (expand-file-name "preferences.el" user-emacs-directory))
+(load custom-file)
 
+(when (memq window-system '(mac ns))
+  (exec-path-from-shell-initialize))
 
-;; CEDET
-;; (load-file "~/.emacs.d/site-lisp/cedet/cedet-devel-load.el")
-;; (load-file "~/.emacs.d/site-lisp/cedet/contrib/cedet-contrib-load.el")
+;; ido
+;; Edit as root
+(defadvice ido-find-file (after find-file-sudo activate)
+  "Find file as root if necessary."
+  (unless (and buffer-file-name
+               (file-writable-p buffer-file-name))
+    (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
 
-;; (require 'wisent-php)
-;; (require 'ede-php-autoload-mode)
+;; recentf
+(recentf-mode t)
 
+;; SQL mode
+(add-hook 'sql-mode-hook (lambda () (electric-indent-mode nil)))
 
-;; (semantic-load-enable-excessive-code-helpers)      ; Enable prototype help and smart completion
-;; (global-srecode-minor-mode 1)            ; Enable template insertion menu
-
-;; ;; Semantic
-;; ;; (global-semantic-idle-scheduler-mode)
-;; ;; (global-semantic-idle-completions-mode)
-;; ;; (global-semantic-show-unmatched-syntax-mode)
-;; (setq semantic-default-submodes '((global-semantic-idle-scheduler-mode)
-;;                                   (global-semantic-idle-completions-mode)))
-
-;; (semantic-mode 1)
-;; (require 'semantic/ia)
-
-;; (add-hook 'semantic-mode-hook '(lambda ()
-;;                                  (semantic-idle-scheduler-mode)
-;;                                   (semantic-idle-completions-mode)
-;;                                   (semantic-show-unmatched-syntax-mode nil)
-;;                                   (semantic-decoration-mode nil)
-;;                                   (semantic-highlight-func-mode nil)
-;;                                   (semantic-stickyfunc-mode nil)))
-
-;; (eval-after-load "semantic"
-;;    '(progn
-;; (setq semantic-default-submodes '((global-semantic-idle-scheduler-mode)
-;;                                   (global-semantic-idle-completions-mode)
-;;                                   (global-semantic-show-unmatched-syntax-mode nil)
-;;                                   (global-semantic-decoration-mode nil)
-;;                                   (global-semantic-highlight-func-mode nil)
-;;                                   (global-semantic-stickyfunc-mode nil)))
-;; ))
-
-
-
-;; (when (cedet-ectag-version-check t)
-;;   (semantic-load-enable-primary-exuberent-ctags-support))
-
-;; ;; Enable EDE (Project Management) features
-(global-ede-mode 1)
-
-;; ;; CC-mode
-;; (add-hook 'c-mode-common-hook '(lambda ()
-;;         (setq ac-sources '(ac-source-semantic))
-;; ))
-
-;; ;; Load CEDET CONTRIB.
-;; (load-file "~/.emacs.d/site-lisp/cedet/contrib/cedet-contrib-load.el")
-
-
-;; ;; (ede-php-root-mode 1)
-;; ;; (ede-php-root-project "Hypebeast"
-;; ;;                       :file "~/Sites/Hypebeast/composer.json")
-
-;; ;; (ede-php-autoload-project "Hypebeast"
-;; ;;                       :file "~/Sites/Hypebeast/README.md"
-;; ;;                       :class-loaders '(:psr0 (("Hypebeast" . "src/Hypebeast")
-;; ;;                                               ("HypebeastStore" . "src/HypebeastStore"))))
-
-;; (ede-php-autoload-project "Hypebeast"
-;;                       :file "~/www/Hypebeast/README.md")
-
-;; (ede-php-autoload-project "symfony-test"
-;;                       :file "/usr/local/var/www/symfony-test/composer.json")
-
-
-;; (add-hook 'php-mode-hook '(lambda ()
-;;                             (ede-php-autoload-mode)
-;;                             (php-enable-symfony2-coding-style)))
-
-;; (add-hook 'php-mode-hook #'ede-php-autoload-mode)
-
+;; Set up load path
+(add-to-list 'load-path custom-dir)
 
 (require 'custom-packages)
 (require 'custom-funcs)
-(require 'custom-desktop-save-mode)
 (require 'custom-key-bindings)
 (require 'linum-off)

@@ -1,126 +1,141 @@
+;;; Load Libraries
+
+(use-package less-css-mode  :ensure t :defer t)
+(use-package flx-ido        :ensure t :defer t)
+(use-package ido-ubiquitous :ensure t :defer t)
+(use-package smex           :ensure t :defer t)
+(use-package undo-tree      :ensure t :defer t)
+
+;; Graphene (saner emacs defaults)
+(use-package graphene
+  :ensure t
+  :demand)
+
 ;; smart-mode-line
-(sml/setup)
+(use-package smart-mode-line
+    :ensure t
+    :demand t
+    :init
+    (sml/setup))
 
+;; Company
+(use-package company
+  :ensure t
+  :demand t
+  :diminish company-mode
+  :config
+  (custom-set-variables
+   '(company-idle-delay 0.2))
 
-;; ido
-;; Edit as root
-(defadvice ido-find-file (after find-file-sudo activate)
-  "Find file as root if necessary."
-  (unless (and buffer-file-name
-               (file-writable-p buffer-file-name))
-    (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
+  (add-hook 'after-init-hook 'global-company-mode))
 
+;; Magit
+(use-package magit
+  :ensure t
+  :defer t
+  :bind ("C-c g" . magit-status))
 
-;; recentf
-(recentf-mode t)
-
-
-;; Align with spaces only
-(defadvice align-regexp (around align-regexp-with-spaces)
- "Never use tabs for alignment."
- (let ((indent-tabs-mode nil))
-   ad-do-it))
-(ad-activate 'align-regexp)
-(global-set-key (kbd "C-c \\") 'align-regexp)
-
+;; windmove
+(use-package windmove
+    :ensure t
+    :bind (("C-c ! h" . windmove-left)
+           ("C-c ! l" . windmove-right)
+           ("C-c ! k" . windmove-up)
+           ("C-c ! j" . windmove-down)))
 
 ;; web mode
-(require 'web-mode)
-(add-to-list 'web-mode-comment-formats '("php" . "//"))
-(add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.tpl\\.php\\.twig\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.[agj]sp\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.html.twig\\'" . web-mode))
-(sp-local-pair 'web-mode "{" "}" :actions nil)
-
+(use-package web-mode
+    :ensure t
+    :mode (("\\.phtml\\'" . web-mode)
+           ("\\.tpl\\.php\\.twig\\'" . web-mode)
+           ("\\.[agj]sp\\'" . web-mode)
+           ("\\.as[cp]x\\'" . web-mode)
+           ("\\.erb\\'" . web-mode)
+           ("\\.mustache\\'" . web-mode)
+           ("\\.djhtml\\'" . web-mode)
+           ("\\.html.twig\\'" . web-mode))
+    :config
+    (add-to-list 'web-mode-comment-formats '("php" . "//"))
+    (sp-local-pair 'web-mode "{" "}" :actions nil))
 
 ;; Multiple cursors
-(setq mc/list-file "~/.emacs.d/preferred/mc-lists.el")
-(require 'multiple-cursors)
-(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
-(global-set-key (kbd "C->") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
-
-(defun create-cursor ()
-  (interactive)
-  (mc/create-fake-cursor-at-point))
-
-(global-set-key (kbd "C-c C-,") 'create-cursor)
-(global-set-key (kbd "C-c C-.") 'multiple-cursors-mode)
-
-
-;;; activate ecb
-(setq ecb-tip-of-the-day nil)
-(require 'ecb)
-;; (require 'ecb-autoloads)
-
-;;; activate and deactivate ecb
-(global-set-key (kbd "C-x C-;") 'ecb-activate)
-(global-set-key (kbd "C-x C-'") 'ecb-deactivate)
-;;; show/hide ecb window
-(global-set-key (kbd "C-;") 'ecb-show-ecb-windows)
-(global-set-key (kbd "C-'") 'ecb-hide-ecb-windows)
-;;; quick navigation between ecb windows
-(global-set-key (kbd "C-)") 'ecb-goto-window-edit1)
-(global-set-key (kbd "C-!") 'ecb-goto-window-directories)
-(global-set-key (kbd "C-@") 'ecb-goto-window-sources)
-(global-set-key (kbd "C-#") 'ecb-goto-window-methods)
-(global-set-key (kbd "C-$") 'ecb-goto-window-history)
-
+(use-package multiple-cursors
+    :ensure t
+    :bind (("C-S-c C-S-c" . mc/edit-lines)
+           ("C->" . mc/mark-next-like-this)
+           ("C-<" . mc/mark-previous-like-this)
+           ("C-c C-<" . mc/mark-all-like-this)
+           ("C-c C-," . create-cursor)
+           ("C-c C-." . multiple-cursors-mode))
+    :init
+    (setq mc/list-file "~/.emacs.d/preferred/mc-lists.el")
+    :config
+    (defun create-cursor ()
+      (interactive)
+      (mc/create-fake-cursor-at-point)))
 
 ;; Expand region
-(global-set-key (kbd "C-=") 'er/expand-region)
-
-
-;; Projectile
-(projectile-global-mode)
-;; (setq projectile-enable-caching t)
-
-(when (memq window-system '(mac ns))
-  (exec-path-from-shell-initialize))
-
+(use-package expand-region
+    :ensure t
+    :bind ("C-=" . er/expand-region))
 
 ;; AG
-(setq ag-highlight-search t)
-
+(use-package ag
+    :ensure t
+    :init
+    (setq ag-highlight-search t))
 
 ;; Perspective mode
-(with-eval-after-load "persp-mode-autoloads"
-  (setq wg-morph-on nil) ;; switch off animation
-  (add-hook 'after-init-hook #'(lambda () (persp-mode 1))))
-;; (persp-mode)
-(require 'persp-projectile)
-
+(use-package projectile
+  :ensure t
+  :pin melpa-stable
+  :demand t
+  :diminish projectile-mode
+  :init
+  (use-package perspective
+    :ensure t
+    :demand t
+    :init
+    (use-package persp-projectile
+      :ensure t
+      :demand t))
+  (custom-set-variables
+   '(projectile-enable-caching t))
+  :config
+  ;; Load projectile globaly
+  (projectile-global-mode)
+  (persp-mode))
 
 ;; PHP mode
-;; (setq ac-php-cscope nil)
-(push '("\\.php" . php-mode) auto-mode-alist)
-
-
-;; SQL mode
-;; (add-to-list 'ac-modes 'sql-mode)
-;; (add-to-list 'ac-modes 'nxml-mode)
-(add-hook 'sql-mode-hook (lambda () (electric-indent-local-mode -1)))
+(use-package php-mode
+    :ensure t
+    :mode "\\.php")
 
 ;; Yaml mode
-(add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
-
+(use-package yaml-mode
+    :ensure t
+    :mode "\\.yml")
 
 ;; Emmet-mode
-(add-hook 'web-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
-(add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
+(use-package emmet-mode
+    :ensure t
+    :config
+    (add-hook 'web-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
+    (add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
+)
 
+;; Markdown mode
+(use-package yaml-mode
+    :ensure t
+    :mode ("\\.markdown" "\\.md")
+    :init
+    (autoload 'markdown-mode "markdown-mode"
+    "Major mode for editing Markdown files" t))
 
-(autoload 'markdown-mode "markdown-mode"
-   "Major mode for editing Markdown files" t)
-(add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
-(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
-(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
-
+;; Haskell
+(use-package yaml-mode
+     :ensure t
+     :config
+    (add-hook 'haskell-mode-hook 'haskell-indentation-mode))
 
 (provide 'custom-packages)

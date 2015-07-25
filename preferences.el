@@ -12,14 +12,14 @@
     (company-bbdb company-nxml company-css company-eclim company-semantic company-clang company-xcode company-cmake company-capf
                   (company-dabbrev-code company-gtags company-keywords)
                   company-oddmuse company-files company-dabbrev)))
- '(custom-enabled-themes (quote (smart-mode-line-dark flatland)))
+ '(company-idle-delay 0.2)
+ '(custom-enabled-themes (quote (smart-mode-line-dark)))
  '(custom-safe-themes
    (quote
-    ("a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "a2e7b508533d46b701ad3b055e7c708323fb110b6676a8be458a758dd8f24e27" "30c1546ebbae463b183bbeaed22c81cebf65d11cfb23c31f52cbf59ea99544fe" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
+    ("c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "a2e7b508533d46b701ad3b055e7c708323fb110b6676a8be458a758dd8f24e27" "30c1546ebbae463b183bbeaed22c81cebf65d11cfb23c31f52cbf59ea99544fe" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
  '(default-frame-alist
     (quote
-     ((width . 180)
-      (height . 60)
+     ((fullscreen . maximized)
       (top . 0)
       (left . 0)
       (alpha 90 85))))
@@ -47,7 +47,7 @@
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
  '(initial-scratch-message nil)
- '(linum-format (quote dynamic))
+ '(linum-format (quote dynamic) t)
  '(nxml-child-indent 4)
  '(nxml-outline-child-indent 4)
  '(org-src-fontify-natively t)

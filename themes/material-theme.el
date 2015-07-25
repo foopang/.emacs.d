@@ -303,23 +303,52 @@
    `(diredp-symlink ((,class (:foreground ,purple))))
    `(diredp-write-priv ((,class (:foreground ,yellow :background nil))))
 
-   ;; Magit (a patch is pending in magit to make these standard upstream)
+   ;; Magit
    `(magit-branch ((,class (:foreground ,green))))
-   `(magit-diff-add ((,class (:inherit diff-added))))
-   `(magit-diff-del ((,class (:inherit diff-removed))))
+   `(magit-diff-added ((,class (:inherit diff-added))))
+   `(magit-diff-added-highlight ((,class (:inherit magit-diff-added
+                                          :background ,far-background))))
+   `(magit-diff-removed ((,class (:inherit diff-removed))))
+   `(magit-diff-removed-highlight ((,class (:inherit magit-diff-removed
+                                            :background ,far-background))))
    `(magit-header ((,class (:inherit nil :weight bold))))
    `(magit-item-highlight ((,class (:inherit highlight :background nil))))
    `(magit-log-author ((,class (:foreground ,aqua))))
    `(magit-log-graph ((,class (:foreground ,comment))))
-   `(magit-log-head-label-bisect-bad ((,class (:foreground ,red))))
-   `(magit-log-head-label-bisect-good ((,class (:foreground ,green))))
-   `(magit-log-head-label-default ((,class (:foreground ,yellow :box nil :weight bold))))
-   `(magit-log-head-label-local ((,class (:foreground ,purple :box nil :weight bold))))
-   `(magit-log-head-label-remote ((,class (:foreground ,purple :box nil :weight bold))))
-   `(magit-log-head-label-tags ((,class (:foreground ,aqua :box nil :weight bold))))
-   `(magit-log-sha1 ((,class (:foreground ,yellow))))
+   `(magit-log-date ((,class (:foreground ,yellow))))
    `(magit-section-title ((,class (:foreground ,blue :weight bold))))
-
+   `(magit-section-highlight           ((t (:background ,current-line))))
+   `(magit-section-heading             ((t (:foreground ,yellow :weight bold))))
+   `(magit-diff-file-heading           ((t (:weight bold))))
+   `(magit-diff-file-heading-highlight ((t (:background ,current-line  :weight bold))))
+   `(magit-diff-file-heading-selection ((t (:background ,background
+                                            :foreground ,orange :weight bold))))
+   `(magit-diff-hunk-heading           ((t (:background ,header-color))))
+   `(magit-diff-hunk-heading-highlight ((t (:background ,header-color))))
+   `(magit-diff-hunk-heading-selection ((t (:background ,background
+                                            :foreground ,orange))))
+   `(magit-diff-lines-heading          ((t (:background ,orange
+                                            :foreground ,background))))
+   `(magit-blame-heading          ((t (:background ,far-background
+                                       :foreground ,aqua))))
+   `(magit-blame-date             ((t (:background ,far-background
+                                                   :foreground ,"#80cbc4"))))
+   `(magit-blame-summary          ((t (:background ,far-background
+                                       :foreground ,green))))
+   `(magit-diff-context-highlight      ((t (:background ,far-background
+                                            :foreground "grey70"))))
+   `(magit-diffstat-added   ((t (:foreground ,green))))
+   `(magit-diffstat-removed ((t (:foreground ,red))))
+   `(magit-process-ok    ((t (:foreground ,green  :weight bold))))
+   `(magit-process-ng    ((t (:foreground ,red    :weight bold))))
+   `(magit-branch-local  ((t (:foreground ,blue   :weight bold))))
+   `(magit-branch-remote ((t (:foreground ,green  :weight bold))))
+   `(magit-tag           ((t (:foreground ,orange :weight bold))))
+   `(magit-hash          ((t (:foreground ,comment))))
+   `(magit-sequence-stop ((t (:foreground ,green))))
+   `(magit-sequence-part ((t (:foreground ,yellow))))
+   `(magit-sequence-head ((t (:foreground ,blue))))
+   `(magit-sequence-drop ((t (:foreground ,red))))
    ;; git-gutter
    `(git-gutter:modified ((,class (:foreground ,purple :weight bold))))
    `(git-gutter:added ((,class (:foreground ,green :weight bold))))
@@ -370,6 +399,12 @@
    `(guide-key/highlight-command-face ((,class (:foreground ,yellow ))))
    `(guide-key/prefix-command-face ((,class (:foreground ,aqua ))))
 
+   ;; which-key
+   `(which-key-key-face ((,class (:foreground ,foreground  :weight bold))))
+   `(which-key-special-key-face ((,class (:foreground ,orange  :weight bold :height 1.1))))
+   `(which-key-command-description-face ((,class (:foreground ,foreground ))))
+   `(which-key-group-description-face ((,class (:foreground ,aqua ))))
+   `(which-key-separator-face ((,class (:foreground ,comment ))))
 
    ;; mark-multiple
    `(mm/master-face ((,class (:inherit region :foreground nil :background nil))))
@@ -387,7 +422,7 @@
    `(org-date ((,class (:foreground ,"#80cbc4" :underline t))))
    `(org-document-info ((,class (:foreground ,aqua :height 1.35))))
    `(org-document-info-keyword ((,class (:foreground ,green :height 1.35))))
-   `(org-document-title ((,class (:weight bold :foreground ,orange :height 1.35))))
+   `(org-document-title ((,class (:weight bold :foreground ,foreground :height 1.35))))
    `(org-done ((,class (:foreground ,green :bold t :background,"#1b5e20"))))
    `(org-ellipsis ((,class (:foreground ,comment))))
    `(org-footnote ((,class (:foreground ,aqua))))
@@ -404,6 +439,8 @@
    `(org-warning ((,class (:weight bold :foreground ,red))))
    `(org-block-begin-line ((,class (:foreground ,"#b3e5fc" :background "#1e2930" :underline ,"#e1f5fe"))))
    `(org-block-end-line ((,class (:foreground ,"#b3e5fc" :background "#1e2930" :overline ,"#e1f5fe"))))
+   `(org-kbd ((,class (:background ,inactive-gray :foreground ,foreground
+                                   :box (:line-width 1 :color nil :style pressed-button)))))
 
    `(org-level-1 ((,class (:inherit nil
                          :overline ,"#b0bec5"
@@ -444,6 +481,11 @@
 
    ;; Python-specific overrides
    `(py-builtins-face ((,class (:foreground ,"#ff7043" :weight normal))))
+
+   ;; ein (emacs-ipython-notebook) specific colors
+   `(ein:cell-input-area ((,class (:background ,"#1e2930"))))
+   `(ein:cell-input-prompt ((,class (:inherit org-block-begin-line))))
+   `(ein:cell-output-prompt ((,class (:inherit org-block-end-line))))
 
    ;; js2-mode
    `(js2-warning ((,class (:underline ,orange))))
@@ -495,6 +537,20 @@
    `(message-header-name ((,class (:foreground ,blue :background nil))))
    `(message-header-newsgroups ((,class (:foreground ,aqua :background nil :slant normal))))
    `(message-separator ((,class (:foreground ,purple))))
+
+   ;; cfw emacs calendar
+   `(cfw:face-title ((,class (:background ,background :foreground ,"#eceff1" :height 1.3 :weight bold))))
+   `(cfw:face-today ((,class (:background ,far-background :foreground ,foreground))))
+   `(cfw:face-day-title ((,class (:background ,current-line :foreground ,foreground))))
+   `(cfw:face-today-title ((,class (:background ,secondary-selection :foreground ,foreground))))
+   `(cfw:face-header ((,class (:background ,current-line :foreground ,foreground))))
+   `(cfw:face-sunday ((,class (:background ,current-line :foreground ,aqua :weight bold))))
+   `(cfw:face-saturday ((,class (:background ,current-line :foreground ,aqua :weight bold))))
+   `(cfw:face-select ((,class (:background ,selection :foreground ,foreground))))
+   `(cfw:face-toolbar ((,class (:background ,aqua :foreground ,background :weight bold))))
+   `(cfw:face-toolbar-button-off ((,class (:background ,aqua :foreground ,background :weight bold))))
+   `(cfw:face-toolbar-button-on ((,class (:background ,aqua :foreground ,secondary-selection :weight bold))))
+   `(cfw:face-holiday ((,class (:background ,current-line :foreground ,green :weight bold))))
 
    ;; Jabber
    `(jabber-chat-prompt-local ((,class (:foreground ,yellow))))

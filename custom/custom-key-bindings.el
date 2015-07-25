@@ -106,21 +106,19 @@
 
 (global-set-key (kbd "C-x r f") 'recentf-ido-find-file)
 
-
-;; windmove
-(global-set-key (kbd "C-c ! h")  'windmove-left)
-(global-set-key (kbd "C-c ! l") 'windmove-right)
-(global-set-key (kbd "C-c ! k")    'windmove-up)
-(global-set-key (kbd "C-c ! j")  'windmove-down)
-
-(global-set-key (kbd "C-x p") 'prev-window)
-
 (defun prev-window ()
   (interactive)
   (other-window -1))
 
+(global-set-key (kbd "C-x p") 'prev-window)
 
-;; Magit
-(global-set-key (kbd "C-c g") 'magit-status)
+
+;; Align with spaces only
+(defadvice align-regexp (around align-regexp-with-spaces)
+ "Never use tabs for alignment."
+ (let ((indent-tabs-mode nil))
+   ad-do-it))
+(ad-activate 'align-regexp)
+(global-set-key (kbd "C-c \\") 'align-regexp)
 
 (provide 'custom-key-bindings)
