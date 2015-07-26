@@ -138,4 +138,10 @@
      :config
     (add-hook 'haskell-mode-hook 'haskell-indentation-mode))
 
+;; Smart shift
+(use-package smart-shift
+  :ensure t
+  :config
+  (global-smart-shift-mode 1))
+
 (provide 'custom-packages)
