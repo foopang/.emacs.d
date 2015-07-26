@@ -66,9 +66,6 @@
 (setq custom-file (expand-file-name "preferences.el" user-emacs-directory))
 (load custom-file)
 
-(when (memq window-system '(mac ns))
-  (exec-path-from-shell-initialize))
-
 ;; ido
 ;; Edit as root
 (defadvice ido-find-file (after find-file-sudo activate)
