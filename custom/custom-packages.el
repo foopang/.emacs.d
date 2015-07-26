@@ -68,7 +68,7 @@
            ("C-c C-," . create-cursor)
            ("C-c C-." . multiple-cursors-mode))
     :init
-    (setq mc/list-file "~/.emacs.d/preferred/mc-lists.el")
+    (setq mc/list-file (expand-file-name "mc-lists.el" user-emacs-directory))
     :config
     (defun create-cursor ()
       (interactive)
