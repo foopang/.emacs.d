@@ -125,7 +125,7 @@
 )
 
 ;; Markdown mode
-(use-package yaml-mode
+(use-package markdown-mode
     :ensure t
     :mode ("\\.markdown" "\\.md")
     :init
