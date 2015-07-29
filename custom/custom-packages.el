@@ -13,10 +13,10 @@
 
 ;; smart-mode-line
 (use-package smart-mode-line
-    :ensure t
-    :demand t
-    :init
-    (sml/setup))
+  :ensure t
+  :demand t
+  :init
+  (sml/setup))
 
 ;; Company
 (use-package company
@@ -37,53 +37,53 @@
 
 ;; windmove
 (use-package windmove
-    :ensure t
-    :bind (("C-c ! h" . windmove-left)
-           ("C-c ! l" . windmove-right)
-           ("C-c ! k" . windmove-up)
-           ("C-c ! j" . windmove-down)))
+  :ensure t
+  :bind (("C-c ! h" . windmove-left)
+         ("C-c ! l" . windmove-right)
+         ("C-c ! k" . windmove-up)
+         ("C-c ! j" . windmove-down)))
 
 ;; web mode
 (use-package web-mode
-    :ensure t
-    :mode (("\\.phtml\\'" . web-mode)
-           ("\\.tpl\\.php\\.twig\\'" . web-mode)
-           ("\\.[agj]sp\\'" . web-mode)
-           ("\\.as[cp]x\\'" . web-mode)
-           ("\\.erb\\'" . web-mode)
-           ("\\.mustache\\'" . web-mode)
-           ("\\.djhtml\\'" . web-mode)
-           ("\\.html.twig\\'" . web-mode))
-    :config
-    (add-to-list 'web-mode-comment-formats '("php" . "//"))
-    (sp-local-pair 'web-mode "{" "}" :actions nil))
+  :ensure t
+  :mode (("\\.phtml\\'" . web-mode)
+         ("\\.tpl\\.php\\.twig\\'" . web-mode)
+         ("\\.[agj]sp\\'" . web-mode)
+         ("\\.as[cp]x\\'" . web-mode)
+         ("\\.erb\\'" . web-mode)
+         ("\\.mustache\\'" . web-mode)
+         ("\\.djhtml\\'" . web-mode)
+         ("\\.html.twig\\'" . web-mode))
+  :config
+  (add-to-list 'web-mode-comment-formats '("php" . "//"))
+  (sp-local-pair 'web-mode "{" "}" :actions nil))
 
 ;; Multiple cursors
 (use-package multiple-cursors
-    :ensure t
-    :bind (("C-S-c C-S-c" . mc/edit-lines)
-           ("C->" . mc/mark-next-like-this)
-           ("C-<" . mc/mark-previous-like-this)
-           ("C-c C-<" . mc/mark-all-like-this)
-           ("C-c C-," . create-cursor)
-           ("C-c C-." . multiple-cursors-mode))
-    :init
-    (setq mc/list-file (expand-file-name "mc-lists.el" user-emacs-directory))
-    :config
-    (defun create-cursor ()
-      (interactive)
-      (mc/create-fake-cursor-at-point)))
+  :ensure t
+  :bind (("C-S-c C-S-c" . mc/edit-lines)
+         ("C->" . mc/mark-next-like-this)
+         ("C-<" . mc/mark-previous-like-this)
+         ("C-c C-<" . mc/mark-all-like-this)
+         ("C-c C-," . create-cursor)
+         ("C-c C-." . multiple-cursors-mode))
+  :init
+  (setq mc/list-file (expand-file-name "mc-lists.el" user-emacs-directory))
+  :config
+  (defun create-cursor ()
+    (interactive)
+    (mc/create-fake-cursor-at-point)))
 
 ;; Expand region
 (use-package expand-region
-    :ensure t
-    :bind ("C-=" . er/expand-region))
+  :ensure t
+  :bind ("C-=" . er/expand-region))
 
 ;; AG
 (use-package ag
-    :ensure t
-    :init
-    (setq ag-highlight-search t))
+  :ensure t
+  :init
+  (setq ag-highlight-search t))
 
 ;; Perspective mode
 (use-package projectile
@@ -108,35 +108,35 @@
 
 ;; PHP mode
 (use-package php-mode
-    :ensure t
-    :mode "\\.php")
+  :ensure t
+  :mode "\\.php")
 
 ;; Yaml mode
 (use-package yaml-mode
-    :ensure t
-    :mode "\\.yml")
+  :ensure t
+  :mode "\\.yml")
 
 ;; Emmet-mode
 (use-package emmet-mode
-    :ensure t
-    :config
-    (add-hook 'web-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
-    (add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
+  :ensure t
+  :config
+  (add-hook 'web-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
+  (add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
 )
 
 ;; Markdown mode
 (use-package markdown-mode
-    :ensure t
-    :mode ("\\.markdown" "\\.md")
-    :init
-    (autoload 'markdown-mode "markdown-mode"
-    "Major mode for editing Markdown files" t))
+  :ensure t
+  :mode ("\\.markdown" "\\.md")
+  :init
+  (autoload 'markdown-mode "markdown-mode"
+  "Major mode for editing Markdown files" t))
 
 ;; Haskell
 (use-package yaml-mode
-     :ensure t
-     :config
-    (add-hook 'haskell-mode-hook 'haskell-indentation-mode))
+   :ensure t
+   :config
+  (add-hook 'haskell-mode-hook 'haskell-indentation-mode))
 
 ;; Smart shift
 (use-package smart-shift

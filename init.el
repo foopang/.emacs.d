@@ -78,7 +78,7 @@
 (recentf-mode t)
 
 ;; SQL mode
-(add-hook 'sql-mode-hook (lambda () (electric-indent-mode nil)))
+(add-hook 'sql-mode-hook (lambda () (electric-indent-local-mode nil)))
 
 ;; Set up load path
 (add-to-list 'load-path custom-dir)
