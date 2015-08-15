@@ -13,6 +13,7 @@
                   (company-dabbrev-code company-gtags company-keywords)
                   company-oddmuse company-files company-dabbrev)))
  '(company-idle-delay 0.2)
+ '(css-indent-offset 4)
  '(custom-enabled-themes (quote (smart-mode-line-dark)))
  '(custom-safe-themes
    (quote
@@ -44,14 +45,16 @@
  '(graphene-prog-mode-hooks
    (quote
     (prog-mode-hook csharp-mode-hook coffee-mode-hook css-mode-hook sgml-mode-hook html-mode-hook yaml-mode-hook nxml-mode-hook)))
+ '(ido-use-filename-at-point nil)
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
  '(initial-scratch-message nil)
- '(linum-format (quote dynamic) t)
+ '(linum-format (quote dynamic))
  '(nxml-child-indent 4)
  '(nxml-outline-child-indent 4)
  '(org-src-fontify-natively t)
  '(org-startup-truncated nil)
+ '(projectile-enable-caching t)
  '(recentf-max-saved-items 200)
  '(scroll-bar-mode nil)
  '(tab-width 4)

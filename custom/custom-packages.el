@@ -136,7 +136,13 @@
 (use-package yaml-mode
    :ensure t
    :config
-  (add-hook 'haskell-mode-hook 'haskell-indentation-mode))
+   (add-hook 'haskell-mode-hook 'haskell-indentation-mode))
+
+;; elpy
+(use-package elpy
+   :ensure t
+   :config
+   (elpy-enable))
 
 ;; Smart shift
 (use-package smart-shift
