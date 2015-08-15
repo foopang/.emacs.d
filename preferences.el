@@ -52,6 +52,7 @@
  '(linum-format (quote dynamic))
  '(nxml-child-indent 4)
  '(nxml-outline-child-indent 4)
+ '(org-export-backends (quote (ascii html icalendar latex md)))
  '(org-src-fontify-natively t)
  '(org-startup-truncated nil)
  '(projectile-enable-caching t)
