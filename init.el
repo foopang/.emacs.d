@@ -79,3 +79,4 @@
 (require 'custom-funcs)
 (require 'custom-key-bindings)
 (require 'linum-off)
+(require 'idomenu)

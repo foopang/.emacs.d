@@ -109,7 +109,11 @@
 ;; PHP mode
 (use-package php-mode
   :ensure t
-  :mode "\\.php")
+  :mode "\\.php"
+  :config
+  (add-hook 'php-mode-hook '(lambda()
+                              (subword-mode 1)
+                              (php-enable-symfony2-coding-style))))
 
 ;; Yaml mode
 (use-package yaml-mode
