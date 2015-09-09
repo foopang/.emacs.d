@@ -107,7 +107,7 @@
 (global-set-key (kbd "C-x r f") 'recentf-ido-find-file)
 
 ;; ido imenu
-(global-set-key (kbd "C-c i") 'idomenu)
+(global-set-key (kbd "C-c i") 'ido-goto-symbol)
 
 (defun prev-window ()
   (interactive)
