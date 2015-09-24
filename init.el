@@ -78,5 +78,5 @@
 (require 'custom-packages)
 (require 'custom-funcs)
 (require 'custom-key-bindings)
+(require 'custom-env)
 (require 'linum-off)
-(require 'idomenu)

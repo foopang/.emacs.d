@@ -124,4 +124,22 @@
 (ad-activate 'align-regexp)
 (global-set-key (kbd "C-c \\") 'align-regexp)
 
+;; New buffer
+(defun create-new-buffer ()
+  "Create a new buffer named *new*[num]."
+  (interactive)
+  (switch-to-buffer (generate-new-buffer-name "*new*")))
+
+(global-set-key (kbd "C-c n") 'create-new-buffer)
+
+;; Kill buffer and window
+(defun kill-buffer-and-window ()
+  "Close the current window and kill the buffer it's visiting."
+  (interactive)
+  (progn
+    (kill-buffer)
+    (delete-window)))
+
+(global-set-key (kbd "C-x C-k") 'kill-buffer-and-window)
+
 (provide 'custom-key-bindings)

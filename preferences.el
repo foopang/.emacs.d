@@ -37,6 +37,7 @@
  '(eclim-executable "/Applications/eclipse/eclim")
  '(eclimd-default-workspace "~/Documents/workspace")
  '(ede-project-directories (quote ("/usr/local/var/www/symfony-test")))
+ '(electric-pair-preserve-balance nil)
  '(flycheck-keymap-prefix "$")
  '(fringe-mode (quote (4 . 4)) nil (fringe))
  '(global-hl-line-mode t)
