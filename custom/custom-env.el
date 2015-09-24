@@ -27,6 +27,25 @@
 (put 'narrow-to-region 'disabled nil)
 
 
+(defun graphene-look-startup-after-init ()
+  "Load defaults for the overall Graphene look -- to be called after loading the init file so as to pick up custom settings."
+  (if window-system
+      (progn
+        (load-file (expand-file-name "graphene-theme.el" theme-dir))
+        (require 'graphene-theme)
+        (load-theme 'graphene t)
+        (defadvice load-theme
+          (after load-graphene-theme (theme &optional no-confirm no-enable) activate)
+          "Load the graphene theme extensions after loading a theme."
+          (when (not (equal theme 'graphene))
+            (load-theme 'graphene t))))
+    (when (not (eq system-type 'darwin))
+      (menu-bar-mode -1))
+    ;; Menu bar always off in text mode
+    (menu-bar-mode -1)))
+
+(add-hook 'after-init-hook 'graphene-look-startup-after-init)
+
 ;; Editing
 
 (defcustom graphene-prog-mode-hooks
