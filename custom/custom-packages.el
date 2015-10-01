@@ -58,9 +58,17 @@
          ("\\.mustache\\'" . web-mode)
          ("\\.djhtml\\'" . web-mode)
          ("\\.html.twig\\'" . web-mode))
+  :init
+  (setq web-mode-enable-auto-pairing nil)
   :config
   (add-to-list 'web-mode-comment-formats '("php" . "//"))
-  (sp-local-pair 'web-mode "{" "}" :actions nil))
+
+  (when (and (boundp 'electric-pair-mode)
+            (boundp 'electric-pair-inhibit-predicate))
+    (set (make-local-variable 'electric-pair-inhibit-predicate)
+         (lambda (char) t)))
+
+  (set (make-local-variable 'electric-pair-mode) t))
 
 ;; Multiple cursors
 (use-package multiple-cursors
