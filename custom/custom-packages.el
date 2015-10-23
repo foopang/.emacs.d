@@ -1,6 +1,8 @@
 ;;; Load Libraries
 
 (use-package less-css-mode  :ensure t :defer t)
+(use-package feature-mode   :ensure t :defer t)
+(use-package restclient     :ensure t :defer t)
 (use-package undo-tree      :ensure t :defer t)
 
 ;; smart-mode-line
@@ -51,7 +53,7 @@
 (use-package web-mode
   :ensure t
   :mode (("\\.phtml\\'" . web-mode)
-         ("\\.tpl\\.php\\.twig\\'" . web-mode)
+         ("\\.tpl\\.twig\\'" . web-mode)
          ("\\.[agj]sp\\'" . web-mode)
          ("\\.as[cp]x\\'" . web-mode)
          ("\\.erb\\'" . web-mode)
@@ -59,16 +61,21 @@
          ("\\.djhtml\\'" . web-mode)
          ("\\.html.twig\\'" . web-mode))
   :init
-  (setq web-mode-enable-auto-pairing nil)
+  ;; (setq web-mode-enable-auto-pairing nil)
   :config
-  (add-to-list 'web-mode-comment-formats '("php" . "//"))
+  ;; (add-to-list 'web-mode-comment-formats '("php" . "//"))
 
-  (when (and (boundp 'electric-pair-mode)
-            (boundp 'electric-pair-inhibit-predicate))
-    (set (make-local-variable 'electric-pair-inhibit-predicate)
-         (lambda (char) t)))
 
-  (set (make-local-variable 'electric-pair-mode) t))
+  (add-hook 'web-mode-hook '(lambda()
+                              (electric-pair-local-mode -1)))
+
+  ;; (when (and (boundp 'electric-pair-mode)
+  ;;           (boundp 'electric-pair-inhibit-predicate))
+  ;;   (set (make-local-variable 'electric-pair-inhibit-predicate)
+  ;;        (lambda (char) t)))
+
+  ;; (set (make-local-variable 'electric-pair-mode) -1)
+  )
 
 ;; Multiple cursors
 (use-package multiple-cursors
@@ -194,6 +201,7 @@
   (use-package helm-projectile :ensure t :demand t)
   (use-package helm-swoop      :ensure t :demand t)
   (use-package helm-ag         :ensure t :demand t)
+  (use-package helm-css-scss   :ensure t :demand t)
   :bind (("C-x C-f" . helm-find-files)
          ("M-x" . helm-M-x)
          ("M-y" . helm-show-kill-ring)
@@ -262,5 +270,15 @@
   (helm-mode 1)
   (helm-descbinds-mode)
   (helm-autoresize-mode 1))
+
+;; ob-http
+(use-package ob-http
+  :ensure t
+  :defer t
+  :init
+  (org-babel-do-load-languages
+  'org-babel-load-languages
+  '((emacs-lisp . t)
+    (http . t))))
 
 (provide 'custom-packages)

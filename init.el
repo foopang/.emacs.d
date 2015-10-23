@@ -75,8 +75,8 @@
 ;; Set up load path
 (add-to-list 'load-path custom-dir)
 
-(require 'custom-packages)
 (require 'custom-funcs)
-(require 'custom-key-bindings)
 (require 'custom-env)
+(require 'custom-packages)
+(require 'custom-key-bindings)
 (require 'linum-off)

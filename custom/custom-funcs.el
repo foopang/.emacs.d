@@ -63,4 +63,17 @@
           (add-to-list 'symbol-names name)
           (add-to-list 'name-and-pos (cons name position))))))))
 
+
+(define-minor-mode electric-pair-local-mode
+  "Toggle `electric-pair-mode' only in this buffer."
+  :variable (buffer-local-value 'electric-pair-mode (current-buffer))
+  (cond
+   ((eq electric-pair-mode (default-value 'electric-pair-mode))
+    (kill-local-variable 'electric-pair-mode))
+   ((not (default-value 'electric-pair-mode))
+    ;; Locally enabled, but globally disabled.
+    (electric-pair-mode 1)                ; Setup the hooks.
+    (setq-default electric-pair-mode nil) ; But keep it globally disabled.
+    )))
+
 (provide 'custom-funcs)

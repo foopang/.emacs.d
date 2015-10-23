@@ -48,22 +48,11 @@
 
 ;; Editing
 
-(defcustom graphene-prog-mode-hooks
-  '(prog-mode-hook
-    csharp-mode-hook
-    coffee-mode-hook
-    css-mode-hook
-    sgml-mode-hook
-    html-mode-hook)
-  "List of hooks to be treated as prog-mode."
-  :type 'sexp
-  :group 'graphene)
-
 ;; Main hook to be run on entering de facto prog modes
 (add-hook 'graphene-prog-mode-hook
           (lambda ()
             (electric-indent-mode t)
-            (electric-pair-mode t)
+            (electric-pair-local-mode t)
             (show-paren-mode nil)
             (linum-mode t)
 
