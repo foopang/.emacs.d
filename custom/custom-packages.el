@@ -186,6 +186,18 @@
   (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize)))
 
+;; AUCTeX
+(use-package tex-site
+  :ensure auctex
+  :config
+  (setq Tex-engine 'xetex)
+  (add-hook 'LaTeX-mode-hook
+          (lambda()
+             (add-to-list 'TeX-command-list '("XeLaTeX" "%`xelatex%(mode)%' %t" TeX-run-TeX nil t))
+             (setq TeX-command-default "XeLaTeX")
+             (setq TeX-save-query nil)
+             (setq TeX-show-compilation t))))
+
 ;; helm
 (use-package helm
   :ensure t
