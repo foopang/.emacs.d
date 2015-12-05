@@ -38,6 +38,7 @@
  '(eclimd-default-workspace "~/Documents/workspace")
  '(ede-project-directories (quote ("/usr/local/var/www/symfony-test")))
  '(electric-pair-preserve-balance nil)
+ '(electric-pair-preserve-balance t)
  '(flycheck-keymap-prefix "$")
  '(fringe-mode (quote (4 . 4)) nil (fringe))
  '(global-hl-line-mode t)
@@ -63,6 +64,7 @@
  '(tool-bar-mode nil)
  '(tooltip-mode nil)
  '(web-mode-script-padding 0)
+ '(web-mode-style-padding 0)
  '(yaml-indent-offset 4))
  '(cursor-color "#839496")
 (custom-set-faces
