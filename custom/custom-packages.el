@@ -1,9 +1,10 @@
 ;;; Load Libraries
 
-(use-package less-css-mode  :ensure t :defer t)
-(use-package feature-mode   :ensure t :defer t)
-(use-package restclient     :ensure t :defer t)
-(use-package undo-tree      :ensure t :defer t)
+(use-package less-css-mode   :ensure t :defer t)
+(use-package feature-mode    :ensure t :defer t)
+(use-package typescript-mode :ensure t :defer t)
+(use-package restclient      :ensure t :defer t)
+(use-package undo-tree       :ensure t :defer t)
 
 ;; smart-mode-line
 (use-package smart-mode-line
