@@ -1,5 +1,6 @@
 ;;; Load Libraries
 
+(use-package scss-mode       :ensure t :defer t)
 (use-package less-css-mode   :ensure t :defer t)
 (use-package feature-mode    :ensure t :defer t)
 (use-package typescript-mode :ensure t :defer t)
@@ -293,5 +294,35 @@
   'org-babel-load-languages
   '((emacs-lisp . t)
     (http . t))))
+
+;; js2-mode
+(use-package js2-mode
+  :ensure t
+  :config
+  (add-hook 'js-mode-hook 'js2-minor-mode))
+
+;; mmm-mode
+(use-package mmm-mode
+  :ensure t
+  :init
+  (setq mmm-global-mode 'maybe)
+
+  (dolist (langsets '(("script" . ((es6    . js2-mode)))
+                      ("style"  . ((less   . less-css-mode)))))
+    (let ((tag (car langsets)))
+      (dolist (pair (cdr langsets))
+        (let* ((lang       (car pair))
+               (submode    (cdr pair))
+               (class-name (make-symbol (format "vueify-%s-%s" tag lang)))
+               (front      (format "<%s lang=\"%s\">" tag lang))
+               (back       (format "</%s>" tag)))
+          (mmm-add-classes
+           `((,class-name
+              :submode ,submode
+              :front ,front
+              :back ,back)))
+          (mmm-add-mode-ext-class nil "\\.vue?\\'" class-name)))))
+
+  (add-to-list 'auto-mode-alist '("\\.vue?\\'" . web-mode)))
 
 (provide 'custom-packages)
