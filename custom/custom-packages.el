@@ -3,7 +3,6 @@
 (use-package scss-mode       :ensure t :defer t)
 (use-package less-css-mode   :ensure t :defer t)
 (use-package feature-mode    :ensure t :defer t)
-(use-package typescript-mode :ensure t :defer t)
 (use-package restclient      :ensure t :defer t)
 (use-package undo-tree       :ensure t :defer t)
 
@@ -141,6 +140,14 @@
   (add-hook 'php-mode-hook '(lambda()
                               (subword-mode 1)
                               (php-enable-symfony2-coding-style))))
+
+(use-package typescript-mode
+  :ensure t
+  :mode "\\.ts"
+  :config
+  (add-hook 'typescript-mode-hook '(lambda()
+                              (subword-mode 1))))
+
 
 ;; Yaml mode
 (use-package yaml-mode
