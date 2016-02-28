@@ -76,4 +76,10 @@
     (setq-default electric-pair-mode nil) ; But keep it globally disabled.
     )))
 
+(defun custom-set-current-indentation (indent-size)
+  (interactive "nIndentation size:")
+  (setq tab-width indent-size)
+  (setq c-basic-offset indent-size)
+  (run-hooks 'custom-set-current-indentation-hook))
+
 (provide 'custom-funcs)
