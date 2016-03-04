@@ -145,8 +145,14 @@
   :ensure t
   :mode "\\.ts"
   :init
-  (add-hook 'custom-set-current-indentation-hook '(lambda() (setq typescript-indent-level tab-width))))
-
+  (use-package tide :ensure t :demand t)
+  (add-hook 'custom-set-current-indentation-hook '(lambda() (setq typescript-indent-level tab-width)))
+  (add-hook 'typescript-mode-hook
+          (lambda ()
+            (tide-setup)
+            (flycheck-mode +1)
+            (setq flycheck-check-syntax-automatically '(save mode-enabled))
+            (eldoc-mode +1))))
 
 ;; Yaml mode
 (use-package yaml-mode
