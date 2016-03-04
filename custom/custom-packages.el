@@ -145,8 +145,6 @@
   :ensure t
   :mode "\\.ts"
   :init
-  (add-hook 'typescript-mode-hook '(lambda()
-                                     (subword-mode 1)))
   (add-hook 'custom-set-current-indentation-hook '(lambda() (setq typescript-indent-level tab-width))))
 
 

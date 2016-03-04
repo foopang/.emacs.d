@@ -84,6 +84,9 @@
 ;; apply syntax highlighting to all buffers
 (global-font-lock-mode t)
 
+;; global subword mode
+(global-subword-mode t)
+
 ;; auto json-mode
 (push '("\\.json\\'" . json-mode) auto-mode-alist)
 
