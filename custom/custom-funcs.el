@@ -80,6 +80,7 @@
   (interactive "nIndentation size:")
   (setq tab-width indent-size)
   (setq c-basic-offset indent-size)
+  (setq smart-shift-indentation-level indent-size)
   (run-hooks 'custom-set-current-indentation-hook))
 
 (provide 'custom-funcs)
