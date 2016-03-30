@@ -93,9 +93,9 @@
   (interactive "p")
   (shift-text (- count)))
 
-(global-set-key (kbd "C-i") (lambda () (interactive) (shift-text tab-width)))
-(global-set-key (kbd "C-S-i") (lambda () (interactive) (shift-text (- tab-width))))
-(global-set-key (kbd "<backtab>") (lambda () (interactive) (shift-text (- tab-width))))
+(global-set-key (kbd "C-i") (lambda () (interactive) (shift-text (or smart-shift-indentation-level tab-width))))
+(global-set-key (kbd "C-S-i") (lambda () (interactive) (shift-text (- (or smart-shift-indentation-level tab-width)))))
+(global-set-key (kbd "<backtab>") (lambda () (interactive) (shift-text (- (or smart-shift-indentation-level tab-width)))))
 
 ;; Recent files
 (defun recentf-ido-find-file ()
