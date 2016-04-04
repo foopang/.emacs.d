@@ -72,6 +72,9 @@
 ;; SQL mode
 (add-hook 'sql-mode-hook (lambda () (electric-indent-local-mode nil)))
 
+;; JS mode
+(add-hook 'custom-set-current-indentation-hook '(lambda() (setq js-indent-level tab-width)))
+
 ;; Set up load path
 (add-to-list 'load-path custom-dir)
 
