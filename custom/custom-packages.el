@@ -19,10 +19,10 @@
   :demand t
   :diminish company-mode
   :config
-  (custom-set-variables
-   '(company-idle-delay 0.2))
+  ;; (custom-set-variables
+  ;;  '(company-idle-delay 0.2))
 
-  (define-key company-active-map (kbd "RET") nil)
+  ;; (define-key company-active-map (kbd "RET") nil)
 
   (setq company-idle-delay 0.125
            company-minimum-prefix-length 1
@@ -32,7 +32,13 @@
            company-dabbrev-downcase nil
            company-frontends '(company-pseudo-tooltip-unless-just-one-frontend
                                company-preview-frontend
-                               company-echo-metadata-frontend))
+                               company-echo-metadata-frontend)
+           company-backends '(company-bbdb company-nxml company-css company-eclim company-semantic company-clang company-xcode company-cmake company-capf
+                  (company-dabbrev-code company-gtags company-keywords)
+                  company-oddmuse company-files company-dabbrev))
+
+  ;; aligns annotation to the right hand side
+  (setq company-tooltip-align-annotations t)
 
   (add-hook 'after-init-hook 'global-company-mode))
 
@@ -147,12 +153,14 @@
   :init
   (use-package tide :ensure t :demand t)
   (add-hook 'custom-set-current-indentation-hook '(lambda() (setq typescript-indent-level tab-width)))
+  (add-hook 'after-init-hook (lambda() (set-variable 'tide-supported-modes '(typescript-mode js-mode js2-mode js2-jsx-mode js3-mode))))
   (add-hook 'typescript-mode-hook
           (lambda ()
             (tide-setup)
             (flycheck-mode +1)
             (setq flycheck-check-syntax-automatically '(save mode-enabled))
-            (eldoc-mode +1))))
+            (eldoc-mode +1)
+            (company-mode +1))))
 
 ;; Yaml mode
 (use-package yaml-mode
@@ -336,5 +344,23 @@
           (mmm-add-mode-ext-class nil "\\.vue?\\'" class-name)))))
 
   (add-to-list 'auto-mode-alist '("\\.vue?\\'" . web-mode)))
+
+(use-package tern
+  :load-path tern-dir
+  :diminish tern-mode
+  :ensure t
+  :init
+  (use-package company-tern
+    :ensure t
+    :demand t
+    :config
+    (add-to-list 'company-backends 'company-tern))
+  :config
+  (add-hook 'js-mode-hook (lambda () (tern-mode t))))
+
+(use-package editorconfig
+  :ensure t
+  :config
+  (editorconfig-mode 1))
 
 (provide 'custom-packages)

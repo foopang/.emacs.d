@@ -7,12 +7,6 @@
  '(blink-cursor-mode t)
  '(c-basic-offset 4)
  '(c-default-style "linux")
- '(company-backends
-   (quote
-    (company-bbdb company-nxml company-css company-eclim company-semantic company-clang company-xcode company-cmake company-capf
-                  (company-dabbrev-code company-gtags company-keywords)
-                  company-oddmuse company-files company-dabbrev)))
- '(company-idle-delay 0.2)
  '(css-indent-offset 4)
  '(custom-enabled-themes (quote (smart-mode-line-dark)))
  '(custom-safe-themes

@@ -13,3 +13,6 @@
 [submodule "site-lisp/ede-php-autoload"]
 	path = site-lisp/ede-php-autoload
 	url = git@github.com:stevenremot/ede-php-autoload.git
+[submodule "tern"]
+	path = tern
+	url = git@github.com:ternjs/tern.git
