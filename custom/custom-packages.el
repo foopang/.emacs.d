@@ -129,9 +129,9 @@
    '(projectile-enable-caching t)
    '(projectile-completion-system 'helm))
   :config
-  (defun projectile-helm-ag ()
-    (interactive)
-    (helm-ag (projectile-project-root)))
+  ;; (defun projectile-helm-ag ()
+  ;;   (interactive)
+  ;;   (helm-ag (projectile-project-root)))
 
   ;; Load projectile globaly
   (projectile-global-mode)
@@ -298,7 +298,8 @@
    '(helm-swoop-move-to-line-cycle         t)
    '(helm-swoop-use-line-number-face       t)
    '(helm-swoop-split-direction            'split-window-vertically)
-   '(helm-swoop-split-with-multiple-windows t))
+   '(helm-swoop-split-with-multiple-windows t)
+   '(helm-ag-use-agignore                  t))
 
   ;; Load helm globaly
   (helm-mode 1)
