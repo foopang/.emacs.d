@@ -1,10 +1,11 @@
 ;;; Load Libraries
 
-(use-package scss-mode       :ensure t :defer t)
 (use-package less-css-mode   :ensure t :defer t)
 (use-package feature-mode    :ensure t :defer t)
 (use-package restclient      :ensure t :defer t)
 (use-package undo-tree       :ensure t :defer t)
+(use-package json-mode       :ensure t :defer t)
+(use-package go-mode         :ensure t :defer t)
 
 ;; smart-mode-line
 (use-package smart-mode-line
@@ -319,6 +320,9 @@
 ;; js2-mode
 (use-package js2-mode
   :ensure t
+  :diminish js2-mode
+  :init
+  (setq js2-strict-missing-semi-warning nil)
   :config
   (add-hook 'js-mode-hook 'js2-minor-mode))
 
