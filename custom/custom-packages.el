@@ -6,6 +6,8 @@
 (use-package undo-tree       :ensure t :defer t)
 (use-package json-mode       :ensure t :defer t)
 (use-package go-mode         :ensure t :defer t)
+(use-package elixir-mode     :ensure t :defer t)
+(use-package cider           :ensure t :defer t)
 
 ;; smart-mode-line
 (use-package smart-mode-line

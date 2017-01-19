@@ -6,16 +6,11 @@
 
 ;;; Code:
 
-(setq indent-line-function 'insert-tab)
-
-(setq semantic-ctags-program "/usr/local/bin/ctags")
-
-;; Set path for theme directory
+;; Set paths
 (defvar custom-dir (expand-file-name "custom" user-emacs-directory))
 (defvar site-lisp-dir (expand-file-name "site-lisp" user-emacs-directory))
 (defvar theme-dir (expand-file-name "themes" user-emacs-directory))
 (defvar tern-dir (expand-file-name "tern/emacs" user-emacs-directory))
-
 
 ;; Enable commands
 (put 'scroll-left 'disabled nil)
