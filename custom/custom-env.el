@@ -90,4 +90,14 @@
 ;; auto json-mode
 (push '("\\.json\\'" . json-mode) auto-mode-alist)
 
+;; recentf
+(recentf-mode t)
+
+;; SQL mode
+(add-hook 'sql-mode-hook (lambda () (electric-indent-local-mode nil)))
+
+;; JS mode
+(add-hook 'custom-set-current-indentation-hook '(lambda() (setq js-indent-level tab-width)))
+(add-to-list 'auto-mode-alist '("\\.jsx?\\'" . js-jsx-mode))
+
 (provide 'custom-env)
