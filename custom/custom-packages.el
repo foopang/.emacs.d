@@ -401,4 +401,11 @@
   :config
   (editorconfig-mode 1))
 
+;; rjsx-mode
+(use-package rjsx-mode
+  :ensure t
+  :diminish rjsx-mode
+  :init
+  (add-to-list 'auto-mode-alist '("\\.js\\'" . rjsx-mode)))
+
 (provide 'custom-packages)
