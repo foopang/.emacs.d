@@ -62,7 +62,7 @@
 ;; Attach de facto prog mode hooks after loading init file
 (add-hook 'after-init-hook
           (lambda ()
-            (dolist (hook '(prog-mode-hook csharp-mode-hook coffee-mode-hook css-mode-hook sgml-mode-hook html-mode-hook yaml-mode-hook nxml-mode-hook))
+            (dolist (hook '(prog-mode-hook csharp-mode-hook coffee-mode-hook css-mode-hook sgml-mode-hook html-mode-hook yaml-mode-hook nxml-mode-hook vue-mode-hook))
               (add-hook hook (lambda () (run-hooks 'graphene-prog-mode-hook))))))
 
 (eval-after-load 'flycheck

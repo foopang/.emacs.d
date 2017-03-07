@@ -334,24 +334,53 @@
   :ensure t
   :init
   (setq mmm-global-mode 'maybe)
+  (setq mmm-submode-decoration-level 2)
 
-  (dolist (langsets '(("script" . ((es6    . js2-mode)))
-                      ("style"  . ((less   . less-css-mode)))))
-    (let ((tag (car langsets)))
-      (dolist (pair (cdr langsets))
-        (let* ((lang       (car pair))
-               (submode    (cdr pair))
-               (class-name (make-symbol (format "vueify-%s-%s" tag lang)))
-               (front      (format "<%s lang=\"%s\">" tag lang))
-               (back       (format "</%s>" tag)))
-          (mmm-add-classes
-           `((,class-name
-              :submode ,submode
-              :front ,front
-              :back ,back)))
-          (mmm-add-mode-ext-class nil "\\.vue?\\'" class-name)))))
+  (defvar vue-mode-map
+    (let ((map (make-keymap)))
+      (define-key map (kbd "C-c C-l") 'vue-mode-reparse)
+      map)
+    "Keymap for vue-mode")
 
-  (add-to-list 'auto-mode-alist '("\\.vue?\\'" . web-mode)))
+  (defvar vue-initialized nil
+    "If false, vue-mode still needs to prepare mmm-mode before being activated.")
+
+  (defun vue--setup-mmm ()
+    (dolist (langsets '(("template" . ((nil        . web-mode)))
+                        ("template" . ((html       . html-mode)))
+                        ("script"   . ((nil        . js-mode)))
+                        ("script"   . ((es6        . js-mode)))
+                        ("script"   . ((typescript . typescript-mode)))
+                        ("style"    . ((nil        . css-mode)))
+                        ("style"    . ((scss       . scss-mode)))
+                        ("style"    . ((sass       . sass-mode)))
+                        ("style"    . ((less       . less-css-mode)))))
+      (let ((tag (car langsets)))
+        (dolist (pair (cdr langsets))
+          (let* ((lang       (car pair))
+                 (submode    (cdr pair))
+                 (class-name (make-symbol (format "vueify-%s-%s" tag lang)))
+                 (front      (if lang (format "<%s *lang=\"%s\" *\\(scoped\\)?>\n" tag lang)
+                               (format (format "<%s *\\(scoped\\)?>\n" tag))))
+                 (back       (format "</%s>" tag)))
+            (mmm-add-classes
+             `((,class-name
+                :submode ,submode
+                :front ,front
+                :back ,back)))
+            (mmm-add-mode-ext-class 'vue-mode nil class-name))))
+    (setq vue-initialized t)))
+
+    (defun vue-mode-reparse ()
+      "Reparse the buffer, reapplying all major modes"
+      (interactive)
+        (mmm-parse-buffer))
+
+    (define-derived-mode vue-mode web-mode "vue"
+      (when (not vue-initialized)
+        (vue--setup-mmm)))
+
+    (add-to-list 'auto-mode-alist '("\\.vue\\'" . vue-mode)))
 
 (use-package tern
   :load-path tern-dir
@@ -364,7 +393,8 @@
     :config
     (add-to-list 'company-backends 'company-tern))
   :config
-  (add-hook 'js-mode-hook (lambda () (tern-mode t))))
+  (add-hook 'js-mode-hook (lambda () (tern-mode t)))
+  (add-hook 'vue-mode-hook (lambda () (tern-mode t))))
 
 (use-package editorconfig
   :ensure t
