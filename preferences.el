@@ -7,6 +7,7 @@
  '(blink-cursor-mode t)
  '(c-basic-offset 4)
  '(c-default-style "linux")
+ '(case-replace nil)
  '(css-indent-offset 4)
  '(custom-enabled-themes (quote (smart-mode-line-dark)))
  '(custom-safe-themes
