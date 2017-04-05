@@ -209,7 +209,7 @@
 (use-package exec-path-from-shell
   :ensure t
   :config
-  (when (memq window-system '(mac ns))
+  (when (memq window-system '(mac ns x))
   (exec-path-from-shell-initialize)))
 
 ;; AUCTeX
@@ -407,5 +407,12 @@
   :diminish rjsx-mode
   :init
   (add-to-list 'auto-mode-alist '("\\.js\\'" . rjsx-mode)))
+
+;; elm-mode
+(use-package elm-mode
+    :ensure t
+    :demand t
+    :config
+    (add-to-list 'company-backends 'company-elm))
 
 (provide 'custom-packages)
