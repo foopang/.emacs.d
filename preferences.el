@@ -32,7 +32,7 @@
  '(eclim-executable "/Applications/eclipse/eclim")
  '(eclimd-default-workspace "~/Documents/workspace")
  '(ede-project-directories (quote ("/usr/local/var/www/symfony-test")))
- '(electric-pair-preserve-balance nil)
+ '(electric-pair-inhibit-predicate (quote electric-pair-conservative-inhibit))
  '(electric-pair-preserve-balance t)
  '(flycheck-keymap-prefix "$")
  '(fringe-mode (quote (4 . 4)) nil (fringe))
