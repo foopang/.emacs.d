@@ -6,9 +6,8 @@
 (use-package undo-tree       :ensure t :defer t)
 (use-package json-mode       :ensure t :defer t)
 (use-package go-mode         :ensure t :defer t)
-(use-package elixir-mode     :ensure t :defer t)
-(use-package cider           :ensure t :defer t)
 (use-package ein             :ensure t :defer t)
+(use-package solidity-mode   :ensure t :defer t)
 
 ;; smart-mode-line
 (use-package smart-mode-line
@@ -398,6 +397,7 @@
 
 (use-package editorconfig
   :ensure t
+  :diminish editorconfig-mode
   :config
   (editorconfig-mode 1))
 
@@ -414,5 +414,22 @@
     :demand t
     :config
     (add-to-list 'company-backends 'company-elm))
+
+(use-package cider
+  :ensure t
+  :demand t
+  :init
+  (use-package rainbow-delimiters :ensure t :demand t)
+  (add-hook 'cider-mode-hook #'eldoc-mode)
+  (add-hook 'cider-repl-mode-hook #'rainbow-delimiters-mode))
+
+(use-package elixir-mode
+  :ensure t
+  :demand t
+  :init
+  (use-package alchemist
+    :ensure t
+    :demand t
+    :diminish alchemist-mode))
 
 (provide 'custom-packages)
