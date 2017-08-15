@@ -430,6 +430,10 @@
   (use-package alchemist
     :ensure t
     :demand t
-    :diminish alchemist-mode))
+    :diminish alchemist-mode)
+  (add-hook 'elixir-mode-hook
+            (lambda()
+              (custom-set-current-indentation 2)
+              (yas-minor-mode))))
 
 (provide 'custom-packages)
