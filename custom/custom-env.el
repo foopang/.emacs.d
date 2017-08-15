@@ -98,6 +98,12 @@
 
 ;; JS mode
 (add-hook 'custom-set-current-indentation-hook '(lambda() (setq js-indent-level tab-width)))
-(add-to-list 'auto-mode-alist '("\\.jsx?\\'" . js-jsx-mode))
+
+(add-hook 'find-file-hook (lambda()
+                            ;; Elixir template
+                            (when (and (stringp buffer-file-name)
+                                       (string-match "\\.html.eex\\'" buffer-file-name))
+                              (custom-set-current-indentation 2)
+                              (set (make-local-variable 'web-mode-markup-indent-offset) 2))))
 
 (provide 'custom-env)

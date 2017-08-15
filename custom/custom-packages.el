@@ -69,7 +69,8 @@
          ("\\.erb\\'" . web-mode)
          ("\\.mustache\\'" . web-mode)
          ("\\.djhtml\\'" . web-mode)
-         ("\\.html.twig\\'" . web-mode))
+         ("\\.html.twig\\'" . web-mode)
+         ("\\.html.eex\\'" . web-mode))
   :init
   ;; (setq web-mode-enable-auto-pairing nil)
   :config
@@ -406,7 +407,7 @@
   :ensure t
   :diminish rjsx-mode
   :init
-  (add-to-list 'auto-mode-alist '("\\.js\\'" . rjsx-mode)))
+  (add-to-list 'auto-mode-alist '("\\.jsx?\\'" . rjsx-mode)))
 
 ;; elm-mode
 (use-package elm-mode
