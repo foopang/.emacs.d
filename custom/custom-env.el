@@ -90,6 +90,9 @@
 ;; auto json-mode
 (push '("\\.json\\'" . json-mode) auto-mode-alist)
 
+;; hoplon template
+(push '("\\.cljs.hl\\'" . clojurescript-mode) auto-mode-alist)
+
 ;; recentf
 (recentf-mode t)
 
