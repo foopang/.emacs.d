@@ -9,6 +9,15 @@
 (use-package ein             :ensure t :defer t)
 (use-package solidity-mode   :ensure t :defer t)
 
+;; paredit
+(use-package paredit
+  :ensure t
+  :defer t
+  :init
+  ;; Make delete-selection mode work with paredit
+  (put 'paredit-forward-delete 'delete-selection 'supersede)
+  (put 'paredit-backward-delete 'delete-selection 'supersede))
+
 ;; smart-mode-line
 (use-package smart-mode-line
   :ensure t
@@ -416,13 +425,26 @@
     :config
     (add-to-list 'company-backends 'company-elm))
 
-(use-package cider
-  :ensure t
-  :demand t
+;; clojure
+(use-package clojure-mode
   :init
-  (use-package rainbow-delimiters :ensure t :demand t)
-  (add-hook 'cider-mode-hook #'eldoc-mode)
-  (add-hook 'cider-repl-mode-hook #'rainbow-delimiters-mode))
+  (use-package cider
+    :ensure t
+    :demand t
+    :init
+    (use-package rainbow-delimiters :ensure t :demand t)
+    (add-hook 'cider-mode-hook #'eldoc-mode)
+    (add-hook 'cider-repl-mode-hook #'rainbow-delimiters-mode))
+  (use-package clj-refactor :ensure t :demand t)
+  :config
+  (put-clojure-indent 'letsubs 1)
+  (add-hook 'clojure-mode-hook '(lambda()
+                                  (electric-pair-local-mode -1)
+                                  (paredit-mode)
+                                  (clj-refactor-mode)
+                                  (yas-minor-mode)
+                                  ;; This choice of keybinding leaves cider-macroexpand-1 unbound
+                                  (cljr-add-keybindings-with-prefix "C-c C-m"))))
 
 (use-package elixir-mode
   :ensure t
