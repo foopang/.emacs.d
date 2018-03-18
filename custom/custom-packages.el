@@ -16,7 +16,11 @@
   :init
   ;; Make delete-selection mode work with paredit
   (put 'paredit-forward-delete 'delete-selection 'supersede)
-  (put 'paredit-backward-delete 'delete-selection 'supersede))
+  (put 'paredit-backward-delete 'delete-selection 'supersede)
+  (eval-after-load "paredit"
+    '(progn
+       (define-key paredit-mode-map (kbd "M-+") 'paredit-raise-sexp)
+       (define-key paredit-mode-map (kbd "M-r") nil))))
 
 ;; smart-mode-line
 (use-package smart-mode-line
