@@ -19,6 +19,8 @@
   (put 'paredit-backward-delete 'delete-selection 'supersede)
   (eval-after-load "paredit"
     '(progn
+       (define-key paredit-mode-map (kbd "M-[") 'paredit-wrap-square)
+       (define-key paredit-mode-map (kbd "M-{") 'paredit-wrap-curly)
        (define-key paredit-mode-map (kbd "M-+") 'paredit-raise-sexp)
        (define-key paredit-mode-map (kbd "M-r") nil))))
 
