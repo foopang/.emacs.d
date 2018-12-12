@@ -83,4 +83,19 @@
   (setq smart-shift-indentation-level indent-size)
   (run-hooks 'custom-set-current-indentation-hook))
 
+;; https://www.emacswiki.org/emacs/SqlBeautify
+
+(defun sql-beautify-region (beg end)
+  "Beautify SQL in region between beg and END."
+  (interactive "r")
+  (save-excursion
+    (shell-command-on-region beg end "beautify-sql" nil t)))
+    ;; change sqlbeautify to anbt-sql-formatter if you
+    ;;ended up using the ruby gem
+
+(defun sql-beautify-buffer ()
+ "Beautify SQL in buffer."
+ (interactive)
+ (sql-beautify-region (point-min) (point-max)))
+
 (provide 'custom-funcs)
