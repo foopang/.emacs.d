@@ -16,3 +16,9 @@
 [submodule "tern"]
 	path = tern
 	url = git@github.com:ternjs/tern.git
+[submodule "site-lisp/semantic-php"]
+	path = site-lisp/semantic-php
+	url = git@github.com:jorissteyn/semantic-php.git
+[submodule "site-lisp/liberime"]
+	path = site-lisp/liberime
+	url = git@github.com:merrickluo/liberime.git

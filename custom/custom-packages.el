@@ -465,4 +465,25 @@
               (custom-set-current-indentation 2)
               (yas-minor-mode))))
 
+(use-package dart-mode
+  :ensure t
+  :demand t
+  :init
+  (setq dart-enable-analysis-server t))
+
+(use-package pyim
+  :ensure t
+  :demand t
+  :pin melpa-stable
+  :config
+  (use-package liberime
+    :load-path "site-lisp/liberime/"
+    :config
+    (setq pyim-default-scheme 'rime)
+    (liberime-start "/usr/share/rime-data/" (file-truename "~/.emacs.d/pyim/rime/"))
+    (liberime-select-schema "cangjie5"))
+  (setq default-input-method "pyim")
+  (global-set-key (kbd "C-\\") 'toggle-input-method))
+
+
 (provide 'custom-packages)
